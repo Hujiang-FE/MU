@@ -1,0 +1,58 @@
+//opacity
+@mixin bc {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+//size
+@mixin size($width:auto, $height:auto) {
+  width: $width;
+  height: $height;
+}
+
+@mixin lh($var){
+  height: $var;
+  line-height: $var;
+}
+
+//border
+
+
+
+//margin
+@mixin mt($var){
+    margin-top: $var;
+}
+@mixin mr($var){
+    margin-right:$var;
+}
+@mixin mb($var){
+    margin-bottom: $var;
+}
+@mixin ml($var){
+    margin-left:$var;
+}
+
+//padding
+@mixin pt($var){
+    padding-top: $var;
+}
+@mixin pr($var){
+    padding-right: $var;
+}
+@mixin pb($var){
+    padding-bottom: $var;
+}
+@mixin pl($var){
+    padding-left: $var;
+}
+
+//shadow
+
+@mixin circle($r){
+    width: $r;
+    height: $r;
+    -webkit-border-radius: $r/2;
+    border-radius: $r/2;
+}

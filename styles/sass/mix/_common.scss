@@ -1,0 +1,41 @@
+/////////////
+//position //
+/////////////
+
+
+/////////
+//text //
+/////////
+// .tof(){
+//   overflow: hidden;
+//   text-overflow: ellipsis;
+//   white-space: nowrap;
+// }
+
+////////////////
+//clear float //
+////////////////
+// clearfix inherit from bootstrap, use table rather than block
+// mobile
+// @mixin cf {
+//   &:before,
+//   &:after {
+//     content: " ";
+//     display: table;
+//   }
+//   &:after {
+//     clear: both;
+//   }
+// }
+
+// pc
+@mixin cf {
+  zoom:1;
+  &:after {
+    display: block;
+    content: '';
+    visibility: hidden;
+    height: 0;
+    clear: both;
+  }
+}
