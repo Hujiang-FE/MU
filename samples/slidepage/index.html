@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+    <meta name="Keywords" content="">
+    <meta name="Description" content="">
+    <title>bubble nav</title>
+    <link rel="stylesheet" href="/src/styles/test.css">
+</head>
+
+<body>
+    
+    <div class="wrapper">
+        here is a article
+        <div class="slider">
+            <div class="li">23</div>
+            <div class="li">23</div>
+            <div class="li">2434</div>
+            <div class="li">24df</div>
+        </div>
+        <div class="slider" id="slider2">
+            <div class="li">23</div>
+            <div class="li">23</div>
+            <div class="li">2434</div>
+            <div class="li">24df</div>
+        </div>
+    </div>
+    <script src="/vendor/jq/jquery-2.1.3.min.js"></script>
+    <!-- <script src="/vendor/zepto.min.js"></script> -->
+    <!-- <script src="http://m.hujiang.com/js/vendor/mu/mu.min.js"></script> -->
+    <script src="mu.fn.js"></script>
+    <script src="test.js"></script>
+    <script>
+        $('.slider').swipeable({
+            start: function(event){
+                console.log(event, 'start');
+                console.log(this);
+            },
+            move: function(event){
+                console.log(event, 'move');
+            },
+            end: function(event){
+                console.log(event, 'end');
+            }
+        });
+
+        var testa = $('#slider2').widget({
+            optionA: 'test'
+        });
+    </script>
+</body>
+
+</html>

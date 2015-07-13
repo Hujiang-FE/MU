@@ -1,6 +1,6 @@
 /**
  * -------------------------------------------------------------
- * Copyright (c) 2014 All rights reserved.
+ * Copyright (c) 2015 All rights reserved.
  * @version: 1.1.0
  * @author: roeis
  * @description: extend a custom touch function
@@ -10,12 +10,12 @@
 (function($) {
     'use strict';
     var start, delta, isScrolling,
-        defaults = {
+        _defaults = {
             enableVertical: false
         };
 
     $.fn.swipeable = function(opts) {
-        opts = $.extend({}, defaults, opts);
+        opts = $.extend({}, _defaults, opts);
         return this.each(function() {
             var $this = $(this);
 
