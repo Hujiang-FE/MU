@@ -10,8 +10,11 @@
 (function($) {
     'use strict';
     var start, delta, isScrolling,
-        _defaults = {
-            enableVertical: false
+        defaults = {
+            enableVertical: false,
+            start: function(){},
+            move: function(){},
+            end: function(){}
         };
     /**
      * [swipeable description]
@@ -22,7 +25,7 @@
      *          });
      */
     $.fn.swipeable = function(opts) {
-        opts = $.extend({}, _defaults, opts);
+        opts = $.extend({}, defaults, opts);
         return this.each(function() {
             var $this = $(this);
 

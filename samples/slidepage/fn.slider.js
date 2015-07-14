@@ -24,7 +24,6 @@
             this.opts = $.extend({}, defaults, this.opts);
             this.dom();
             this.bind();
-            return this;
         },
         dom: function(){
             var self = this;
@@ -65,13 +64,14 @@
                 },
                 move: function(data){
                     var deltaX = startPoint + data.delta.x;
-                        self.$slider.css({
-                            '-webkit-transform': 'translateX('+ deltaX +'px)',
-                            'transform': 'translateX('+ deltaX +'px)'
-                        });
-                    },
+                    self.$slider.css({
+                        '-webkit-transform': 'translateX('+ deltaX +'px)',
+                        'transform': 'translateX('+ deltaX +'px)'
+                    });
+                },
                 end: function(data){
-                    // data.deltaX
+                    // here is flag that determine if trigger the slider
+                    // one is a quick short swipe , another is distance diff
                     if(data.deltatime < 250 && Math.abs(data.delta.x) > 20 || Math.abs(data.delta.x) > 100 ){
                         if(data.delta.x > 0){
                             self.index --;
@@ -115,8 +115,12 @@
             // new Slider(this, options).init();
             if (!data) {
                 var instance = new Slider(this, options);
+                console.log(instance);
                 $this.data('muslider', instance);
+            }else{
+                console.log(data);
             }
+            // return instance;
         });
     };
 
