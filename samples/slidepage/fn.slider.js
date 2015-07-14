@@ -42,8 +42,6 @@
             self.$slider.css({
                 'width': self.max * 100 +'%',
                 'position': 'absolute',
-                '-webkit-transition': '-webkit-transform .3s ease',
-                'transition': 'transform .3s ease',
                 '-webkit-transform': 'translateX(0%)',
                 'transform': 'translateX(0%)'
             });
@@ -57,18 +55,20 @@
             self.$el.swipeable({
                 start: function(data){
                     startPoint = self.$slider.offset().left;
+                    self.$slider.css({
+                        '-webkit-transition': '-webkit-transform 0s ease',
+                        'transition': 'transform 0s ease'
+                    });
                 },
                 move: function(data){
                     var deltaX = startPoint + data.delta.x;
                         self.$slider.css({
                             '-webkit-transform': 'translateX('+ deltaX +'px)',
-                            'transform': 'translateX('+ deltaX +'px)',
-                            '-webkit-transition': '-webkit-transform 0s ease',
-                            'transition': 'transform 0s ease',
+                            'transform': 'translateX('+ deltaX +'px)'
                         });
                     },
                 end: function(data){
-                    if(Math.abs(data.delta.x) > 100){
+                    if(Math.abs(data.delta.x) > 80){
                         if(data.delta.x > 0){
                             self.index --;
                             self.index = self.index < 0 ? 0 : self.index;
@@ -82,17 +82,21 @@
             });
         },
         jump: function(index){
-            console.log(this.opts.afterSlide);
-            this.index = index;
-            this.$slider.css({
-                '-webkit-transform': 'translateX(-'+ index*20 +'%)',
-                'transform': 'translateX(-'+ index*20 +'%)',
-                '-webkit-transition': '-webkit-transform .3s ease',
-                'transition': 'transform .3s ease'
+            var self = this,
+                width = -self.$slider.width() * (index/5);
+            // set width to px ,cause
+            self.index = index;
+            self.$slider.css({
+                '-webkit-transition': '-webkit-transform .4s ease',
+                'transition': 'transform .4s ease',
+                '-webkit-transform': 'translateX('+ width +'px)',
+                'transform': 'translateX('+ width +'px)'
             });
-            this.opts.afterSlide.call(this, this.index);
+            self.opts.afterSlide.call(self, self.index);
         }
     };
+
+    window.muSlider = Slider;
 
     $.fn.muslider = function(options){
         options = $.extend({}, defaults, options);
