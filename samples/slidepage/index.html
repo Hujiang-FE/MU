@@ -7,6 +7,7 @@
     <meta name="Keywords" content="">
     <meta name="Description" content="">
     <title>bubble nav</title>
+    <link rel="stylesheet" href="/src/styles/base.css">
     <link rel="stylesheet" href="/src/styles/test.css">
 </head>
 
@@ -14,7 +15,7 @@
     
     <div class="wrapper">
         here is a article
-        <div class="slider">
+        <div class="slide222r">
             <div class="li">23</div>
             <div class="li">23</div>
             <div class="li">2434</div>
@@ -22,33 +23,22 @@
         </div>
         <div class="slider" id="slider2">
             <div class="li">23</div>
-            <div class="li">23</div>
+            <div class="li">
+                23asdfafdsfa <br>
+                sdfasdf <br>
+                sdfasdf <br>
+            </div>
             <div class="li">2434</div>
             <div class="li">24df</div>
         </div>
     </div>
-    <script src="/vendor/jq/jquery-2.1.3.min.js"></script>
-    <!-- <script src="/vendor/zepto.min.js"></script> -->
+    <!-- <script src="/vendor/jq/jquery-2.1.3.min.js"></script> -->
+    <script src="/vendor/zepto.min.js"></script>
     <!-- <script src="http://m.hujiang.com/js/vendor/mu/mu.min.js"></script> -->
-    <script src="mu.fn.js"></script>
-    <script src="test.js"></script>
+    <script src="fn.swipeable.js"></script>
+    <script src="fn.slider.js"></script>
     <script>
-        $('.slider').swipeable({
-            start: function(event){
-                console.log(event, 'start');
-                console.log(this);
-            },
-            move: function(event){
-                console.log(event, 'move');
-            },
-            end: function(event){
-                console.log(event, 'end');
-            }
-        });
-
-        var testa = $('#slider2').widget({
-            optionA: 'test'
-        });
+        var slider = new muSlider('#slider2');
     </script>
 </body>
 

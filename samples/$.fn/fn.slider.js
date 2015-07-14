@@ -30,7 +30,6 @@
             var self = this;
             self.$children = self.$el.children();
             self.max = self.$children.length;
-            self.animating = false;
             self.index = 0;
 
             self.$children.wrapAll('<div class="slider-wrap"></div>');
@@ -48,8 +47,7 @@
                 'transform': 'translateX(0%)'
             });
             self.$children.css({
-                'width': 100 / self.max + '%',
-                'float': 'left'
+                width: 100 / self.max + '%'
             });
         },
         bind: function(){
@@ -59,8 +57,8 @@
                 start: function(data){
                     startPoint = self.$slider.offset().left;
                     self.$slider.css({
-                        '-webkit-transition-duration': '0s',
-                        'transition-duration': '0s'
+                        '-webkit-transition': '-webkit-transform 0s ease',
+                        'transition': 'transform 0s ease'
                     });
                 },
                 move: function(data){
@@ -71,8 +69,7 @@
                         });
                     },
                 end: function(data){
-                    // data.deltaX
-                    if(data.deltatime < 250 && Math.abs(data.delta.x) > 20 || Math.abs(data.delta.x) > 100 ){
+                    if(Math.abs(data.delta.x) > 80){
                         if(data.delta.x > 0){
                             self.index --;
                             self.index = self.index < 0 ? 0 : self.index;
@@ -87,37 +84,19 @@
         },
         jump: function(index){
             var self = this,
-                width = -self.$slider.width() * (index/self.max);
+                width = -self.$slider.width() * (index/5);
             // get width of px value, because % value does not work in andriod
             self.index = index;
             self.$slider.css({
-                '-webkit-transition-duration': '.4s',
-                'transition-duration': '.4s',
-                '-webkit-transform': 'translate(' + width + 'px,0)' + 'translateZ(0)',
-                'transform': 'translate(' + width + 'px,0)' + 'translateZ(0)'
+                '-webkit-transition': '-webkit-transform .4s ease',
+                'transition': 'transform .4s ease',
+                '-webkit-transform': 'translateX('+ width +'px)',
+                'transform': 'translateX('+ width +'px)'
             });
             self.opts.afterSlide.call(self, self.index);
         }
     };
 
     window.muSlider = Slider;
-
-    $.fn.muslider = function(options){
-        options = $.extend({}, defaults, options);
-        // this.jump = function(index){
-        //     $(this).muslider('jump', index);
-        // };
-        return this.each(function(){
-            var $this = $(this),
-                data = $this.data('muslider');
-            // var instance = new Slider(this, options);
-            // instance.init();
-            // new Slider(this, options).init();
-            if (!data) {
-                var instance = new Slider(this, options);
-                $this.data('muslider', instance);
-            }
-        });
-    };
 
 })(window.Zepto || window.jQuery);
