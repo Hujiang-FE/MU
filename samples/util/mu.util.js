@@ -8,5 +8,14 @@
  */
 (function(){
     'use strict';
-    
+    requireCss: function(url){
+            var node = document.createElement('link'),
+                head = document.getElementsByTagName('head');
+
+            node.type = 'text/css';
+            node.rel = 'stylesheet';
+            node.href = url;
+            head = head.length ? head[0] : document.documentElement;
+            head.appendChild(node);
+        },
 })();
