@@ -3,7 +3,8 @@
  * Copyright (c) 2015 All rights reserved.
  * @version: 1.1.0
  * @author: roeis
- * @description: extend a custom touch function
+ * @description: extend a custom simple touch function collection
+ * @todo add mouse event
  * -------------------------------------------------------------
  */
 
@@ -17,7 +18,6 @@
             end: function(){}
         };
     /**
-     * [swipeable description]
      * @example $('.example').swipeable({
      *              start: function(data){},
      *              move: function(data){},

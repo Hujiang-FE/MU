@@ -22,10 +22,10 @@
     Slider.prototype = {
         init: function(){
             this.opts = $.extend({}, defaults, this.opts);
-            this.dom();
-            this.bind();
+            this._create();
+            this._bind();
         },
-        dom: function(){
+        _create: function(){
             var self = this;
             self.$children = self.$el.children();
             self.max = self.$children.length;
@@ -33,7 +33,9 @@
             self.index = 0;
 
             self.$children.wrapAll('<div class="slider-wrap"></div>');
-            self.$slider = $('.slider-wrap');
+            // maintain each instance standlone, when initialize lot of instance with a same class
+            // in jump function, the active target is self.$slider, and this would be current target's parent
+            self.$slider = self.$children.closest('.slider-wrap');
 
             self.$el.css({
                 'overflow': 'hidden',
@@ -43,15 +45,13 @@
             self.$slider.css({
                 'width': self.max * 100 +'%',
                 'position': 'absolute',
-                '-webkit-transform': 'translateX(0%)',
-                'transform': 'translateX(0%)'
             });
             self.$children.css({
                 'width': 100 / self.max + '%',
                 'float': 'left'
             });
         },
-        bind: function(){
+        _bind: function(){
             var startPoint = 0,
                 self = this;
             self.$el.swipeable({
@@ -65,8 +65,8 @@
                 move: function(data){
                     var deltaX = startPoint + data.delta.x;
                     self.$slider.css({
-                        '-webkit-transform': 'translateX('+ deltaX +'px)',
-                        'transform': 'translateX('+ deltaX +'px)'
+                        '-webkit-transform': 'translate('+ deltaX +'px, 0)',
+                        'transform': 'translate('+ deltaX +'px, 0)'
                     });
                 },
                 end: function(data){
@@ -88,40 +88,62 @@
         jump: function(index){
             var self = this,
                 width = -self.$slider.width() * (index/self.max);
-            // get width of px value, because % value does not work in andriod
+            // get a width of px value, because % value does not work in andriod
             self.index = index;
             self.$slider.css({
                 '-webkit-transition-duration': '.4s',
                 'transition-duration': '.4s',
-                '-webkit-transform': 'translate(' + width + 'px,0)' + 'translateZ(0)',
-                'transform': 'translate(' + width + 'px,0)' + 'translateZ(0)'
+                '-webkit-transform': 'translate(' + width + 'px, 0)',
+                'transform': 'translate(' + width + 'px, 0)'
             });
             self.opts.afterSlide.call(self, self.index);
         }
     };
 
-    window.muSlider = Slider;
+    window.Mulider = Slider;
 
-    $.fn.muslider = function(options){
-        options = $.extend({}, defaults, options);
-        // this.jump = function(index){
-        //     $(this).muslider('jump', index);
-        // };
-        return this.each(function(){
+    $.fn.mulider = function(options){
+        this.each(function(){
+
             var $this = $(this),
-                data = $this.data('muslider');
-            // var instance = new Slider(this, options);
-            // instance.init();
-            // new Slider(this, options).init();
-            if (!data) {
-                var instance = new Slider(this, options);
-                console.log(instance);
-                $this.data('muslider', instance);
-            }else{
-                console.log(data);
+            instance = $.fn.mulider.instances[$this.data('mulider')];
+
+            if(!instance){
+                //cache the instance , use $.data in jquery, but in zepto data function is not fully supperted
+                $.fn.mulider.instances[$.fn.mulider.instances.i] = new Slider(this, options);
+                $this.data('mulider', $.fn.mulider.instances.i);
+                $.fn.mulider.instances.i++;
             }
-            // return instance;
+            console.log(instance);
+
         });
+
+        return this;
+
+        // although it can return an Object that u want, but it break the jquery chain
+        // so mostly a handy way to do this is to save the instance int the $.data object.
+        // when u want to use , u can fetch the instance as a reference, eg: $('element').data('plugin').doSomething();
+        // 
+        // return $.fn.mulider.instances[this.data('mulider')];
+        // return {
+        //     $this: this,
+        //     jump: function(index){
+        //         this.data('mulider').jump(index);
+        //     }
+        // };
+        // 
+        // return this.each(function(){
+        //     var $this = $(this),
+        //         data = $this.data('muslider');
+        //     if (!data) {
+        //         var instance = new Slider(this, options);
+        //         console.log(instance.jump);
+        //         $this.data('muslider', instance);
+        //         console.log($this.data('muslider').jump);
+        //     }
+        // });
     };
+
+    $.fn.mulider.instances = {i: 0};
 
 })(window.Zepto || window.jQuery);
