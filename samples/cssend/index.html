@@ -6,61 +6,7 @@
     <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
     <title>demo</title>
     <link rel="stylesheet" href="/src/styles/base.css">
-    <style>
-        .block{
-            width: 100px;
-            height: 100px;
-            background-color: #CCC;
-        }
-        .btn{
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #F50;
-        }
-        .btn:active{
-            background-color: #F90;
-        }
-        .fadeIn {
-          -webkit-animation: fadeIn .3s both;
-          animation: fadeIn .3s both;
-        }
-
-        @-webkit-keyframes fadeIn {
-          0% {opacity: 0;}
-          100% {opacity: 1;}
-        }
-        @keyframes fadeIn {
-          0% {opacity: 0;}
-          100% {opacity: 1;}
-        }
-        .fadeOut {
-          -webkit-animation: fadeOut .3s both;
-          animation: fadeOut .3s both;
-        }
-
-        @-webkit-keyframes fadeOut {
-          0% {opacity: 1;}
-          100% {opacity: 0;}
-        }
-        @keyframes fadeOut {
-          0% {opacity: 1;}
-          100% {opacity: 0;}
-        }
-        .trans{
-            display: none;
-            position: absolute;
-            right: 0;
-        }
-        .show{
-            display: block;
-        }
-        .wrapper{
-            height: 100%;
-        }
-        .cursor{
-            cursor:pointer;
-        }
-    </style>
+    <link rel="stylesheet" href="test.css">
 </head>
 
 <body >
@@ -80,37 +26,38 @@
     <script src="cssend.js"></script>
     <script src="app.js"></script>
     <script>
-        // $('.anima').onAnimationEnd(function(){
-        //     alert(1);
-        // });
-        $('.trans').addCss3('fadeIn', function(){
-            console.log(2);
-            $(this).removeClass('fadeIn');
-        });
-        
+        // alert(animationEvents.animationEnd);
+
         $('div').on('touchstart', function(){});
         // also fixed an event on ios
-        var isAnimating = false;
+        // var isAnimating = false;
+
         $(document).on('click', '.btn1', function(event){
-        // $('.btn').on('click', function(){
-            if(isAnimating) return;
-            isAnimating = true;
-            $('.trans').addCss3('show fadeIn', function(){
+            // if(isAnimating) return;
+            // isAnimating = true;
+            $('.trans').show().oneAnimationEnd('fadeIn', function(){
                 $(this).removeClass('fadeIn');
-                isAnimating = false;
-                console.log(3)
+                console.log(1);
+                alert(1)
+                // isAnimating = false;
             });
+        });
+
+        $('.trans').on(animationEvents.animationEnd, function(event){
+            console.log('3');
+            
+        });
+
+        $('.trans').on(animationEvents.animationEnd+".text", function(event){
+            console.log('4');
+            $('.trans').off(animationEvents.animationEnd+".text");
         });
 
         $(document).on('click', '.btn2', function(event){
         // $('.btn').on('click', function(){
-            
-            if(isAnimating) return;
-            isAnimating = true;
-            $('.trans').addCss3('fadeOut', function(){
-                $(this).removeClass('show fadeOut');
-                isAnimating = false;
-                console.log(3)
+            $('.trans').oneAnimationEnd('fadeOut', function(){
+                console.log(2);
+                $(this).removeClass('fadeOut').hide();
             });
         });
 

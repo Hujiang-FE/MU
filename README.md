@@ -15,17 +15,21 @@
     - dialog        弹窗
     - slidepage     页面转场
     - slider        轮播
+    - calendar      日历
 
 
 ##### how to use
-- git clone to your local enviroment
-- npm install
-- grunt server
-- do what you want
+
+    - git clone to your local enviroment
+    - npm install
+    - grunt server
+    - do what you want
 
 ##### about
-this project is on progress;
-- author: roeis
-- version: alpha
-- Copyright (c) 2015 All rights reserved.
+
+    //this project is on progress;
+    
+    - Copyright (c) 2015 All rights reserved.
+    - author: roeis
+    - version: alpha
 

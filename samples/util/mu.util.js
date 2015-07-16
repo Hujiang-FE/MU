@@ -8,7 +8,9 @@
  */
 (function(){
     'use strict';
-    requireCss: function(url){
+
+    var core = {
+        requireCss: function(url){
             var node = document.createElement('link'),
                 head = document.getElementsByTagName('head');
 
@@ -18,4 +20,8 @@
             head = head.length ? head[0] : document.documentElement;
             head.appendChild(node);
         },
+    };
+
+    window.util = core;
+        
 })();

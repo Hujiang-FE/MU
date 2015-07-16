@@ -1,0 +1,53 @@
+.block{
+            width: 100px;
+            height: 100px;
+            background-color: #CCC;
+        }
+        .btn{
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #F50;
+        }
+        .btn:active{
+            background-color: #F90;
+        }
+        .fadeIn {
+          -webkit-animation: fadeIn .3s both;
+          animation: fadeIn .3s both;
+        }
+
+        @-webkit-keyframes fadeIn {
+          0% {opacity: 0;}
+          100% {opacity: 1;}
+        }
+        @keyframes fadeIn {
+          0% {opacity: 0;}
+          100% {opacity: 1;}
+        }
+        .fadeOut {
+          -webkit-animation: fadeOut .3s both;
+          animation: fadeOut .3s both;
+        }
+
+        @-webkit-keyframes fadeOut {
+          0% {opacity: 1;}
+          100% {opacity: 0;}
+        }
+        @keyframes fadeOut {
+          0% {opacity: 1;}
+          100% {opacity: 0;}
+        }
+        .trans{
+            display: none;
+            position: absolute;
+            right: 0;
+        }
+        .show{
+            display: block;
+        }
+        .wrapper{
+            height: 100%;
+        }
+        .cursor{
+            cursor:pointer;
+        }
