@@ -2,5 +2,28 @@
   height: 100px;
   width: 100%;
   background-color: #DDD;
+}
+
+.test2 {
+  position: fixed;
+  bottom: 20px;
+  width: 90%;
+  left: 5%;
+}
+
+.li {
   padding: 10px;
+}
+.li img {
+  display: block;
+  max-width: 100%;
+}
+
+.bg {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
 }

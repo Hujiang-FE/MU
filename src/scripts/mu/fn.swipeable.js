@@ -3,19 +3,29 @@
  * Copyright (c) 2015 All rights reserved.
  * @version: 1.1.0
  * @author: roeis
- * @description: extend a custom touch function
+ * @description: extend a custom simple touch function collection
+ * @todo add mouse event
  * -------------------------------------------------------------
  */
 
 (function($) {
     'use strict';
     var start, delta, isScrolling,
-        _defaults = {
-            enableVertical: false
+        defaults = {
+            enableVertical: false,
+            start: function(){},
+            move: function(){},
+            end: function(){}
         };
-
+    /**
+     * @example $('.example').swipeable({
+     *              start: function(data){},
+     *              move: function(data){},
+     *              end: function(data){}
+     *          });
+     */
     $.fn.swipeable = function(opts) {
-        opts = $.extend({}, _defaults, opts);
+        opts = $.extend({}, defaults, opts);
         return this.each(function() {
             var $this = $(this);
 
@@ -36,13 +46,12 @@
 
             })
             .on('touchmove', function(event) {
-                if (event.touches && event.touches.length > 1 ||
-                    event.originalEvent.touches && event.originalEvent.touches.length > 1||
-                    event.scale && event.scale !== 1){
+                var touch = event.touches || event.originalEvent.touches;
+
+                if ((touch && touch.length > 1) ||event.scale && event.scale !== 1){
                     return;
                 }
 
-                var touch = event.touches || event.originalEvent.touches;
                 touch = touch[0];
 
                 delta = {
@@ -65,7 +74,7 @@
                 if(!opts.enableVertical){
                     if (isScrolling) return;
                 }
-                opts.end.call(this, {touch: {},start: start, delta: delta});
+                opts.end.call(this, {touch: {}, delta: delta, deltatime: Date.now() - start.time});
             });
         });
     };
