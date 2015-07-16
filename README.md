@@ -17,3 +17,15 @@
     - slider        轮播
 
 
+##### how to use
+- git clone to your local enviroment
+- npm install
+- grunt server
+- do what you want
+
+##### about
+this project is on progress;
+- author: roeis
+- version: alpha
+- Copyright (c) 2015 All rights reserved.
+
