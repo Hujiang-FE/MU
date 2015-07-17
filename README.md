@@ -22,12 +22,12 @@
 
     - git clone to your local enviroment
     - npm install
-    - grunt server
+    - grunt server after modify the ip address in Gruntfile.js
     - do what you want
 
 ##### about
 
-    //this project is on progress;
+    // this project is on progress;
     
     - Copyright (c) 2015 All rights reserved.
     - author: roeis
