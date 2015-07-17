@@ -65,8 +65,8 @@
                 move: function(data) {
                     var deltaX = startPoint + data.delta.x;
                     self.$slider.css({
-                        '-webkit-transform': 'translate(' + deltaX + 'px, 0)',
-                        'transform': 'translate(' + deltaX + 'px, 0)'
+                        '-webkit-transform': 'translate(' + deltaX + 'px, 0) translateZ(0)',
+                        'transform': 'translate(' + deltaX + 'px, 0) translateZ(0)'
                     });
                 },
                 end: function(data) {
@@ -96,8 +96,8 @@
             self.$slider.css({
                 '-webkit-transition-duration': '.4s',
                 'transition-duration': '.4s',
-                '-webkit-transform': 'translate(' + width + 'px, 0)',
-                'transform': 'translate(' + width + 'px, 0)'
+                '-webkit-transform': 'translate(' + width + 'px, 0) translateZ(0)',
+                'transform': 'translate(' + width + 'px, 0) translateZ(0)'
             });
             self.opts.afterSlide.call(self, self.index);
         }
