@@ -492,6 +492,8 @@ function addNewObserver() {
 
 
 //the implementaion of publish/subscribe pattern
+// 
+// it also think as a simple implementaion of on/off event
 var pubsub = {};
  
 (function(myObject) {
@@ -518,20 +520,20 @@ var pubsub = {};
         while (len--) {
             subscribers[len].func( topic, args );
         }
- 
+
         return this;
     };
- 
+
     // Subscribe to events of interest
     // with a specific topic name and
     // a callback function, to be executed
     // when the topic/event is observed
     myObject.subscribe = function( topic, func ) {
- 
+
         if (!topics[topic]) {
             topics[topic] = [];
         }
- 
+
         var token = ( ++subUid ).toString();
         topics[topic].push({
             token: token,
@@ -539,7 +541,7 @@ var pubsub = {};
         });
         return token;
     };
- 
+
     // Unsubscribe from a specific
     // topic, based on a tokenized reference
     // to the subscription
@@ -559,5 +561,22 @@ var pubsub = {};
 }( pubsub ));
 
 
+var messageLogger = function(topics, data){
+    console.log('logging:' + topics + ': '+ data);
+};
 
+var subscription = pubsub.subscribe('inbox/newMessage', messageLogger);
+
+pubsub.publish('inbox/newMessage', 'hello world');
+
+pubsub.publish('inbox/newMessage', ['test', 'a', 'b', 'c']);
+
+pubsub.publish('inbox/newMessage', {
+    sender: "hello@google.com",
+    body: 'hello again'
+});
+
+pubsub.unsubscribe(subscription);
+
+pubsub.publish('inbox/newMessage', 'hello are u still there?');
 // })(jQuery);
