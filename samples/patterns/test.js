@@ -494,6 +494,9 @@ function addNewObserver() {
 //the implementaion of publish/subscribe pattern
 // 
 // it also think as a simple implementaion of on/off event
+// first u subscribe a eventname, or sign a event
+// and u can publish this event
+// 
 var pubsub = {};
  
 (function(myObject) {
@@ -579,4 +582,43 @@ pubsub.publish('inbox/newMessage', {
 pubsub.unsubscribe(subscription);
 
 pubsub.publish('inbox/newMessage', 'hello are u still there?');
+
+var getCurrentTime = function(){
+    var date = new Date(),
+        m = date.getMonth() + 1,
+        d = date.getDate(),
+        y = date.getFullYear(),
+        t = date.toLocaleTimeString().toLowerCase();
+
+    return (m + '/' + d + '/' + y + ' ' + t);
+};
+
+function addGridRow(data){
+    console.log('updated grid component with:' + data);
+}
+function updateCounter(data){
+    console.log('data last updated at:' + getCurrentTime() + 'with' + data)
+}
+
+function gridUpdate(topic, data){
+    if(data !== undefined){
+        addGridRow(data);
+        updateCounter(data);
+    }
+}
+
+var subcriber2 = pubsub.subscribe('newDataAvailable', gridUpdate);
+
+pubsub.publish('newDataAvailable', {
+    summary: 'Apple made $5 billon',
+    identifier: 'Apple',
+    stockPrice: 570.11
+});
+
+pubsub.publish('newDataAvailable', {
+    summary: 'microsoft made $20 million',
+    identifier: 'MASt',
+    stockPrice: 40.23
+});
+
 // })(jQuery);
