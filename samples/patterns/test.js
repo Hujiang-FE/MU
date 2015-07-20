@@ -1200,13 +1200,12 @@ var BookRecordManager = (function(){
 })();
 
 
+// What does MVC give us
 
-
-
-
-
-
-
+// Easier overall maintenance. When updates need to be made to the application it is very clear whether the changes are data-centric, meaning changes to models and possibly controllers, or merely visual, meaning changes to views.
+// Decoupling models and views means that it is significantly more straight-forward to write unit tests for business logic
+// Duplication of low-level model and controller code (i.e what we may have been using instead) is eliminated across the application
+// Depending on the size of the application and separation of roles, this modularity allows developers responsible for core logic and developers working on the user-interfaces to work simultaneously
 
 
 // })(jQuery);
