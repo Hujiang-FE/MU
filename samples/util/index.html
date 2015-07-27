@@ -20,7 +20,13 @@
     <script src="/vendor/zepto.min.js"></script>
     <script src="mu.util.js"></script>
     <script>
-        
+        $.ajax({
+            url: 'http://192.168.155.26:3000/api',
+            dataType: 'jsonp',
+            success: function(data){
+                console.log(data);
+            }
+        })
     </script>
 </body>
 
