@@ -41,4 +41,4 @@
         });
     };
 
-})(jQuery);
+})(window.Zepto || window.jQuery);

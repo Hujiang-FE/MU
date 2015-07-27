@@ -1,0 +1,20 @@
+.mu-dialog-bglayer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 4000;
+  opacity: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+}
+
+.fade {
+  opacity: 0;
+  -webkit-transition: opacity .2s ease;
+  transition: opacity .2s ease;
+}
+
+.fade.in {
+  opacity: 1;
+}

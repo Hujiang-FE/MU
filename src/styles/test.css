@@ -27,3 +27,41 @@
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.6);
 }
+
+.wrapperAll {
+  width: 100%;
+}
+
+.block {
+  height: 150px;
+  margin: 0 15px 15px;
+  background-color: #DDD;
+}
+.block:last-child {
+  margin-bottom: 0;
+}
+
+.btm-opers {
+  text-align: center;
+  width: 100%;
+  z-index: 5000;
+}
+
+.btn {
+  display: inline-block;
+  font-size: 1.6rem;
+  line-height: 2.4rem;
+  background-color: #EEE;
+  color: #666;
+  text-align: center;
+  padding: 5px 10px;
+}
+
+.fix {
+  position: fixed;
+}
+
+.fix-bottom {
+  left: 0;
+  bottom: 0;
+}
