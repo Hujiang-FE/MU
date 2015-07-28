@@ -24,10 +24,11 @@
 
     var defaults = {
         isBgCloseable: true,                    // 点击背景是否关闭弹窗
-        showClass: 'mu-scaleUpIn',              // 自定义进场动画
+        showClass: 'mu-scaleDownIn',            // 自定义进场动画
         closeClass: 'mu-scaleDownOut',          // 自定义出场动画
         classSet: false,                        // 样式组合
-        position: 0,
+        position: ['center', 'center'],
+        size: ['auto', 'auto'],
         opacity: 0.75,                          // 背景透明度
         beforeOpen: function() {},              //
         afterOpen: function() {},
@@ -38,6 +39,7 @@
     var $body = $(document.body),
         classSets = {
             'scaleUpIn': ['mu-scaleUpIn','mu-scaleDownOut'],
+            'scaleDownIn': ['mu-scaleDownIn','mu-scaleDownOut'],
             'fadeIn':  ['mu-fadeIn','mu-fadeOut'],
             'fadeInUp':  ['mu-fadeInUp','mu-fadeOutDown'],
             // 'skewIn': ['mu-skewin','mu-skewout']     // descrepted cause of compatible
@@ -63,10 +65,29 @@
 
             $body.append(this.$bg).append(this.$dialog);
 
+            this._adjust();
             // change the class of dialog animation
             if (this.options.classSet && classSets[this.options.classSet]) {
                 this.options.showClass = classSets[this.options.classSet][0];
                 this.options.closeClass = classSets[this.options.classSet][1];
+            }
+        },
+
+        // adjust the dialog's postion 
+        // how configurable
+        _adjust: function(){
+            var hori = this.options.position[0],
+                vert = this.options.position[1],
+                height = this.$dialog.height(),
+                width = this.$dialog.width();
+
+            this.$dialog.css('width', width);
+
+            if(hori === 'center'){
+                this.$dialog.css({
+                    'right': '0',
+                    'margin': '0 auto'
+                });
             }
         },
 
@@ -109,17 +130,20 @@
             this._hide(this.$bg, 'mu-fadeOut');
         },
         // require $.fn.oneAnimationEnd
-        // encapsulate two functions that handle showing and closing the dialog 
+        // encapsulate two functions that handle showing and closing the dialog
         // with css3 animation end callback
+        // !important : change the property from display to visibility
+        // when the dialog is unvisible, its properties still can be read
+        // such as height, width etc;
         _show: function($obj, cls, callback) {
-            $obj.show().oneAnimationEnd(cls, function() {
+            $obj.addClass('mu-visible').oneAnimationEnd(cls, function() {
                 $obj.removeClass(cls);
                 callback && callback();
             });
         },
         _hide: function($obj, cls, callback) {
             $obj.oneAnimationEnd(cls, function() {
-                $obj.hide().removeClass(cls);
+                $obj.removeClass('mu-visible').removeClass(cls);
                 callback && callback();
             });
         }

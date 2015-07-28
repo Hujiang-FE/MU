@@ -42,10 +42,14 @@
     <script src="../cssend/cssend.js"></script>
     <script src="mu.dialog.js"></script>
     <script>
-        window.dialog1 = new Dialog('<div class="sdf">asdfasdf</div>', {
-            classSet: 'skewIn',
-            showClass: 'mu-fadeInUp',
+        window.dialog1 = new Dialog('<div class="block"><textarea name="dd"></textarea></div>', {
+            classSet: 'scaleUpIn',
+            // showClass: 'mu-fadeInUp',
+            beforeOpen: function(){
+                console.log(this.$dialog.find('textarea'));
+            },
             afterOpen: function(){
+                // this.$dialog.find('textarea').focus();
                 console.log(3);
             }
         });
