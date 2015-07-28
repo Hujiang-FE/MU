@@ -16,6 +16,7 @@
     
     <div class="wrapper wrapperAll">
         here is a article
+            <a href="http://local.m.hujiang.com/jp/p564339/">sdfasdf</a>
         <div class="block">1</div>
         <div class="block">2</div>
         <div class="block">3</div>
@@ -41,17 +42,21 @@
     <script src="../cssend/cssend.js"></script>
     <script src="mu.dialog.js"></script>
     <script>
-        window.dialog1 = new MuDialog('<div class="sdf">asdfasdf</div>', {
-            // classSet: 'fadeInUp',
+        window.dialog1 = new Dialog('<div class="sdf">asdfasdf</div>', {
+            classSet: 'skewIn',
+            showClass: 'mu-fadeInUp',
             afterOpen: function(){
                 console.log(3);
             }
         });
-        window.dialog2 = new MuDialog('<div class="sdf">sadfa</div>', {
+
+        $('<div class="sdf">sadfa</div>').dialog({
             afterOpen: function(){
                 
             }
         });
+
+        window.dialog2 = $.fn.dialog.instances['0'];
 
         $('.btn').on('click', function() {
             dialog1.open();

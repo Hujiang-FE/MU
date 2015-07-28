@@ -36,14 +36,15 @@
     };
 
     var $body = $(document.body),
-        classSet = {
+        classSets = {
             'scaleUpIn': ['mu-scaleUpIn','mu-scaleDownOut'],
             'fadeIn':  ['mu-fadeIn','mu-fadeOut'],
             'fadeInUp':  ['mu-fadeInUp','mu-fadeOutDown'],
-            'skewIn': ['mu-skewin','mu-skewout']
+            // 'skewIn': ['mu-skewin','mu-skewout']     // descrepted cause of compatible
         };
 
     Dialog.prototype = {
+        constructor: Dialog,
         init: function() {
             this.options = $.extend({}, defaults, this.options);
             this._create();
@@ -54,20 +55,19 @@
             this.$dialog = $(document.createElement('div')).addClass('mu-dialog');
 
             this.isOpen = false;
-            $body.append(this.$bg);
+            
             this.$dialog.append('<div class="mu-dialog-body"></div>');
 
             this.$dialogBody = this.$dialog.find('.mu-dialog-body');
             this.$dialogBody.append(this.$el);
-            $body.append(this.$dialog);
+
+            $body.append(this.$bg).append(this.$dialog);
 
             // change the class of dialog animation
-            if (this.options.classSet && classSet[this.options.classSet]) {
-                this.options.showClass = classSet[this.options.classSet][0];
-                this.options.closeClass = classSet[this.options.classSet][1];
+            if (this.options.classSet && classSets[this.options.classSet]) {
+                this.options.showClass = classSets[this.options.classSet][0];
+                this.options.closeClass = classSets[this.options.classSet][1];
             }
-
-            console.log(this.$dialog.html());
         },
 
         _bind: function() {
@@ -78,21 +78,34 @@
                 }, this));
             }
         },
+
+        html: function(html){
+            this.$dialogBody.html(html);
+        },
+
         open: function() {
             if (this.isOpen) return;
             this.isOpen = true;
+
+            this.options.beforeOpen.call(this);
+
             this._show(this.$dialog, this.options.showClass, $.proxy(function() {
                 this.options.afterOpen.call(this);
             }, this));
+
             this._show(this.$bg, 'mu-fadeIn');
         },
+
         close: function() {
             if (!this.isOpen) return;
             this.isOpen = false;
-            this.$dialog.data('status', 'close');
+
+            this.options.beforeClose.call(this);
+
             this._hide(this.$dialog, this.options.closeClass, $.proxy(function() {
                 this.options.afterClose.call(this);
             }, this));
+
             this._hide(this.$bg, 'mu-fadeOut');
         },
         // require $.fn.oneAnimationEnd
@@ -111,12 +124,30 @@
             });
         }
     };
+    
+    window.Dialog = Dialog;
 
-    window.MuDialog = Dialog;
+    $.fn.dialog = function(options){
+        var args = Array.prototype.slice.call(arguments, 1);
+        this.each(function() {
+            var $this = $(this),
+                instance = $.fn.dialog.instances[$this.data('dialog')];
 
-    // $.fn.muDialog = function(options){
+            if (!instance) {
+                //cache the instance , use $.data in jquery, but in zepto data function is not fully supperted
+                $.fn.dialog.instances[$.fn.dialog.instances.i] = new Dialog(this, options);
+                $this.data('dialog', $.fn.dialog.instances.i);
+                $.fn.dialog.instances.i++;
+            }else if(typeof options === 'string' && instance[options]){
+                instance[options].apply(instance, args);
+            }
 
-    // };
+        });
+        return this;
+    };
+    $.fn.dialog.instances = {
+        i: 0
+    };
 
 
 })(window.Zepto || window.jQuery);
