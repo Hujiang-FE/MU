@@ -37,15 +37,11 @@
 
     window.animationEvents = animationEvents;
 
-    for( var key in fnNames){
-        (function(key, fnNames){
-            $.fn['one'+ key.slice(0,1).toUpperCase() + key.slice(1)] = function (cls, callback){
-                $(this[0]).addClass(cls).one(fnNames[key], function(){
-                    callback && callback.call(this);
-                });
-                return this;
-            };
-        }(key, fnNames));
-    }
+    $.fn.oneAnimationEnd = function (cls, callback){
+        $(this[0]).addClass(cls).one(fnNames.animationEnd, function(){
+            callback && callback.call(this);
+        });
+        return this;
+    };
     
 })(window.Zepto || window.jQuery);

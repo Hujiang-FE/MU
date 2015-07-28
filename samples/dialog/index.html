@@ -27,13 +27,12 @@
             open dialog
         </div>
     </div>
-    <div class="mu-dialog-modal">
+    
         <div class="mu-dialog">
             <div class="mu-dialog-body">
                 asdfasdfadf
             </div>
         </div>
-    </div>
 
     <div class="mu-dialog-bglayer"></div>
     <!-- <script src="/vendor/jq/jquery-2.1.3.min.js"></script> -->
@@ -41,7 +40,24 @@
     <!-- <script src="http://m.hujiang.com/js/vendor/mu/mu.min.js"></script> -->
     <script src="../cssend/cssend.js"></script>
     <script src="mu.dialog.js"></script>
-    <script></script>
+    <script>
+        window.dialog1 = new MuDialog('<div class="sdf">asdfasdf</div>', {
+            // classSet: 'fadeInUp',
+            afterOpen: function(){
+                console.log(3);
+            }
+        });
+        window.dialog2 = new MuDialog('<div class="sdf">sadfa</div>', {
+            afterOpen: function(){
+                
+            }
+        });
+
+        $('.btn').on('click', function() {
+            dialog1.open();
+        });
+
+    </script>
 </body>
 
 </html>
