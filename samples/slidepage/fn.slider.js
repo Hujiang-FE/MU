@@ -17,7 +17,7 @@
         this.init();
     };
     var defaults = {
-        isloop: false,
+        isLoop: true,
         speed: 500,
         mode: 'horizontal',
         afterSlide: function() {}
@@ -33,6 +33,7 @@
             self.$children = self.$el.children();
             self.max = self.$children.length;
             self.animating = false;
+            self.looptime = null;
             self.index = 0;
 
             self.$children.wrapAll('<div class="slider-wrap"></div>');
@@ -53,6 +54,25 @@
                 'width': 100 / self.max + '%',
                 'float': 'left'
             });
+
+            
+            if(self.opts.isLoop){
+                self.loop();
+            }
+        },
+        loop: function(){
+            var self = this;
+            if(self.index >= self.max - 1 ){
+                clearTimeout(self.looptime);
+                return;
+            }
+            
+            self.looptime = setTimeout(function(){
+                self.index ++;
+                self.jump(self.index);
+                self.loop();
+            }, 3000);
+            
         },
         _bind: function() {
             var startPoint = 0,
