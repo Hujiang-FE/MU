@@ -92,17 +92,22 @@ a {
   width: 0px;
 }
 
-.container:before, .panel:before, .cf:before {
+.cf:before {
   content: "";
   display: table;
 }
 
-.container:after, .panel:after, .cf:after {
+.cf:after {
   clear: both;
   content: "";
   display: table;
 }
-
+.fl{
+  float: left;
+}
+.fr{
+  float: right;
+}
 .por {
   position: relative;
 }

@@ -13,7 +13,9 @@
 </head>
 
 <body>
-    
+    <header>
+        asdfadf
+    </header>
     <div class="wrapper wrapperAll">
         here is a article
             <a href="http://local.m.hujiang.com/jp/p564339/">sdfasdf</a>
@@ -28,40 +30,65 @@
             open dialog
         </div>
     </div>
-    
-        <div class="mu-dialog">
-            <div class="mu-dialog-body">
-                asdfasdfadf
+
+
+    <!-- 微信回调 -->
+    <div class="weixin_success" style="display:none">
+        <div class="ws_head">
+            分享成功
+        </div>
+        <div class="ws_body">
+            <div class="ws_block">
+                <h3>更多精华，关注公众号</h3>
+                <div class="cf">
+                    <div class="pic fl">
+                        <img src="##" alt="">
+                    </div>
+                    <div class="info">
+                        <p class="p1">沪江德语</p>
+                        <p class="p2">微信号: hjgerman</p>
+                        <p class="p3">长按二维码，点击“识别图中二维码”即可关注我们~</p>
+                    </div>
+                </div>
+            </div>
+            <div class="ws_block cf">
+                <h3>精品推荐</h3>
+                <div class="hotlinks">
+                    <a href="###">按二维码，点击“识别图中二维码”即图中二维图中二维可关注我们~</a>
+                    <a href="asdf">按二维码，点击“识别图中二维码”即可关注我们~</a>
+                </div>
             </div>
         </div>
+    </div>
 
-    <div class="mu-dialog-bglayer"></div>
+
     <!-- <script src="/vendor/jq/jquery-2.1.3.min.js"></script> -->
     <script src="/vendor/zepto.min.js"></script>
     <!-- <script src="http://m.hujiang.com/js/vendor/mu/mu.min.js"></script> -->
     <script src="../cssend/cssend.js"></script>
     <script src="mu.dialog.js"></script>
+    <script src="fn.pop.js"></script>
     <script>
-        window.dialog1 = new Dialog('<div class="block"><textarea name="dd"></textarea></div>', {
-            classSet: 'scaleUpIn',
+        window.dialog1 = new Dialog('.weixin_success', {
+            classSet: 'scaleDownIn',
             // showClass: 'mu-fadeInUp',
             beforeOpen: function(){
-                console.log(this.$dialog.find('textarea'));
+                
             },
-            afterOpen: function(){
-                // this.$dialog.find('textarea').focus();
-                console.log(3);
-            }
-        });
-
-        $('<div class="sdf">sadfa</div>').dialog({
             afterOpen: function(){
                 
             }
         });
 
-        window.dialog2 = $.fn.dialog.instances['0'];
+        // $('<div class="sdf">sadfa</div>').dialog({
+        //     afterOpen: function(){
+                
+        //     }
+        // });
 
+        // window.dialog2 = $.fn.dialog.instances['0'];
+
+            
         $('.btn').on('click', function() {
             dialog1.open();
         });

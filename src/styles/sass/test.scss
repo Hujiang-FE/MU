@@ -32,10 +32,91 @@
     bottom: 0;
     background-color: rgba(0,0,0,.6);
 }
-
+.weixin_success{
+    width: 80%;
+    max-width: 500px;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: #FFF;
+    .ws_head{
+        border-radius: 10px 10px 0 0;
+        background-color: #4fb81b;
+        height: 48px;
+        line-height: 48px;
+        text-align: center;
+        color: #FFF;
+        font-size: 2rem;
+    }
+    .ws_body{
+        padding: 1rem 1.4rem;
+        h3{
+            font-size: 1.4rem;
+            color: #4fb81b;
+            font-weight: bold;
+            height: 2.4rem;
+        }
+    }
+    .ws_block{
+        &:nth-child(1){
+            padding-bottom: 1rem;
+            margin-bottom: 1rem;
+            border-bottom: 1px dashed #DDD;
+        }
+    }
+    .pic{
+        width: 100px;
+        img{
+            display: block;
+            width: 90px;
+            height: 90px;
+        }
+    }
+    .info{
+        // width: 55%;
+        padding-left: 100px;
+        .p1{
+            font-size: 2rem;
+            font-weight: bold;
+        }
+        .p2{
+            color: #999;
+            font-size: 1rem;
+        }
+        .p3{
+            color: #4fb81b;
+            font-size: 1rem;
+        }
+    }
+    /*
+        nth-child did not work in iphone
+     */
+    .hotlinks{
+        a{
+            &:first-child{
+                margin-bottom: 1rem;
+            }
+            display: block;
+            color: #333;
+        }
+        a:visited{
+            color: #999;
+        }
+    }
+}
+// header{
+//     height: 48px;
+//     position: fixed;
+//     width: 100%;
+//     background-color: #333;
+//     z-index: 5050;
+// }
 .wrapperAll{
     // height: 100%;
     width: 100%;
+    padding-top: 48px;
+    // margin-top: -48px;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
 }
 .block{
     height: 150px;

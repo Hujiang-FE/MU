@@ -6,20 +6,37 @@
   bottom: 0;
   visibility: hidden;
   z-index: 3500;
-  background-color: rgba(0, 0, 0, 0.75);
+  background-color: rgba(0, 0, 0, 0.8);
 }
 
 .mu-dialog {
   position: fixed;
   visibility: hidden;
   left: 0;
-  top: 0%;
-  background-color: #DDD;
+  top: 0;
   z-index: 3501;
 }
 
 .mu-visible {
   visibility: visible;
+}
+
+.mu-pop {
+  width: 280px;
+  padding: 20px;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 5px;
+  color: #FFF;
+}
+
+.mu-pop-alert {
+  padding: 10px;
+}
+
+.mu-btn-ok {
+  padding-top: 10px;
+  border-top: 1px solid #222;
 }
 
 @media screen and (min-width: 640px) {

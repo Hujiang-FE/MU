@@ -15,6 +15,7 @@
     //
     // extend Dialog to make confirm, dialog, tip, alert
     // with common style, change the default pop system
+    // not support scroll element yet
 
     function Dialog(el, options) {
         this.$el = $(el);
@@ -27,16 +28,17 @@
         showClass: 'mu-scaleDownIn',            // 自定义进场动画
         closeClass: 'mu-scaleDownOut',          // 自定义出场动画
         classSet: false,                        // 样式组合
-        position: ['center', 'center'],
-        size: ['auto', 'auto'],
+        isCenter: true,                     // custom
+        zIndex: 3501,                           // 大于某一边界值
         opacity: 0.75,                          // 背景透明度
-        beforeOpen: function() {},              //
+        beforeOpen: function() {},
         afterOpen: function() {},
         beforeClose: function() {},
         afterClose: function() {}
     };
 
     var $body = $(document.body),
+        $bg = $(document.createElement('div')).addClass('mu-dialog-bglayer'),
         classSets = {
             'scaleUpIn': ['mu-scaleUpIn','mu-scaleDownOut'],
             'scaleDownIn': ['mu-scaleDownIn','mu-scaleDownOut'],
@@ -45,6 +47,8 @@
             // 'skewIn': ['mu-skewin','mu-skewout']     // descrepted cause of compatible
         };
 
+    $body.append($bg);
+
     Dialog.prototype = {
         constructor: Dialog,
         init: function() {
@@ -52,43 +56,58 @@
             this._create();
             this._bind();
         },
-        _create: function() {
-            this.$bg = $(document.createElement('div')).addClass('mu-dialog-bglayer');
-            this.$dialog = $(document.createElement('div')).addClass('mu-dialog');
 
+        _create: function() {
+            this.$bg = $bg;
+            // this.$dialog = $(document.createElement('div'));
+            this.$dialog = this.$el;
             this.isOpen = false;
             
-            this.$dialog.append('<div class="mu-dialog-body"></div>');
+            this.$dialog.addClass('mu-dialog').show();
+            // this.$dialog.append('<div class="mu-dialog-body"></div>');
 
-            this.$dialogBody = this.$dialog.find('.mu-dialog-body');
-            this.$dialogBody.append(this.$el);
+            // this.$dialogBody = this.$dialog.find('.mu-dialog-body');
+            // this.$dialog.append(this.$el);
 
-            $body.append(this.$bg).append(this.$dialog);
+            this.$dialog.css({
+                'z-index' : this.options.zIndex
+            });
+
+            $body.append(this.$dialog);
 
             this._adjust();
+
             // change the class of dialog animation
             if (this.options.classSet && classSets[this.options.classSet]) {
                 this.options.showClass = classSets[this.options.classSet][0];
                 this.options.closeClass = classSets[this.options.classSet][1];
             }
+
+
         },
 
         // adjust the dialog's postion 
         // how configurable
         _adjust: function(){
-            var hori = this.options.position[0],
-                vert = this.options.position[1],
-                height = this.$dialog.height(),
-                width = this.$dialog.width();
+            this._destroyAdjust();
 
-            this.$dialog.css('width', width);
+            var height = this.$dialog.height();
+            this.$dialog.css('height', height);
 
-            if(hori === 'center'){
+            if(this.options.isCenter){
                 this.$dialog.css({
-                    'right': '0',
-                    'margin': '0 auto'
+                    right: 0,
+                    bottom: 0,
+                    margin: 'auto'
                 });
             }
+        },
+        
+        _destroyAdjust: function(){
+            this.$dialog.css({
+                'height': 'auto',
+                'bottom': 'auto'
+            });
         },
 
         _bind: function() {
@@ -101,7 +120,8 @@
         },
 
         html: function(html){
-            this.$dialogBody.html(html);
+            this.$dialog.html(html);
+            this._adjust();
         },
 
         open: function() {
@@ -129,6 +149,7 @@
 
             this._hide(this.$bg, 'mu-fadeOut');
         },
+
         // require $.fn.oneAnimationEnd
         // encapsulate two functions that handle showing and closing the dialog
         // with css3 animation end callback

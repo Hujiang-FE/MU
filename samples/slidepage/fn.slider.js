@@ -17,6 +17,9 @@
         this.init();
     };
     var defaults = {
+        isloop: false,
+        speed: 500,
+        mode: 'horizontal',
         afterSlide: function() {}
     };
     Slider.prototype = {
@@ -56,6 +59,7 @@
                 self = this;
             self.$el.swipeable({
                 start: function(data) {
+
                     startPoint = self.$slider.offset().left;
                     self.$slider.css({
                         '-webkit-transition-duration': '0s',
@@ -63,6 +67,7 @@
                     });
                 },
                 move: function(data) {
+                    
                     var deltaX = startPoint + data.delta.x;
                     self.$slider.css({
                         '-webkit-transform': 'translate(' + deltaX + 'px, 0) translateZ(0)',
@@ -72,6 +77,7 @@
                 end: function(data) {
                     // here is flag that determine if trigger the slider
                     // one is a quick short swipe , another is distance diff
+                    
                     if (data.deltatime < 250 && Math.abs(data.delta.x) > 20 || Math.abs(data.delta.x) > 100) {
                         if (data.delta.x > 0) {
                             self.index--;
@@ -93,6 +99,7 @@
                 width = -self.$slider.width() * (index / self.max);
             // get a width of px value, because % value does not work in andriod
             self.index = index;
+            self.animating = true;
             self.$slider.css({
                 '-webkit-transition-duration': '.4s',
                 'transition-duration': '.4s',

@@ -28,8 +28,78 @@
   background-color: rgba(0, 0, 0, 0.6);
 }
 
+.weixin_success {
+  width: 80%;
+  max-width: 500px;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #FFF;
+  /*
+      nth-child did not work in iphone
+   */
+}
+.weixin_success .ws_head {
+  border-radius: 10px 10px 0 0;
+  background-color: #4fb81b;
+  height: 48px;
+  line-height: 48px;
+  text-align: center;
+  color: #FFF;
+  font-size: 2rem;
+}
+.weixin_success .ws_body {
+  padding: 1rem 1.4rem;
+}
+.weixin_success .ws_body h3 {
+  font-size: 1.4rem;
+  color: #4fb81b;
+  font-weight: bold;
+  height: 2.4rem;
+}
+.weixin_success .ws_block:nth-child(1) {
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px dashed #DDD;
+}
+.weixin_success .pic {
+  width: 100px;
+}
+.weixin_success .pic img {
+  display: block;
+  width: 90px;
+  height: 90px;
+}
+.weixin_success .info {
+  padding-left: 100px;
+}
+.weixin_success .info .p1 {
+  font-size: 2rem;
+  font-weight: bold;
+}
+.weixin_success .info .p2 {
+  color: #999;
+  font-size: 1rem;
+}
+.weixin_success .info .p3 {
+  color: #4fb81b;
+  font-size: 1rem;
+}
+.weixin_success .hotlinks a {
+  display: block;
+  color: #333;
+}
+.weixin_success .hotlinks a:first-child {
+  margin-bottom: 1rem;
+}
+.weixin_success .hotlinks a:visited {
+  color: #999;
+}
+
 .wrapperAll {
   width: 100%;
+  padding-top: 48px;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
 }
 
 .block {
