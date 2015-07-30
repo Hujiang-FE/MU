@@ -5,7 +5,7 @@
     top: 0;
     bottom: 0;
     visibility: hidden;
-    z-index: 3500;
+    z-index: 999;
     background-color: rgba(0,0,0,.8);
 }
 .mu-dialog{
@@ -13,7 +13,7 @@
     visibility: hidden;
     left: 0;
     top: 0;
-    z-index: 3501;
+    z-index: 1000;
 }
 .mu-visible{
     visibility: visible;
@@ -22,7 +22,7 @@
   width: 280px;
   padding: 20px;
   text-align: center;
-  background-color: rgba(0,0,0,.6);
+  background-color: rgba(0,0,0,.8);
   border-radius: 5px;
   color: #FFF;
 }

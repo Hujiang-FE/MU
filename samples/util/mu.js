@@ -3,12 +3,50 @@
  * Copyright (c) 2015 All rights reserved.
  * @version: 1.0.0
  * @author: roeis
- * @description: 
+ * @description: 网站组 mobile solution
  * --------------------------------------------------------
  */
-(function(){
+(function(global, $, undefined) {
     'use strict';
+    var mu = global.mu = global.mu || {};
+    mu = {
+        version : '0.2.0',
+        $doc : $(document),
+        $win : $(window),
+        hasTouch : 'ontouchstart' in window,
+        UA : window.navigator.userAgent.toLowerCase()
+    };
+})(this, window.Zepto || window.jQuery);
 
+
+// detect.js
+(function(global, undefined){
+    'use strict';
+    var mu = global.mu || {};
+    mu.detect = {
+        isWeixin : function(){
+            return mu.UA.indexOf('micromessenger') > -1 ? true : false;
+        }(),
+        isQQ: function(){
+
+        }(),
+        isAndroid: function(){
+
+        }(),
+        isIOS:function(){
+
+        }()
+
+    };
+})(this);
+
+
+/**
+ * utility
+ */
+(function(global, undefined){
+    'use strict';
+    var mu = global.mu || {};
     var core = {
         /**
          * 获取querystring
@@ -57,6 +95,18 @@
             return div.innerText;
         },
         /**
+         * [getGUID description]
+         * @return {[type]} [description]
+         */
+        getGUID: function() {
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                var r = Math.random() * 16 | 0,
+                    v = c == 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            }).toUpperCase();
+        },
+
+        /**
          * 获取元素的类型
          * @param  {any} o 目标对象
          * @return {string}   'string', 'object', 'number' etc;
@@ -64,11 +114,21 @@
         getType: function(obj) {
             return Object.prototype.toString.call(obj).slice(8, -1).toLowerCase();
         },
-        isNumber: function(){
 
+        isNumber: function(obj){
+            return core.getType(obj) === 'number';
+        },
+        isObject: function(obj){
+            return core.getType(obj) === 'object';
+        },
+        isFunction: function(obj){
+            return core.getType(obj) === 'function';
+        },
+        isArray: function(obj){
+            return core.getType(obj) === 'array';
         },
         /**
-         * 深copy
+         * 深拷贝
          * @param  {array or object} obj 传入对象或数组
          * @return {object}
          */
@@ -86,6 +146,20 @@
             return o;
         },
         /**
+         * [extend description]
+         * @param  {Object} obj 
+         * @return {Object}     
+         */
+        extend: function(obj){
+            for (var index = 1; index < arguments.length; index++) {
+                var sourceObj = arguments[index];
+                for (var item in sourceObj) {
+                    obj[item] = sourceObj[item];
+                }
+            }
+            return obj;
+        },
+        /**
          * 动态加载样式
          * @param  {String} url 样式URL
          * @return 
@@ -101,7 +175,6 @@
             head.appendChild(node);
         }
     };
+    mu.util = core;
 
-    window.util = core;
-
-})();
+})(this);

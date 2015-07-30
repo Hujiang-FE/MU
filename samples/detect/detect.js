@@ -3,7 +3,7 @@
  * author: roeis
  * description: 
  */
-(function(){
+(function(global, undefined){
     'use strict';
 
     //navigator 上输出所有信息，有用
@@ -20,7 +20,24 @@
     // isQQ
     // isWeixin
     // isIphone
+// detect.js
+
+    var mu = global.mu || {};
+    mu.detect = {
+        isWeixin : function(){
+            return mu.UA.indexOf('micromessenger') > -1 ? true : false;
+        }(),
+        isQQ: function(){
+
+        }(),
+        isAndroid: function(){
+
+        }(),
+        isIOS:function(){
+
+        }()
+
+    };
 
 
-
-})();
+})(this);

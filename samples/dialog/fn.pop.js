@@ -16,6 +16,7 @@
 
     var dialog = new window.Dialog('<div class="mu-pop"></div>', {
                 isBgCloseable: false,
+                zIndex: 9999,
                 classSet: 'scaleUpIn'
             });
 

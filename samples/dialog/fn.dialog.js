@@ -25,20 +25,22 @@
 
     var defaults = {
         isBgCloseable: true,                    // 点击背景是否关闭弹窗
-        showClass: 'mu-scaleDownIn',            // 自定义进场动画
-        closeClass: 'mu-scaleDownOut',          // 自定义出场动画
-        classSet: false,                        // 样式组合
-        isCenter: true,                     // custom
-        zIndex: 3501,                           // 大于某一边界值
-        opacity: 0.75,                          // 背景透明度
+        showClass: 'mu-scaleDownIn',            // 自定义弹窗进场动画, css3 animation
+        closeClass: 'mu-scaleDownOut',          // 自定义弹窗出场动画
+        classSet: false,                        // 样式组合, scaleUpIn, scaleDownIn, fadeIn, fadeInUp
+        isCenter: true,
+        zIndex: 1000,                           // 大于这个值
+        opacity: 0.8,                          // 背景透明度
         beforeOpen: function() {},
         afterOpen: function() {},
         beforeClose: function() {},
         afterClose: function() {}
     };
 
+    // issue here
+    // where to put the bg element, what is the best implementation
     var $body = $(document.body),
-        $bg = $(document.createElement('div')).addClass('mu-dialog-bglayer'),
+        bgShowed = 0,
         classSets = {
             'scaleUpIn': ['mu-scaleUpIn','mu-scaleDownOut'],
             'scaleDownIn': ['mu-scaleDownIn','mu-scaleDownOut'],
@@ -46,8 +48,6 @@
             'fadeInUp':  ['mu-fadeInUp','mu-fadeOutDown'],
             // 'skewIn': ['mu-skewin','mu-skewout']     // descrepted cause of compatible
         };
-
-    $body.append($bg);
 
     Dialog.prototype = {
         constructor: Dialog,
@@ -58,22 +58,20 @@
         },
 
         _create: function() {
-            this.$bg = $bg;
+            this.$bg = $(document.createElement('div')).addClass('mu-dialog-bglayer');
             // this.$dialog = $(document.createElement('div'));
             this.$dialog = this.$el;
             this.isOpen = false;
             
+            // get the element, add class, not choose the way that wrap the element
+            // make this element fixed, add styles on what u want
             this.$dialog.addClass('mu-dialog').show();
-            // this.$dialog.append('<div class="mu-dialog-body"></div>');
-
-            // this.$dialogBody = this.$dialog.find('.mu-dialog-body');
-            // this.$dialog.append(this.$el);
 
             this.$dialog.css({
                 'z-index' : this.options.zIndex
             });
-
-            $body.append(this.$dialog);
+            this.$bg.css('background-color', 'rgba(0,0,0,'+ this.options.opacity +')');
+            $body.append(this.$bg).append(this.$dialog);
 
             this._adjust();
 
@@ -102,7 +100,7 @@
                 });
             }
         },
-        
+
         _destroyAdjust: function(){
             this.$dialog.css({
                 'height': 'auto',
@@ -110,8 +108,8 @@
             });
         },
 
+        // event bind
         _bind: function() {
-            // event bind
             if (this.options.isBgCloseable) {
                 this.$bg.on('click', $.proxy(function() {
                     this.close();
@@ -127,26 +125,25 @@
         open: function() {
             if (this.isOpen) return;
             this.isOpen = true;
-
+            // bgShowed ++;
             this.options.beforeOpen.call(this);
 
             this._show(this.$dialog, this.options.showClass, $.proxy(function() {
                 this.options.afterOpen.call(this);
             }, this));
-
             this._show(this.$bg, 'mu-fadeIn');
         },
 
         close: function() {
             if (!this.isOpen) return;
             this.isOpen = false;
+            // bgShowed--;
 
             this.options.beforeClose.call(this);
 
             this._hide(this.$dialog, this.options.closeClass, $.proxy(function() {
                 this.options.afterClose.call(this);
             }, this));
-
             this._hide(this.$bg, 'mu-fadeOut');
         },
 

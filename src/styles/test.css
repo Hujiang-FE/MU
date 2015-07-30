@@ -41,11 +41,11 @@
 .weixin_success .ws_head {
   border-radius: 10px 10px 0 0;
   background-color: #4fb81b;
-  height: 48px;
-  line-height: 48px;
+  height: 40px;
+  line-height: 40px;
   text-align: center;
   color: #FFF;
-  font-size: 2rem;
+  font-size: 1.6rem;
 }
 .weixin_success .ws_body {
   padding: 1rem 1.4rem;
@@ -66,11 +66,12 @@
 }
 .weixin_success .pic img {
   display: block;
-  width: 90px;
-  height: 90px;
+  width: 100px;
+  height: 100px;
+  border: 1px solid #eee;
 }
 .weixin_success .info {
-  padding-left: 100px;
+  padding-left: 110px;
 }
 .weixin_success .info .p1 {
   font-size: 2rem;
@@ -78,11 +79,18 @@
 }
 .weixin_success .info .p2 {
   color: #999;
-  font-size: 1rem;
+  font-size: 1.2rem;
 }
 .weixin_success .info .p3 {
   color: #4fb81b;
-  font-size: 1rem;
+  font-size: 1.2rem;
+  position: absolute;
+  bottom: 0;
+}
+@media screen and (min-width: 340px) {
+  .weixin_success .info .p2, .weixin_success .info .p3 {
+    font-size: 1.4rem;
+  }
 }
 .weixin_success .hotlinks a {
   display: block;
