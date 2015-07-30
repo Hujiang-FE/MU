@@ -69,6 +69,21 @@
     <script src="fn.dialog.js"></script>
     <script src="fn.pop.js"></script>
     <script>
+        var ua = window.navigator.userAgent.toLowerCase();
+
+        alert(ua);
+
+        var detect = {
+            isMQQBroswer: function(){
+                return /mqqbrowser/.test(ua);
+            }(),
+            isAndroid: function(){
+                return /andriod/.test(ua);
+            }(),
+        };
+
+        alert('isMQQBroswer:'+detect.isMQQBroswer+'isAndroid:');
+
         window.dialog1 = new Dialog('.weixin_success', {
             classSet: 'scaleDownIn',
             // showClass: 'mu-fadeInUp',

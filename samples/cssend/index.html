@@ -23,7 +23,7 @@
     <script src="/vendor/jq/jquery-2.1.3.min.js"></script>
     
     <!-- ###CURRENT TARGET -->
-    <script src="cssend.js"></script>
+    <script src="fn.animationend.js"></script>
     <script src="app.js"></script>
     <script>
         // alert(animationEvents.animationEnd);
@@ -35,12 +35,13 @@
         $(document).on('click', '.btn1', function(event){
             // if(isAnimating) return;
             // isAnimating = true;
-            $('.trans').show().oneAnimationEnd('fadeIn', function(){
-                $(this).removeClass('fadeIn');
-                console.log(1);
-                // alert(1)
-                // isAnimating = false;
-            });
+            $('.trans').css('visibility', 'visible').addClass('fadeIn');
+            // $('.trans').show().oneAnimationEnd('fadeIn', function(){
+            //     $(this).removeClass('fadeIn');
+            //     console.log(1);
+            //     // alert(1)
+            //     // isAnimating = false;
+            // });
         });
 
         $('.trans').on(animationEvents.animationEnd, function(event){

@@ -36,7 +36,12 @@
         };
 
     window.animationEvents = animationEvents;
-
+    /**
+     * callback after adding one css animation that ends
+     * @param  {String}   cls      
+     * @param  {Function} callback 
+     * @return {Object}            
+     */
     $.fn.oneAnimationEnd = function (cls, callback){
         $(this[0]).addClass(cls).one(fnNames.animationEnd, function(){
             callback && callback.call(this);

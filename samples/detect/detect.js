@@ -35,7 +35,14 @@
         }(),
         isIOS:function(){
 
-        }()
+        }(),
+
+        isMeizu: function(){
+
+        },
+        ismqqbroswer: function(){
+            
+        }
 
     };
 
