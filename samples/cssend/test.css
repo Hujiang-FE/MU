@@ -17,8 +17,10 @@
 .fadeIn {
     -webkit-animation: fadeIn 3s ease 0s 1 normal forwards;
     animation: fadeIn 3s ease 0s 1 normal forwards;
-    -webkit-animation-play-state: running;
-    animation-play-state: running;
+    /*-webkit-animation: fadeIn 3s ease;
+    animation: fadeIn 3s ease;*/
+    /*-webkit-animation-play-state: running;
+    animation-play-state: running;*/
 }
 
 @-webkit-keyframes fadeIn {
@@ -63,11 +65,11 @@
 }
 
 .trans {
-    /*display: none;*/
+    display: none;
     position: absolute;
     right: 0;
-    visibility: hidden;
-    opacity: 0;
+    /*visibility: hidden;
+    opacity: 0;*/
 }
 
 .show {

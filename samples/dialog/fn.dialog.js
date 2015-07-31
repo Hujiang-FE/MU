@@ -27,7 +27,7 @@
         isBgCloseable: true,                    // 点击背景是否关闭弹窗
         showClass: 'mu-scaleDownIn',            // 自定义弹窗进场动画, css3 animation
         closeClass: 'mu-scaleDownOut',          // 自定义弹窗出场动画
-        classSet: false,                        // 样式组合, scaleUpIn, scaleDownIn, fadeIn, fadeInUp
+        classSet: 'scaleDownIn',                        // 样式组合, scaleUpIn, scaleDownIn, fadeIn, fadeInUp
         isCenter: true,
         zIndex: 1000,                           // 大于这个值
         opacity: 0.8,                          // 背景透明度
@@ -43,7 +43,7 @@
         bgShowed = 0,
         classSets = {
             'scaleUpIn': ['mu-scaleUpIn','mu-scaleDownOut'],
-            'scaleDownIn': ['mu-scaleDownIn','mu-scaleDownOut'],
+            'scaleDownIn': [defaults.showClass, defaults.closeClass],
             'fadeIn':  ['mu-fadeIn','mu-fadeOut'],
             'fadeInUp':  ['mu-fadeInUp','mu-fadeOutDown'],
             // 'skewIn': ['mu-skewin','mu-skewout']     // descrepted cause of compatible
@@ -59,17 +59,17 @@
 
         _create: function() {
             this.$bg = $(document.createElement('div')).addClass('mu-dialog-bglayer');
-            // this.$dialog = $(document.createElement('div'));
             this.$dialog = this.$el;
             this.isOpen = false;
             
             // get the element, add class, not choose the way that wrap the element
             // make this element fixed, add styles on what u want
-            this.$dialog.addClass('mu-dialog').show();
-
-            this.$dialog.css({
-                'z-index' : this.options.zIndex
-            });
+            this.$dialog
+                .addClass('mu-dialog')
+                .show()
+                .css({
+                    'z-index' : this.options.zIndex
+                });
             this.$bg.css('background-color', 'rgba(0,0,0,'+ this.options.opacity +')');
             $body.append(this.$bg).append(this.$dialog);
 
@@ -80,8 +80,6 @@
                 this.options.showClass = classSets[this.options.classSet][0];
                 this.options.closeClass = classSets[this.options.classSet][1];
             }
-
-
         },
 
         // adjust the dialog's postion 

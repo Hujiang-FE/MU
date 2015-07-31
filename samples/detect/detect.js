@@ -1,50 +1,24 @@
 /**
- * name: 
- * author: roeis
- * description: 
+ * --------------------------------------------------------
+ * Copyright (c) 2015 All rights reserved.
+ * @version: 1.0.0
+ * @author: roeis
+ * @description: common detect about useragent
+ * --------------------------------------------------------
  */
 (function(global, undefined){
     'use strict';
-
     //navigator 上输出所有信息，有用
-    //
-    //get a tap事件
-
-    // 输出当前状态
-    // 
-    //
-    //
-    // isIOS
-    // isAndroid
-    // isUC
-    // isQQ
-    // isWeixin
-    // isIphone
-// detect.js
-
-    var mu = global.mu || {};
+    var mu = global.mu = global.mu || {};
+    var ua = window.navigator.userAgent.toLowerCase();
     mu.detect = {
-        isWeixin : function(){
-            return mu.UA.indexOf('micromessenger') > -1 ? true : false;
-        }(),
-        isQQ: function(){
-
-        }(),
-        isAndroid: function(){
-
-        }(),
-        isIOS:function(){
-
-        }(),
-
-        isMeizu: function(){
-
-        },
-        ismqqbroswer: function(){
-            
-        }
-
+        isWeixin : /micromessenger/.test(ua),
+        isAndroid: /android/.test(ua),
+        isIOS:/iphone|ipad|itouch/.test(ua),
+        isMeizu: /m[0-9x]{1,3}/.test(ua),
+        isUC : /ucbrowser/.test(ua),
+        isQQ : /qqbrowser/.test(ua),
+        isWP : /windows phone/.test(ua)
     };
-
 
 })(this);

@@ -5,41 +5,26 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
     <title>demo</title>
-    <link rel="stylesheet" href="styles/m-zt.css">
-    <link rel="stylesheet" href="styles/pop.css">
+    <link rel="stylesheet" href="/src/styles/base.css">
 </head>
 
 
 <body>
     <div class="wrapper">
-
+        <div id="env-info"></div>
     </div>
     <!-- lib -->
-    <script src="scripts/lib/zepto.min.js"></script>
-    <!-- <script src="scripts/lib/jquery-1.9.1.min.js"></script> -->
-    <!-- <script src="scripts/helper/haEvent.js"></script> -->
-    <!-- <script src="scripts/lib/jquery.mousewheel.min.js"></script> -->
-    <!-- <script src="scripts/lib/jquery.easing.min.js"></script> -->
-    <!-- self made widgets -->
-    <!-- <script src="http://m.hujiang.com/js/vendor/mu/mu.min.js"></script>
-    <script src="scripts/helper/mu/mu-dialog.js"></script> -->
-    <!-- <script src="scripts/helper/mu/mu.js"></script>
-    <script src="scripts/helper/mu/mu-util.js"></script>
-    <script src="scripts/helper/mu/mu-touch.js"></script>
-    <script src="scripts/helper/mu/mu-cache.js"></script>
-    
-    <script src="scripts/helper/mu/mu-page-transition.js"></script>
-    <script src="scripts/helper/mu/mu-fn.js"></script>
-    <script src="scripts/helper/mu/mu-slideAd.js"></script>
-    <script src="scripts/helper/biEvent.js"></script>
-     -->
-    <!-- <script src="http://m.hujiang.com/js/vendor/mu/mu.widget.min.js"></script> -->
-    <!-- plugins -->
-    <!-- <script src="scripts/plugin/plugin-subtitle.js"></script>
-    <script src="scripts/plugin/plugin-comment-st.js"></script> -->
-    <!-- current application -->
-    <!-- <script src="scripts/demo1.js"></script> -->
-    <!-- <script src="scripts/dlu.js"></script> -->
+    <script src="/vendor/zepto.min.js"></script>
+    <script src="detect.js"></script>
+    <script>
+        var $env = $('#env-info'),
+            ua = window.navigator.userAgent.toLowerCase();
+            $env.append(ua);
+        for(var key in mu.detect){
+            var html = key + ': '+ mu.detect[key] + '<br/>';
+            $env.append(html);
+        }
+    </script>
 </body>
 
 </html>

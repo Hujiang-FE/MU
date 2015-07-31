@@ -66,24 +66,15 @@
     <script src="/vendor/zepto.min.js"></script>
     <!-- <script src="http://m.hujiang.com/js/vendor/mu/mu.min.js"></script> -->
     <script src="../fn/fn.animationend.js"></script>
+    <script src="../detect/detect.js"></script>
     <script src="fn.dialog.js"></script>
     <script src="fn.pop.js"></script>
     <script>
-        var ua = window.navigator.userAgent.toLowerCase();
-
-        alert(ua);
-
-        var detect = {
-            isMQQBroswer: function(){
-                return /mqqbrowser/.test(ua);
-            }(),
-            isAndroid: function(){
-                return /andriod/.test(ua);
-            }(),
-        };
-
-        alert('isMQQBroswer:'+detect.isMQQBroswer+'isAndroid:');
-
+        var $env = $('header');
+        for(var key in mu.detect){
+            var html = key + ': '+ mu.detect[key] + '<br/>';
+            $env.append(html);
+        }
         window.dialog1 = new Dialog('.weixin_success', {
             classSet: 'scaleDownIn',
             // showClass: 'mu-fadeInUp',
@@ -103,7 +94,7 @@
 
         window.dialog2 = $.fn.dialog.instances['0'];
 
-            
+
         $('.btn').on('click', function() {
             dialog1.open();
         });

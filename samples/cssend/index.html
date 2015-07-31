@@ -35,13 +35,14 @@
         $(document).on('click', '.btn1', function(event){
             // if(isAnimating) return;
             // isAnimating = true;
-            $('.trans').css('visibility', 'visible').addClass('fadeIn');
-            // $('.trans').show().oneAnimationEnd('fadeIn', function(){
-            //     $(this).removeClass('fadeIn');
-            //     console.log(1);
-            //     // alert(1)
-            //     // isAnimating = false;
-            // });
+            // $('.trans').css('visibility', 'visible').addClass('fadeIn');
+
+            $('.trans').show().oneAnimationEnd('fadeIn', function(){
+                $(this).removeClass('fadeIn');
+                // console.log(1);
+                // alert(1)
+                // isAnimating = false;
+            });
         });
 
         $('.trans').on(animationEvents.animationEnd, function(event){
