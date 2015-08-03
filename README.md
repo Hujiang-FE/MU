@@ -1,4 +1,4 @@
-## MU for mobile "穆"
+## MU for mobile
 
 ##### 包含:
 
