@@ -12,13 +12,13 @@
 
 ##### 组件
 
-    - dialog        弹窗                finished [document][link-dialog]
+    - dialog        弹窗                finished
     - slidepage     页面转场
-    - slider        轮播                finished [document][link-slider]
+    - slider        轮播                finished
     - calendar      日历
 
-[link-dialog]: https://github.com/Roeis/MU/tree/master/samples/dialog
-[link-slider]: https://github.com/Roeis/MU/tree/master/samples/slider
+[弹窗](https://github.com/Roeis/MU/tree/master/samples/dialog)
+[轮播](https://github.com/Roeis/MU/tree/master/samples/slider)
 
 ##### how to use
 
