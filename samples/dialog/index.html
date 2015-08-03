@@ -14,21 +14,22 @@
 
 <body>
     <header>
-        asdfadf
+        header
     </header>
     <div class="wrapper wrapperAll">
-        here is a article
-            <a href="http://local.m.hujiang.com/jp/p564339/">sdfasdf</a>
-        <div class="block">1</div>
-        <div class="block">2</div>
+        <div class="block">
+            <div class="btn" id="alert">alert</div>
+            <div class="btn" id="tip">tip</div>
+            <div class="btn" id="confirm">confirm</div>
+        </div>
+        <div class="block">
+            <div class="btn" id="open">open dialog</div>
+        </div>
         <div class="block">3</div>
         <div class="block">4</div>
         <div class="block">5</div>
     </div>
     <div class="btm-opers fix fix-bottom">
-        <div class="btn">
-            open dialog
-        </div>
     </div>
 
 
@@ -65,8 +66,7 @@
     <!-- <script src="/vendor/jq/jquery-2.1.3.min.js"></script> -->
     <script src="/vendor/zepto.min.js"></script>
     <!-- <script src="http://m.hujiang.com/js/vendor/mu/mu.min.js"></script> -->
-    <script src="../fn/fn.animationend.js"></script>
-    <script src="../detect/detect.js"></script>
+    <script src="../util/mu.js"></script>
     <script src="fn.dialog.js"></script>
     <script src="fn.pop.js"></script>
     <script>
@@ -75,7 +75,7 @@
             var html = key + ': '+ mu.detect[key] + '<br/>';
             $env.append(html);
         }
-        window.dialog1 = new Dialog('.weixin_success', {
+        window.dialog1 = new MuDialog('.weixin_success', {
             classSet: 'scaleDownIn',
             // showClass: 'mu-fadeInUp',
             beforeOpen: function(){
@@ -86,17 +86,33 @@
             }
         });
 
-        $('<div class="sdf">sadfa</div>').dialog({
+        $('<div class="sdf">sadfa</div>').muDialog({
             afterOpen: function(){
                 
             }
         });
 
-        window.dialog2 = $.fn.dialog.instances['0'];
+        window.dialog2 = $.fn.muDialog.instances['0'];
 
 
-        $('.btn').on('click', function() {
+        $('#open').on('click', function() {
             dialog1.open();
+        });
+        $('#alert').on('click', function(){
+            mu.util.alert('this is an alert');
+        });
+        $('#tip').on('click', function(){
+            mu.util.tip('this is a tip');
+        });
+        $('#confirm').on('click', function(){
+            // confirm
+            mu.util.confirm('你确定要修改吗?', function(flag){
+                if(flag){
+                    console.log('ok');
+                }else{
+                    console.log('false');
+                }
+            });
         });
 
     </script>

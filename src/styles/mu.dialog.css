@@ -23,20 +23,54 @@
 
 .mu-pop {
   width: 280px;
-  padding: 20px;
   text-align: center;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: #FFF;
   border-radius: 5px;
-  color: #FFF;
+  color: #333;
+  font-size: 1.6rem;
 }
 
-.mu-pop-alert {
+.mu-pop-title {
   padding: 10px;
+  border-bottom: 1px solid #EEE;
+  color: #35BA00;
 }
 
-.mu-btn-ok {
-  padding-top: 10px;
-  border-top: 1px solid #222;
+.mu-pop-content {
+  padding: 25px 10px;
+}
+
+.mu-btns {
+  border-top: 1px solid #EEE;
+}
+
+.mu-btn {
+  padding: 15px 10px;
+  font-size: 1.4rem;
+  cursor: pointer;
+  color: #35BA00;
+}
+.mu-btn:active {
+  border-radius: 0 0 5px 5px;
+  background-color: #EEE;
+}
+
+.mu-2btns .mu-btn {
+  width: 50%;
+  float: left;
+}
+.mu-2btns .mu-btn:first-child {
+  border-right: 1px solid #EEE;
+}
+
+.cf:before,
+.cf:after {
+  content: "";
+  display: table;
+}
+
+.cf:after {
+  clear: both;
 }
 
 @media screen and (min-width: 640px) {

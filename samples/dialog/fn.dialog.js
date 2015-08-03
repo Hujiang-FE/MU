@@ -3,19 +3,17 @@
  * Copyright (c) 2015 All rights reserved.
  * @version: 1.0.0
  * @author: roeis
- * @description: new dialog component with animation css
- * not transition css
+ * @description: new dialog component using animation not transition
  * --------------------------------------------------------
  */
 (function($) {
     'use strict';
-
-    // private methods, _setPosition, _show, _hide 
-    // public methods open, close
-    //
     // extend Dialog to make confirm, dialog, tip, alert
     // with common style, change the default pop system
     // not support scroll element yet
+    //
+    // known issue: can't work in meizu's browser, but work well in meizu's weixin browser
+    // known issue: what is the best implementation to how to put the bg element
 
     function Dialog(el, options) {
         this.$el = $(el);
@@ -37,16 +35,13 @@
         afterClose: function() {}
     };
 
-    // issue here
-    // where to put the bg element, what is the best implementation
     var $body = $(document.body),
-        bgShowed = 0,
+        // bgShowed = 0,
         classSets = {
             'scaleUpIn': ['mu-scaleUpIn','mu-scaleDownOut'],
             'scaleDownIn': [defaults.showClass, defaults.closeClass],
             'fadeIn':  ['mu-fadeIn','mu-fadeOut'],
             'fadeInUp':  ['mu-fadeInUp','mu-fadeOutDown'],
-            // 'skewIn': ['mu-skewin','mu-skewout']     // descrepted cause of compatible
         };
 
     Dialog.prototype = {
@@ -70,7 +65,10 @@
                 .css({
                     'z-index' : this.options.zIndex
                 });
-            this.$bg.css('background-color', 'rgba(0,0,0,'+ this.options.opacity +')');
+            this.$bg.css({
+                'z-index': this.options.zIndex - 1,
+                'background-color': 'rgba(0,0,0,'+ this.options.opacity +')'
+            });
             $body.append(this.$bg).append(this.$dialog);
 
             this._adjust();
@@ -83,7 +81,6 @@
         },
 
         // adjust the dialog's postion 
-        // how configurable
         _adjust: function(){
             this._destroyAdjust();
 
@@ -165,19 +162,19 @@
         }
     };
     
-    window.Dialog = Dialog;
+    window.MuDialog = Dialog;
 
-    $.fn.dialog = function(options){
+    $.fn.muDialog = function(options){
         var args = Array.prototype.slice.call(arguments, 1);
         this.each(function() {
             var $this = $(this),
-                instance = $.fn.dialog.instances[$this.data('dialog')];
+                instance = $.fn.muDialog.instances[$this.data('muDialog')];
 
             if (!instance) {
                 //cache the instance , use $.data in jquery, but in zepto data function is not fully supperted
-                $.fn.dialog.instances[$.fn.dialog.instances.i] = new Dialog(this, options);
-                $this.data('dialog', $.fn.dialog.instances.i);
-                $.fn.dialog.instances.i++;
+                $.fn.muDialog.instances[$.fn.muDialog.instances.i] = new Dialog(this, options);
+                $this.data('muDialog', $.fn.muDialog.instances.i);
+                $.fn.muDialog.instances.i++;
             }else if(typeof options === 'string' && instance[options]){
                 instance[options].apply(instance, args);
             }
@@ -185,7 +182,7 @@
         });
         return this;
     };
-    $.fn.dialog.instances = {
+    $.fn.muDialog.instances = {
         i: 0
     };
 

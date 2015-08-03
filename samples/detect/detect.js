@@ -17,7 +17,7 @@
         isIOS:/iphone|ipad|itouch/.test(ua),
         isMeizu: /m[0-9x]{1,3}/.test(ua),
         isUC : /ucbrowser/.test(ua),
-        isQQ : /qqbrowser/.test(ua),
+        isQQ : /mqqbrowser/.test(ua),
         isWP : /windows phone/.test(ua)
     };
 

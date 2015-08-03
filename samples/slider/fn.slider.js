@@ -130,72 +130,28 @@
         }
     };
 
-    window.Mulider = Slider;
+    window.MuSlider = Slider;
 
-    $.fn.mulider = function(options) {
+    $.fn.muSlider = function(options) {
         var args = Array.prototype.slice.call(arguments, 1);
         this.each(function() {
             var $this = $(this),
-                instance = $.fn.mulider.instances[$this.data('mulider')];
+                instance = $.fn.muSlider.instances[$this.data('muSlider')];
 
             if (!instance) {
                 //cache the instance , use $.data in jquery, but in zepto data function is not fully supperted
-                $.fn.mulider.instances[$.fn.mulider.instances.i] = new Slider(this, options);
-                $this.data('mulider', $.fn.mulider.instances.i);
-                $.fn.mulider.instances.i++;
+                $.fn.muSlider.instances[$.fn.muSlider.instances.i] = new Slider(this, options);
+                $this.data('muSlider', $.fn.muSlider.instances.i);
+                $.fn.muSlider.instances.i++;
             }else if(typeof options === 'string' && instance[options]){
                 instance[options].apply(instance, args);
             }
 
         });
-
         return this;
-
-        // if (methods[method]) {
-        //     return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
-        // } else if (typeof method === 'object' || !method) {
-        //     return methods.init.apply(this, arguments);
-        // } else {
-        //     $.error('Method "' + method + '" does not exist in pluginName plugin!');
-        // }
-
-        // var args = Array.prototype.slice.call(arguments, 1);
-        // if (typeof options === "string") {
-        //     //underscored methods are "private" (similar to jQuery UI's $.widget we allow this to make methods not availble via public api)
-        //     options = options.replace(/^_/, "");
-        //     //Check if underscore filtered method exists
-        //     if (instance[options]) {
-        //         //Call method with args
-        //         instance[options].apply(instance, args);
-        //     }
-        // }
-        // 
-
-        // although it can return an Object that u want, but it break the jquery chain
-        // so mostly a handy way to do this is to save the instance int the $.data object.
-        // when u want to use , u can fetch the instance as a reference, eg: $('element').data('plugin').doSomething();
-        // 
-        // return $.fn.mulider.instances[this.data('mulider')];
-        // return {
-        //     $this: this,
-        //     jump: function(index){
-        //         this.data('mulider').jump(index);
-        //     }
-        // };
-        // 
-        // return this.each(function(){
-        //     var $this = $(this),
-        //         data = $this.data('muslider');
-        //     if (!data) {
-        //         var instance = new Slider(this, options);
-        //         console.log(instance.jump);
-        //         $this.data('muslider', instance);
-        //         console.log($this.data('muslider').jump);
-        //     }
-        // });
     };
 
-    $.fn.mulider.instances = {
+    $.fn.muSlider.instances = {
         i: 0
     };
 
