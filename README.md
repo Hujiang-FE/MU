@@ -3,18 +3,18 @@
 ##### 包含:
 
     - core          核心
-    - utility       常用工具方法集合
-    - detect        平台检测
+    - utility       常用工具方法集合    finished
+    - detect        平台检测            finished
     - ajax & cache  请求相关
     - touch event   基础touch事件
-    - fn            拓展$.fn
+    - fn            拓展$.fn            finished
     - require       简易require
 
 ##### 组件
 
-    - dialog        弹窗
+    - dialog        弹窗                finished
     - slidepage     页面转场
-    - slider        轮播
+    - slider        轮播                finished
     - calendar      日历
 
 

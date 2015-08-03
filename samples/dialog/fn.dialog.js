@@ -24,7 +24,7 @@
     var defaults = {
         isBgCloseable: true,                    // 点击背景是否关闭弹窗
         showClass: 'mu-scaleDownIn',            // 自定义弹窗进场动画, css3 animation
-        closeClass: 'mu-scaleDownOut',          // 自定义弹窗出场动画
+        hideClass: 'mu-scaleDownOut',          // 自定义弹窗出场动画
         classSet: 'scaleDownIn',                        // 样式组合, scaleUpIn, scaleDownIn, fadeIn, fadeInUp
         isCenter: true,
         zIndex: 1000,                           // 大于这个值
@@ -39,7 +39,7 @@
         // bgShowed = 0,
         classSets = {
             'scaleUpIn': ['mu-scaleUpIn','mu-scaleDownOut'],
-            'scaleDownIn': [defaults.showClass, defaults.closeClass],
+            'scaleDownIn': [defaults.showClass, defaults.hideClass],
             'fadeIn':  ['mu-fadeIn','mu-fadeOut'],
             'fadeInUp':  ['mu-fadeInUp','mu-fadeOutDown'],
         };
@@ -76,7 +76,7 @@
             // change the class of dialog animation
             if (this.options.classSet && classSets[this.options.classSet]) {
                 this.options.showClass = classSets[this.options.classSet][0];
-                this.options.closeClass = classSets[this.options.classSet][1];
+                this.options.hideClass = classSets[this.options.classSet][1];
             }
         },
 
@@ -136,7 +136,7 @@
 
             this.options.beforeClose.call(this);
 
-            this._hide(this.$dialog, this.options.closeClass, $.proxy(function() {
+            this._hide(this.$dialog, this.options.hideClass, $.proxy(function() {
                 this.options.afterClose.call(this);
             }, this));
             this._hide(this.$bg, 'mu-fadeOut');
