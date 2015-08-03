@@ -97,17 +97,17 @@
   -webkit-animation: fadeOut .3s ease;
   animation: fadeOut .3s ease;
 }
-@-webkit-keyframes fadeInUp {
+@-webkit-keyframes fadeInDown {
     0% {opacity: 0;-webkit-transform: translateY(30px);}
     100% {opacity: 1;-webkit-transform: translateY(0);}
 }
-@keyframes fadeInUp {
+@keyframes fadeInDown {
     0% {opacity: 0;transform: translateY(30px);}
     100% {opacity: 1;transform: translateY(0);}
 }
-.mu-fadeInUp {
-  -webkit-animation: fadeInUp .3s ease;
-  animation: fadeInUp .3s ease;
+.mu-fadeInDown {
+  -webkit-animation: fadeInDown .3s ease;
+  animation: fadeInDown .3s ease;
 }
 @-webkit-keyframes fadeOutDown {
     0% {opacity: 1;-webkit-transform: translateY(0);}
@@ -120,6 +120,18 @@
 .mu-fadeOutDown {
   -webkit-animation: fadeOutDown .3s ease;
   animation: fadeOutDown .3s ease;
+}
+@-webkit-keyframes fadeInUp {
+    0% {opacity: 0;-webkit-transform: translateY(-30px);}
+    100% {opacity: 1;-webkit-transform: translateY(0);}
+}
+@keyframes fadeInUp {
+    0% {opacity: 0;transform: translateY(-30px);}
+    100% {opacity: 1;transform: translateY(0);}
+}
+.mu-fadeInUp {
+  -webkit-animation: fadeInUp .3s ease;
+  animation: fadeInUp .3s ease;
 }
 @-webkit-keyframes fadeOutUp {
     0% {opacity: 1;-webkit-transform: translateY(0);}
@@ -171,4 +183,29 @@
 .mu-scaleUpIn {
     -webkit-animation: mu-scaleUpIn .3s ease;
     animation: mu-scaleUpIn .3s ease;
+}
+@-webkit-keyframes fadeInRight {
+  0% {opacity: 0;-webkit-transform: translateX(30px);}
+  100% {opacity: 1;-webkit-transform: translateX(0);}
+}
+@keyframes fadeInRight {
+  0% {opacity: 0;transform: translateX(30px);}
+  100% {opacity: 1;transform: translateX(0);}
+}
+.mu-fadeInRight {
+  -webkit-animation: fadeInRight .3s ease;
+  animation: fadeInRight .3s ease;
+}
+
+@-webkit-keyframes fadeOutRight {
+  0% {opacity: 1;-webkit-transform: translateX(0);}
+  100% {opacity: 0;-webkit-transform: translateX(30px);}
+}
+@keyframes fadeOutRight {
+  0% {opacity: 1;transform: translateX(0);}
+  100% {opacity: 0;transform: translateX(30px);}
+}
+.mu-fadeOutRight {
+  -webkit-animation: fadeOutRight .3s ease;
+  animation: fadeOutRight .3s ease;
 }
