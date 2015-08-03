@@ -3,7 +3,7 @@
  * Copyright (c) 2015 All rights reserved.
  * @version: 2.0.0
  * @author: roeis
- * @description: menghu mobile solution, mu.min.2.0.0.js
+ * @description: menghu mobile solution, mu-2.0.0.min.js
  * --------------------------------------------------------
  */
 (function(global, $, undefined) {
@@ -19,6 +19,11 @@
 
 })(this, window.Zepto || window.jQuery);
 
+/**
+ * known issue: lots of css3 animation function didn't work in 
+ * meizu's self browser, so suggest alert a message in meizu to ignore
+ * it is not well cost to fix those issue in meizu
+ */
 (function(global, undefined){
     'use strict';
     var mu = global.mu || {},

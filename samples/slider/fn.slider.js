@@ -17,7 +17,7 @@
         this.init();
     };
     var defaults = {
-        isLoop: true,
+        isLoop: false,
         speed: 500,
         mode: 'horizontal',
         afterSlide: function() {}
