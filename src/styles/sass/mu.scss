@@ -1,3 +1,4 @@
+//dialog
 .mu-dialog-bglayer{
     position: fixed;
     left: 0;
@@ -208,4 +209,78 @@
 .mu-fadeOutRight {
   -webkit-animation: fadeOutRight .3s ease;
   animation: fadeOutRight .3s ease;
+}
+
+//page transition
+.mu-page {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  overflow: hidden;
+  visibility: hidden;
+  left: 0;
+  top: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+
+.mu-page-current {
+  visibility: visible;
+  z-index: 9;
+}
+
+.overscroll {
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+}
+.overhidden{
+  overflow: hidden;
+}
+
+
+.mu-moveToTop {
+  -webkit-animation: moveToTop .4s ease both;
+  animation: moveToTop .4s ease both;
+}
+
+.mu-moveFromTop {
+  -webkit-animation: moveFromTop .4s ease both;
+  animation: moveFromTop .4s ease both;
+}
+
+.mu-moveToBottom {
+  -webkit-animation: moveToBottom .4s ease both;
+  animation: moveToBottom .4s ease both;
+}
+
+.mu-moveFromBottom {
+  -webkit-animation: moveFromBottom .4s ease both;
+  animation: moveFromBottom .4s ease both;
+}
+
+@-webkit-keyframes moveToTop {
+  to {-webkit-transform: translateY(-100%);}
+}
+@keyframes moveToTop {
+  to {-webkit-transform: translateY(-100%);transform: translateY(-100%);}
+}
+@-webkit-keyframes moveFromTop {
+  from {-webkit-transform: translateY(-100%);}
+}
+@keyframes moveFromTop {
+  from {-webkit-transform: translateY(-100%);transform: translateY(-100%);}
+}
+@-webkit-keyframes moveToBottom {
+  to {-webkit-transform: translateY(100%);}
+}
+@keyframes moveToBottom {
+  to {-webkit-transform: translateY(100%);transform: translateY(100%);}
+}
+@-webkit-keyframes moveFromBottom {
+  from {-webkit-transform: translateY(100%);}
+}
+@keyframes moveFromBottom {
+  from {-webkit-transform: translateY(100%);transform: translateY(100%);}
 }

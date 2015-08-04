@@ -576,6 +576,7 @@ a {
     transform: rotate(360deg);
   }
 }
+
 .page-current {
   visibility: visible;
   z-index: 999;

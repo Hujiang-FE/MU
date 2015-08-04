@@ -9,18 +9,40 @@
     <title>example roeis</title>
     <link rel="stylesheet" href="/src/styles/base.css">
     <link rel="stylesheet" href="/src/styles/test.css">
+    <link rel="stylesheet" href="/src/styles/mu.css">
 </head>
 
 <body>
     
     <div class="wrapper">
-        here is a article
+        <div class="page" style="background: #CCC;">
+            1
+        </div>
+        <div class="page">
+            2
+        </div>
+        <div class="page">
+            3
+        </div>
     </div>
-    <script src="/vendor/jq/jquery-2.1.3.min.js"></script>
-    <!-- <script src="/vendor/zepto.min.js"></script> -->
-    <!-- <script src="http://m.hujiang.com/js/vendor/mu/mu.min.js"></script> -->
-    <script src="test.js"></script>
+    <div class="btn fix" id="jump">
+        jump
+    </div>
+    <!-- <script src="/vendor/jq/jquery-2.1.3.min.js"></script> -->
+
+    <script src="/vendor/zepto.min.js"></script>
+    <script src="../util/mu.js"></script>
+    <script src="fn.page.transition.js"></script>
     <script>
+        var page = new MuPage('.page',{
+            isLoop: false
+        });
+        $('#jump').on('click', function(){
+            page._jump(1, 'mu-moveFromBottom', 'mu-moveToTop');
+        });
+
+        //
+        //
     </script>
 </body>
 
