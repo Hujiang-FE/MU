@@ -3,7 +3,7 @@
  * Copyright (c) 2015 All rights reserved.
  * @version: 1.0.0
  * @author: roeis
- * @description: 
+ * @description: page transition use css3 animation
  * --------------------------------------------------------
  */
 (function($, undefined) {
@@ -18,7 +18,7 @@
 
 
     var defaults = {
-        classSet: 'slideInUp',
+        classSet: 'slideUp',
         isLoop: true,
         pageStart: 0,
         beforeSlide: function() {},
@@ -26,8 +26,9 @@
     };
 
     var classSets = {
-        slideInUp: ''
-    }
+        slideUp: ['mu-moveFromBottom', 'mu-moveToTop'],
+        slideDown: ['mu-moveFromTop', 'mu-moveToBottom']
+    };
 
     // prevent global default event
 
@@ -59,10 +60,8 @@
 
             if (this.options.isLoop && this.index < 0) {
                 this.index = this.size - 1;
-                // _core.jumpToPage(index, 2, 1);
-            } else {
-                // _core.jumpToPage(index);
             }
+            // this._jump(this.index, )
         },
         next: function() {
             this.index++;
@@ -73,13 +72,7 @@
 
             if (this.options.isLoop && this.index > this.size - 1) {
                 index = 0;
-                // _core.jumpToPage(index, 2, 1);
-            } else {
-                // _core.jumpToPage(index);
             }
-        },
-        jump: function(idx, inClass, outClass) {
-
         },
         /**
          * [_jump description]
@@ -125,7 +118,7 @@
     $.fn.muPage = function(options){
         this.each(function(){
             var $this = $(this);
-            
+
         });
 
         return this;
