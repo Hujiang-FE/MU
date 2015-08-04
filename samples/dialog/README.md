@@ -2,9 +2,9 @@
 
 ##### dialog | 弹窗
 
-##### 使用:
+### 使用:
 
-需要: mu
+需要: mu [查看](https://github.com/Roeis/MU/tree/master/dist)
 
     // 构造器模式
     var dialog = new window.MuDialog('<div class="dialog">test</div>', {
@@ -48,7 +48,7 @@
     PS: 元素实例化后 postion: fixed
 
 
-##### API:
+### API:
 // 设dialog为一个实例
 
 **method: open**
@@ -86,5 +86,5 @@
 
 
 
-##### known issue:
+### known issue:
 1.在魅族自带浏览器显示效果异常, 在魅族的微信中显示效果正常
