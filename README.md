@@ -2,23 +2,28 @@
 
 ##### 包含:
 
-    - core          核心
-    - utility       常用工具方法集合    finished
-    - detect        平台检测            finished
-    - ajax & cache  请求相关
-    - touch event   基础touch事件
-    - fn            拓展$.fn            finished
-    - require       简易require
+    - core              核心
+    - utility           常用工具方法        finished
+    - detect            平台检测            finished
+    - ajax & cache      请求相关
+    - touch event       基础touch事件
+    - fn                拓展$.fn            finished
+    - require           简易require
 
 ##### 组件
 
-    - dialog        弹窗                finished
-    - slidepage     页面转场
-    - slider        轮播                finished
-    - calendar      日历
+    - dialog            弹窗                finished
+    - pagetransition    页面转场
+    - slider            轮播                finished
+    - calendar          日历
+    - paint             画笔
+    - slidepage         滑动页面
 
-[弹窗](https://github.com/Roeis/MU/tree/master/samples/dialog)
-[轮播](https://github.com/Roeis/MU/tree/master/samples/slider)
+常用工具方法 [文档](https://github.com/Roeis/MU/tree/master/samples/util)
+
+弹窗: [文档](https://github.com/Roeis/MU/tree/master/samples/dialog)
+
+轮播: [文档](https://github.com/Roeis/MU/tree/master/samples/slider)
 
 ##### how to use
 
