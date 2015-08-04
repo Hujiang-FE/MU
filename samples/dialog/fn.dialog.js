@@ -200,12 +200,7 @@
 (function($, undefined){
     'use strict';
 
-    var mu = window.mu || {};
-    window.mu = mu;
-    mu.util = mu.util || {};
-
-    // require Dialog
-    if(!window.MuDialog) return;
+    var mu = window.mu;
 
     var dialog = new window.MuDialog('<div class="mu-pop"></div>', {
         zIndex: 9999,
@@ -263,9 +258,9 @@
             dialog.close();
             var $this = $(this);
             if($this.hasClass('mu-btn-confirm')){
-                callback.call(this, true);
+                callback && callback.call(this, true);
             }else{
-                callback.call(this, false);
+                callback && callback.call(this, false);
             }
         });
     };
