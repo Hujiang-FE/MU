@@ -16,23 +16,20 @@
         this.init();
     }
 
-
+    // TODO : add mode such as 'slideVertical | slideHorizontal'
+    // TODO : add an extra css3 animation plugin
     var defaults = {
-        classSet: 'slideUp',
         isLoop: true,
         pageStart: 0,
+        classPrev: ['mu-moveFromTop', 'mu-moveToBottom'],
+        classNext: ['mu-moveFromBottom', 'mu-moveToTop'],
         beforeSlide: function() {},
         afterSlide: function() {}
     };
 
-    var classSets = {
-        slideUp: ['mu-moveFromBottom', 'mu-moveToTop'],
-        slideDown: ['mu-moveFromTop', 'mu-moveToBottom']
-    };
-
     // prevent global default event
 
-    var curClass = 'mu-page-current';
+    var showCls = 'mu-page-current';
 
     Page.prototype = {
         init: function() {
@@ -49,44 +46,42 @@
             this.$el.each(function() {
                 var $this = $(this);
                 $this.addClass('mu-page');
-            }).eq(this.index).addClass(curClass).siblings().removeClass(curClass);
+            }).eq(this.index).addClass(showCls).siblings().removeClass(showCls);
         },
         prev: function() {
-            this.index--;
-
-            if (!this.options.isLoop && this.index < 0) {
-                return;
+            var idx = this.index;
+            idx--;
+            if (!this.options.isLoop && idx < 0) return;
+            if (this.options.isLoop && idx < 0) {
+                idx = this.size - 1;
             }
-
-            if (this.options.isLoop && this.index < 0) {
-                this.index = this.size - 1;
-            }
-            // this._jump(this.index, )
+            this.jump(idx, this.options.classPrev[0], this.options.classPrev[1]);
         },
         next: function() {
-            this.index++;
-
-            if (!this.options.loop && this.index > this.size - 1) {
-                return;
+            var idx = this.index;
+            idx++;
+            if (!this.options.isLoop && idx > this.size - 1) return;
+            if (this.options.isLoop && idx > this.size - 1) {
+                idx = 0;
             }
-
-            if (this.options.isLoop && this.index > this.size - 1) {
-                index = 0;
-            }
+            this.jump(idx, this.options.classNext[0], this.options.classNext[1]);
         },
         /**
-         * [_jump description]
+         * [jump description]
          * @param  {number} idx      [description]
          * @param  {string} inClass  [description]
          * @param  {string} outClass [description]
          * @return 
          */
-        _jump: function(idx, inClass, outClass) {
-            if (idx === this.index) return;
-            // current page transform out
-            this._animationOut(this.$pageOut, outClass, function() {
-
-            });
+        jump: function(idx, inClass, outClass) {
+            if (idx === this.index || idx > this.size - 1) return;
+            //1.cache a default class for page transition, compare idx and this.index to set prev or next
+            //2.enable custom class for page transition
+            inClass = inClass ? inClass : idx > this.index ? this.options.classNext[0] : this.options.classPrev[0];
+            outClass = outClass ? outClass : idx > this.index ? this.options.classNext[1] : this.options.classPrev[1];
+            
+            
+            this._animationOut(this.$pageOut, outClass, function() {});
             // the target page transform in
             this.$pageIn = this.$el.eq(idx);
             this._animationIn(this.$pageIn, inClass, $.proxy(function() {
@@ -98,29 +93,38 @@
         },
         _animationOut: function($obj, cls, callback) {
             $obj.oneAnimationEnd(cls, function() {
-                $obj.removeClass(cls).removeClass(curClass);
+                $obj.removeClass(cls).removeClass(showCls);
                 callback();
             });
         },
         _animationIn: function($obj, cls, callback) {
-            $obj.addClass(curClass).oneAnimationEnd(cls, function() {
+            $obj.addClass(showCls).oneAnimationEnd(cls, function() {
                 $obj.removeClass(cls);
                 callback();
             });
         },
         destroy: function() {
-            // this.$el.remove();
+            this.$el.removeClass('mu-page').removeClass('mu-page-current');
         },
     };
 
     window.MuPage = Page;
 
     $.fn.muPage = function(options){
+        var args = Array.prototype.slice.call(arguments, 1);
         this.each(function(){
-            var $this = $(this);
+            var $this = $(this),
+                instance = $.fn.muPage.instances[$this.data('muPage')];
 
+            if (!instance) {
+                //cache the instance , use $.data in jquery, but in zepto data function is not fully supperted
+                $.fn.muPage.instances[$.fn.muPage.instances.i] = new Page(this, options);
+                $this.data('muPage', $.fn.muPage.instances.i);
+                $.fn.muPage.instances.i++;
+            }else if(typeof options === 'string' && instance[options]){
+                instance[options].apply(instance, args);
+            }
         });
-
         return this;
     };
     $.fn.muPage.instances = {
