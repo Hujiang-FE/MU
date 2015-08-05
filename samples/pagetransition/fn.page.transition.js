@@ -79,7 +79,7 @@
             //2.enable custom class for page transition
             inClass = inClass ? inClass : idx > this.index ? this.options.classNext[0] : this.options.classPrev[0];
             outClass = outClass ? outClass : idx > this.index ? this.options.classNext[1] : this.options.classPrev[1];
-            
+            this.options.beforeSlide.call(this, this.$pageOut, this.$pageIn);
             
             this._animationOut(this.$pageOut, outClass, function() {});
             // the target page transform in

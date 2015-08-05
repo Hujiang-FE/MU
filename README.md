@@ -13,17 +13,19 @@
 ##### 组件
 
     - dialog            弹窗                finished
-    - pagetransition    页面转场
+    - pagetransition    页面转场            finished
     - slider            轮播                finished
     - calendar          日历
     - paint             画笔
-    - slidepage         滑动页面
+    - slidepage         滑动页面            
 
 常用工具方法 [文档](https://github.com/Roeis/MU/tree/master/samples/util)
 
 弹窗: [文档](https://github.com/Roeis/MU/tree/master/samples/dialog)
 
 轮播: [文档](https://github.com/Roeis/MU/tree/master/samples/slider)
+
+页面转场: [文档](https://github.com/Roeis/MU/tree/master/samples/pagetransition)
 
 ##### how to use
 
@@ -34,29 +36,6 @@
 
 ##### includes
     
-    // $.fn.swipeable
-    // 基础可滑动元素事件集合
-    $('.element').swipeable({
-        start: function(data){
-            // do something at touchstart
-        },
-        move: function(data){
-            // do something at touchmove
-        },
-        end: function(data){
-            // do something at end
-        }
-    });
-
-    // $.fn.mulider
-    // 轮播
-    $('.element').mulider({
-        afterSlide: function(){
-            // callback after each slide
-        }
-    });
-    // get the instance of .element
-    var instance = $.fn.mulider.instances[$('.element').data('mulider')];
 
 ##### about
 
