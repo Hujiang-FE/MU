@@ -9,13 +9,12 @@
 (function(global, $, undefined) {
     'use strict';
     var mu = global.mu = global.mu || {};
-    mu = {
-        version : '0.2.0',
-        $doc : $(document),
-        $win : $(window),
-        hasTouch : 'ontouchstart' in window,
-        UA : window.navigator.userAgent.toLowerCase()
-    };
+     
+    mu.version = '0.2.0';
+    mu.$doc = $(document);
+    mu.$win = $(window);
+    mu.hasTouch = 'ontouchstart' in window;
+    mu.UA = window.navigator.userAgent.toLowerCase();
 
 })(this, window.Zepto || window.jQuery);
 
@@ -31,7 +30,7 @@
     mu.detect = {
         isWeixin : /micromessenger/.test(ua),
         isAndroid: /android/.test(ua),
-        isIOS:/iphone|ipad|itouch/.test(ua),
+        isIOS:/iphone|ipad|ipod/.test(ua),
         isMeizu: /m[0-9x]{1,3}/.test(ua),
         isUC : /ucbrowser/.test(ua),
         isQQ : /mqqbrowser/.test(ua),
