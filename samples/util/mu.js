@@ -44,7 +44,7 @@
 (function(global, undefined){
     'use strict';
     var mu = global.mu || {};
-    var core = {
+    mu.util = {
         /**
          * 获取querystring
          * @param  {String} name
@@ -62,12 +62,14 @@
          */
         preventScroll: function() {
             document.addEventListener('touchmove', core._preventDefault, false);
+            this.isScrollPrevented = true;
         },
         /**
          * 回复全局页面滚动
          */
         recoverScroll: function() {
             document.removeEventListener('touchmove', core._preventDefault, false);
+            this.isScrollPrevented = false;
         },
         _preventDefault: function(e) {
             e.preventDefault();
@@ -172,7 +174,6 @@
             head.appendChild(node);
         }
     };
-    mu.util = core;
 
 })(this);
 

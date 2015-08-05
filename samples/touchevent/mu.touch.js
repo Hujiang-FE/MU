@@ -87,10 +87,10 @@
         delta = {};
     });
 
-    ['swipeLeft', 'swipeRight', 'swipeUp', 'swipeDown', 'tap'].forEach(function(eventName) {
-        $.fn[eventName] = function(callback) {
-            return this.on(eventName, callback);
-        };
-    });
+    // ['swipeLeft', 'swipeRight', 'swipeUp', 'swipeDown', 'tap'].forEach(function(eventName) {
+    //     $.fn[eventName] = function(callback) {
+    //         return this.on(eventName, callback);
+    //     };
+    // });
 
 })(window.Zepto);
