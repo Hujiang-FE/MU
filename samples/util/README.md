@@ -6,9 +6,9 @@
 
 需要: mu [查看](https://github.com/Roeis/MU/tree/master/dist)
 
-##### API
+-------------------------------
 
-##### mu
+#### mu
     
     mu
     |--- mu.$doc        --> $(document) 缓存对象
@@ -18,7 +18,7 @@
     |--- mu.detect      --> object 检测浏览器对象
     |--- mu.util        --> object 常用方法集锦对象
 
-##### mu.detect 检测浏览器
+#### mu.detect 检测浏览器
 常用判断手机端环境，返回布尔值
 
     mu.detect.isWeixin
@@ -30,7 +30,7 @@
     mu.detect.isWP
     
 
-##### mu.util 常用方法集锦
+#### mu.util 常用方法集锦
 
 **获取querystring**
 **mu.util.getQueryString(name)**
@@ -81,8 +81,9 @@
     
     mu.util.requireCss('/styles/aa.css');
 
+-------------------------------
 
-##### util拓展
+#### util拓展
 在引入mu.dialog.js后，在mu.util上拓展一些弹窗组件
 
 **mu.util.tip(string, [duratime])**
@@ -103,8 +104,9 @@
     
     mu.util.alert('这是一个警示框');
 
+-------------------------------
 
-##### $.fn 拓展
+#### $.fn 拓展
     
 ###### $.fn.swipeable
 元素滑动集合事件

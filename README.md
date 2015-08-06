@@ -4,7 +4,16 @@
 
 一套适用于触屏端的常用方法和UI插件, 有效提升交互效果和开发效率
 
-全局变量: **mu**
+#### 使用mu
+    
+    // 全局变量 --> mu <--
+    // dist文件夹
+    mu.js               utility|detect|fn
+    mu.dialog.js        弹窗
+    mu.slider.js        轮播
+    mu.page.js          页面转场
+    mu.touch.js         手势事件优化
+    mu.css              插件所需样式,可以通过mu.util.requireCss('this css')动态插入
 
 ##### 包含:
 
@@ -14,8 +23,6 @@
     - touch event       基础touch事件           OK
     - fn                拓展$.fn                OK
     - require           简易require
-
-##### 组件
 
     - dialog            弹窗                    OK
     - pagetransition    页面转场                OK
@@ -31,6 +38,8 @@
 [文档](https://github.com/Roeis/MU/tree/master/samples/slider) 轮播
 
 [文档](https://github.com/Roeis/MU/tree/master/samples/pagetransition) 页面转场
+
+[文档](https://github.com/Roeis/MU/tree/master/samples/touchevent) 事件优化
 
 ##### 常见问题集锦
 
