@@ -25,7 +25,7 @@
         isBgCloseable: true,                    // 点击背景是否关闭弹窗
         showClass: 'mu-scaleDownIn',            // 自定义弹窗进场动画, css3 animation
         hideClass: 'mu-scaleDownOut',          // 自定义弹窗出场动画
-        classSet: 'scaleDownIn',                        // 样式组合, scaleUpIn, scaleDownIn, fadeIn, fadeInUp
+        preset: 'scaleDownIn',                        // 样式组合, scaleUpIn, scaleDownIn, fadeIn, fadeInUp
         isCenter: true,
         zIndex: 1000,                           // 大于这个值
         opacity: 0.8,                          // 背景透明度
@@ -76,9 +76,9 @@
             this._adjust();
 
             // change the class of dialog animation
-            if (this.options.classSet && classSets[this.options.classSet]) {
-                this.options.showClass = classSets[this.options.classSet][0];
-                this.options.hideClass = classSets[this.options.classSet][1];
+            if (this.options.preset && classSets[this.options.preset]) {
+                this.options.showClass = classSets[this.options.preset][0];
+                this.options.hideClass = classSets[this.options.preset][1];
             }
         },
 
@@ -206,7 +206,7 @@
         zIndex: 9999,
         isBgCloseable: false,
         opacity: 0.7,
-        classSet: 'scaleUpIn'
+        preset: 'scaleUpIn'
     });
     /**
      * tip
