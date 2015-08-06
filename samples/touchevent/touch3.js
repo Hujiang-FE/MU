@@ -12,6 +12,8 @@
     window.CustomEvent = CustomEvent;
 })();
 
+// issue: 触发两遍回调
+
 /**
  * 基于zepto的touch事件，事件只会绑定在特定的元素上，不会绑定到document上
  */

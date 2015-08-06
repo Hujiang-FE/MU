@@ -77,6 +77,29 @@
         }
     };
 
+    //     var x = Math.abs(this.te.x);
+    //     var y = Math.abs(this.te.y);
+    //     var t = this.te.d;
+    //     var s = this.status;
+    //     if (x < 5 && y < 5) {
+    //         if (t < 300) s = "tap";
+    //         else s = "longTap";
+    //     } else if (x < options.x && y > options.y) {
+    //         if (t < 250) {
+    //             if (this.te.y > 0) s = "swipeDown";
+    //             else s = "swipeUp";
+    //         } else s = "swipe";
+    //     } else if (y < options.y && x > options.x) {
+    //         if (t < 250) {
+    //             if (this.te.x > 0) s = "swipeRight";
+    //             else s = "swipeLeft";
+    //         } else s = "swipe";
+    //     }
+    //     if (s == this.e) {
+    //         this.target.trigger(this.e);
+    //         return;
+    //     }
+
     $(document).on('touchstart', function(event) {
         events.start(event);
     }).on('touchmove', function(event) {
