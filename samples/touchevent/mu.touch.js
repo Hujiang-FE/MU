@@ -13,33 +13,56 @@
     var $elem,
         start = {},
         delta = {},
+        tapTimeout = null,
+        longTapTimeout = null,
         isScrolling;
+
+    var $log = $('#log');
+
+    function log(string) {
+        $log.append('<p>log: ' + string + '</p>');
+    }
+
+    function cancelLongTap() {
+        if (longTapTimeout) clearTimeout(longTapTimeout);
+        longTapTimeout = null;
+    }
 
     var events = {
         start: function(event) {
-            var touch = event.touches[0];
+
+            var touches = event.touches || event.originalEvent.touches,
+                touch = touches[0];
 
             start = {
                 x: touch.clientX,
                 y: touch.clientY,
                 time: Date.now()
             };
-
             $elem = $(this._parentIfText(touch.target));
 
             //used for testing the first touch event
             isScrolling = undefined;
 
             //reset delta
-            delta = {};
+            delta = {
+                x : 0,
+                y : 0
+            };
+
+            longTapTimeout = setTimeout(function(){
+                longTapTimeout = null;
+                $elem.trigger('longTap');
+                log('longTap');
+            }, 700);
         },
 
         move: function(event) {
-            if (event.touches.length > 1 || event.scale && event.scale !== 1) {
-                return;
-            }
+            var touches = event.touches || event.originalEvent.touches,
+                touch = touches[0];
+            if (touches.length > 1 || event.scale && event.scale !== 1) return;
 
-            var touch = event.touches[0];
+            cancelLongTap();
 
             delta = {
                 x: touch.clientX - start.x,
@@ -59,17 +82,44 @@
         },
 
         end: function(event) {
+
             var duration = Date.now() - start.time,
                 isHorizontal = duration < 250 && Math.abs(delta.x) > 20 || Math.abs(delta.x) > 80,
                 isVertical = duration < 250 && Math.abs(delta.y) > 20 || Math.abs(delta.y) > 80,
                 isSwipeLeft = delta.x < 0,
                 isSwipeUp = delta.y < 0;
+            
+            console.log('#time : ', duration);
+            console.log('#delta : ', delta);
+            cancelLongTap();
+
 
             if (!isScrolling && isHorizontal) {
                 $elem.trigger(isSwipeLeft ? 'swipeLeft' : 'swipeRight');
+                log(isSwipeLeft ? 'swipeLeft' : 'swipeRight');
             }else if(isScrolling && isVertical){
                 $elem.trigger(isSwipeUp ? 'swipeUp' : 'swipeDown');
+                log(isSwipeUp ? 'swipeUp' : 'swipeDown');
             }
+            console.log($elem);
+            console.log($(event.target).context);
+
+            tapTimeout = setTimeout(function(){
+                tapTimeout = null;
+                if(Math.abs(delta.x) < 5 && Math.abs(delta.y) < 5 && duration < 300) {
+                    var evt = $.Event('tap');
+
+                    // evt.cancelTouch = function(){
+                    //     if (tapTimeout) clearTimeout(tapTimeout);
+                    //     if (longTapTimeout) clearTimeout(longTapTimeout);
+                    // };
+                    
+                    $elem.trigger(evt);
+                    
+                    log('tap');
+                }
+            }, 0);
+            // event.cancelBubble=true;
         },
 
         _parentIfText: function(node) {
@@ -77,43 +127,20 @@
         }
     };
 
-    //     var x = Math.abs(this.te.x);
-    //     var y = Math.abs(this.te.y);
-    //     var t = this.te.d;
-    //     var s = this.status;
-    //     if (x < 5 && y < 5) {
-    //         if (t < 300) s = "tap";
-    //         else s = "longTap";
-    //     } else if (x < options.x && y > options.y) {
-    //         if (t < 250) {
-    //             if (this.te.y > 0) s = "swipeDown";
-    //             else s = "swipeUp";
-    //         } else s = "swipe";
-    //     } else if (y < options.y && x > options.x) {
-    //         if (t < 250) {
-    //             if (this.te.x > 0) s = "swipeRight";
-    //             else s = "swipeLeft";
-    //         } else s = "swipe";
-    //     }
-    //     if (s == this.e) {
-    //         this.target.trigger(this.e);
-    //         return;
-    //     }
-
     $(document).on('touchstart', function(event) {
         events.start(event);
     }).on('touchmove', function(event) {
         events.move(event);
     }).on('touchend', function(event) {
         events.end(event);
-    }).on('touchcanel', function(event) {
+    }).on('touchcanel', function() {
         delta = {};
     });
 
-    // ['swipeLeft', 'swipeRight', 'swipeUp', 'swipeDown', 'tap'].forEach(function(eventName) {
-    //     $.fn[eventName] = function(callback) {
-    //         return this.on(eventName, callback);
-    //     };
-    // });
+    ['swipeLeft', 'swipeRight', 'swipeUp', 'swipeDown', 'tap', 'longTap'].forEach(function(eventName) {
+        $.fn[eventName] = function(callback) {
+            return this.on(eventName, callback);
+        };
+    });
 
-})(window.Zepto);
+})(window.Zepto || window.jQuery);

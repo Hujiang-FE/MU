@@ -10,12 +10,31 @@
         console.log('change on %o with data %s, %s', e.target, from, to)
     });
 
-    $(document).on('swipeLeft', function() {
-        log('swipeLeft, document');
+    $('.wrapper').on('swipeLeft', function(event) {
+        log('swipeLeft, wrapper');
+        event.stopPropagation();
     });
 
-    $('.wrapper').on('swipeLeft', function() {
-        log('swipeLeft, wrapper');
+    $('.bubble1').on('swipeLeft', function(event) {
+        log('swipeLeft, bubble1');
+        event.stopPropagation();
+    });
+    $('.bubble2').on('swipeLeft', function(event) {
+        log('swipeLeft, bubble2');
+        event.stopPropagation();
+    });
+
+
+    $('.wrapper').on('tap', function(){
+        log('tap wrapper');
+    });
+    $('.bubble1').on('tap', function(event){
+        log('tap bubble1');
+        event.stopPropagation();
+    });
+    $('.bubble2').on('tap', function(event){
+        log('tap bubble2');
+        event.stopPropagation();
     });
     // trigger the custom event
     $(document.body).trigger('mylib:change', ['one', 'two']);

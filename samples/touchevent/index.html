@@ -9,15 +9,37 @@
     <title>bubble nav</title>
     <link rel="stylesheet" href="/src/styles/base.css">
     <style>
-        #log p:nth-child(odd){background-color: #EEE;}
+        #log{
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            height: 150px;
+            overflow: scroll;
+        }
+        #log p{padding: 4px 10px;}
+        .wrapper{
+            background: #777;
+            padding: : 20px;
+            height: 400px;
+        }
+        .bubble1{
+            background: #AAA;
+            padding: : 20px;
+            height: 200px;
+        }
+        .bubble2{
+            background: #DDD;
+            padding: : 20px;
+            height: 100px;
+        }
     </style>
 </head>
 
 <body>
     
     <div class="wrapper">
+        here is log
         <div id="log"></div>
-        here is a article
         <div class="bubble1">
             <div class="bubble2">
                 
@@ -25,8 +47,8 @@
         </div>
         <div class="btn">btn</div>
     </div>
-    <!-- <script src="/vendor/jq/jquery-2.1.3.min.js"></script> -->
-    <script src="/vendor/zepto.min.js"></script>
+    <script src="/vendor/jq/jquery-2.1.3.min.js"></script>
+    <!-- <script src="/vendor/zepto.min.js"></script> -->
     <!-- <script src="touch.js"></script> -->
     <script src="mu.touch.js"></script>
     <script src="test.js"></script>
