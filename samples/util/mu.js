@@ -44,7 +44,7 @@
 (function(global, undefined){
     'use strict';
     var mu = global.mu || {};
-    mu.util = {
+    var core = {
         /**
          * 获取querystring
          * @param  {String} name
@@ -126,6 +126,9 @@
         isArray: function(obj){
             return core.getType(obj) === 'array';
         },
+        isString: function(obj){
+            return core.getType(obj) === 'string';
+        },
         /**
          * 深拷贝
          * @param  {array or object} obj 传入对象或数组
@@ -174,7 +177,7 @@
             head.appendChild(node);
         }
     };
-
+    mu.util = core;
 })(this);
 
 /**
