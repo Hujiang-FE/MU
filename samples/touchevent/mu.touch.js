@@ -34,8 +34,8 @@
     var events = {
         start: function(event) {
 
-            var touches = event.touches || event.originalEvent.touches,
-                touch = touches ? touches[0] : event;
+            var touches = event || event.originalEvent,
+                touch = touches.touches ? touches.touches[0] : event;
 
             start = {
                 x: touch.clientX,
@@ -61,8 +61,8 @@
         },
 
         move: function(event) {
-            var touches = event.touches || event.originalEvent.touches,
-                touch = touches ? touches[0] : event;
+            var touches = event || event.originalEvent,
+                touch = touches.touches ? touches.touches[0] : event;
             if (touches && touches.length > 1 || event.scale && event.scale !== 1) return;
 
             cancelLongTap();
