@@ -1,11 +1,14 @@
 /**
  * -------------------------------------------------------------
  * Copyright (c) 2014 All rights reserved.
- * @version: 1.0.2
+ * @version: 1.1.0
  * @author: roeis
  * @description: rewrite touch event, fix some issue in offical js
- *               it can scroll vertically when trigger the touchstart of swipe,
- *               !!when u use swipeUp and swipeDown, set document that it prevent the default touchmove event;
+ *               it can scroll vertically when trigger the touchstart of swipe
+ *               compatiable with pc mouse event
+ *               IMPORTANT: 
+ *               when u use swipeUp and swipeDown
+ *               prevent global touchmove event
  * -------------------------------------------------------------
  */
 (function($) {
@@ -20,7 +23,7 @@
     var $log = $('#log');
 
     function log(string) {
-        $log.append('<p>log: ' + string + '</p>');
+        $log.prepend('<p>log: ' + string + '</p>');
     }
 
     function cancelLongTap() {
@@ -32,7 +35,7 @@
         start: function(event) {
 
             var touches = event.touches || event.originalEvent.touches,
-                touch = touches[0];
+                touch = touches ? touches[0] : event;
 
             start = {
                 x: touch.clientX,
@@ -53,14 +56,14 @@
             longTapTimeout = setTimeout(function(){
                 longTapTimeout = null;
                 $elem.trigger('longTap');
-                log('longTap');
+                log('global:longTap');
             }, 700);
         },
 
         move: function(event) {
             var touches = event.touches || event.originalEvent.touches,
-                touch = touches[0];
-            if (touches.length > 1 || event.scale && event.scale !== 1) return;
+                touch = touches ? touches[0] : event;
+            if (touches && touches.length > 1 || event.scale && event.scale !== 1) return;
 
             cancelLongTap();
 
@@ -96,13 +99,11 @@
 
             if (!isScrolling && isHorizontal) {
                 $elem.trigger(isSwipeLeft ? 'swipeLeft' : 'swipeRight');
-                log(isSwipeLeft ? 'swipeLeft' : 'swipeRight');
+                log(isSwipeLeft ? 'global:swipeLeft' : 'global:swipeRight');
             }else if(isScrolling && isVertical){
                 $elem.trigger(isSwipeUp ? 'swipeUp' : 'swipeDown');
-                log(isSwipeUp ? 'swipeUp' : 'swipeDown');
+                log(isSwipeUp ? 'global:swipeUp' : 'global:swipeDown');
             }
-            console.log($elem);
-            console.log($(event.target).context);
 
             tapTimeout = setTimeout(function(){
                 tapTimeout = null;
@@ -116,7 +117,7 @@
                     
                     $elem.trigger(evt);
                     
-                    log('tap');
+                    log('global:tap');
                 }
             }, 0);
             // event.cancelBubble=true;
@@ -127,13 +128,13 @@
         }
     };
 
-    $(document).on('touchstart', function(event) {
+    $(document).on('touchstart mousedown', function(event) {
         events.start(event);
-    }).on('touchmove', function(event) {
+    }).on('touchmove mousemove', function(event) {
         events.move(event);
-    }).on('touchend', function(event) {
+    }).on('touchend mouseup', function(event) {
         events.end(event);
-    }).on('touchcanel', function() {
+    }).on('touchcanel mouseup', function() {
         delta = {};
     });
 
