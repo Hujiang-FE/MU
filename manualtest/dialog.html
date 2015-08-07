@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+    <meta name="Keywords" content="">
+    <meta name="Description" content="">
+    <title>example roeis</title>
+    <link rel="stylesheet" href="/src/styles/base.css">
+    <link rel="stylesheet" href="/src/styles/manual.css">
+    <link rel="stylesheet" href="/src/styles/mu.css">
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="title cf">
+            <h3>MU for mobile</h3>
+        </div>
+        <div class="content">
+            <p>弹窗 | 居中</p>
+            <div class="btn" id="open1">open dialog</div>
+            <br>
+            <p>弹窗 | 自定义</p>
+            <div class="btn" id="open2">open dialog</div>
+            <br>
+            <br>
+            <h3>mu.util 拓展</h3>
+            <p>警告框</p>
+            <div class="btn" id="alert">alert</div>
+            <p>提示框</p>
+            <div class="btn" id="tip">tip</div>
+            <p>确认框</p>
+            <div class="btn" id="confirm">confirm</div>
+        </div>
+    </div>
+    <div class="pop pop1">
+        this is custom pop dialog 1
+    </div>
+
+    <div class="pop pop2">
+        this is custom pop dialog 2
+    </div>
+    
+    <!-- <script src="/vendor/jq/jquery-2.1.3.min.js"></script> -->
+    <script src="/vendor/zepto.min.js"></script>
+    <script src="/dist/mu.js"></script>
+    <script src="/dist/mu.dialog.js"></script>
+    <script>
+        var dialog1 = new MuDialog('.pop1', {
+            beforeOpen: function(){
+                console.log('打开前回调');
+            },
+            afterOpen: function(){
+                console.log('打开后回调');
+            }
+        });
+
+        var dialog2 = new MuDialog('.pop2', {
+            isCenter: false,
+            opacity: 0.5
+        });
+
+        $('#open1').on('click', function() {
+            dialog1.open();
+        });
+        $('#open2').on('click', function() {
+            dialog2.open();
+        });
+        $('#alert').on('click', function(){
+            mu.util.alert('this is an alert');
+        });
+        $('#tip').on('click', function(){
+            mu.util.tip('this is a tip');
+        });
+        $('#confirm').on('click', function(){
+            // confirm
+            mu.util.confirm('你确定要修改吗?', function(flag){
+                if(flag){
+                    console.log('ok');
+                }else{
+                    console.log('false');
+                }
+            });
+        });
+
+    </script>
+</body>
+
+</html>

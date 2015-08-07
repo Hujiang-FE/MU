@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+    <meta name="Keywords" content="">
+    <meta name="Description" content="">
+    <title>bubble nav</title>
+    <link rel="stylesheet" href="/src/styles/base.css">
+    <link rel="stylesheet" href="/src/styles/manual.css">
+    <link rel="stylesheet" href="/dist/mu.css">
+</head>
+
+<body>
+    
+    <div class="wrapper">
+        <div class="title">
+            <h3>轮播</h3>
+        </div>
+        <div class="slider">
+            <div class="li">slider1</div>
+            <div class="li">slider2</div>
+            <div class="li">slider3</div>
+            <div class="li">slider4</div>
+            <div class="li">slider5</div>
+        </div>
+        <br>
+    </div>
+    <div class="fix slider_fix">
+        <div class="slider" id="slider2">
+            <div class="li">slider1</div>
+            <div class="li">
+                <img src="http://i2.w.hjfile.cn/news/201507/201507063485218823.jpg" alt="">
+            </div>
+            <div class="li">slider3</div>
+            <div class="li">slider4</div>
+        </div>
+    </div>
+    <!-- <script src="/vendor/jq/jquery-2.1.3.min.js"></script> -->
+    <script src="/vendor/zepto.min.js"></script>
+    <script src="/dist/mu.js"></script>
+    <script src="/dist/mu.slider.js"></script>
+    <script>
+        // var slider = new muSlider('#slider2');
+        $('.slider').muSlider();
+    </script>
+</body>
+
+</html>

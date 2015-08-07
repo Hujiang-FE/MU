@@ -128,13 +128,19 @@
         }
     };
 
-    $(document).on('touchstart mousedown', function(event) {
+    var eventFlag   = mu.detect.isMobile,
+        startEvent  = eventFlag ? 'touchstart' : 'mousedown',
+        moveEvent   = eventFlag ? 'touchmove' : 'mousemove',
+        endEvent    = eventFlag ? 'touchend' : 'mouseup',
+        cancelEvent = eventFlag ? 'touchcancel' : 'mouseup';
+
+    $(document).on(startEvent, function(event) {
         events.start(event);
-    }).on('touchmove mousemove', function(event) {
+    }).on(moveEvent, function(event) {
         events.move(event);
-    }).on('touchend mouseup', function(event) {
+    }).on(endEvent, function(event) {
         events.end(event);
-    }).on('touchcanel mouseup', function() {
+    }).on(cancelEvent, function() {
         delta = {};
     });
 

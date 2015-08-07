@@ -8,6 +8,8 @@
     <meta name="Description" content="">
     <title>bubble nav</title>
     <link rel="stylesheet" href="/src/styles/base.css">
+    <link rel="stylesheet" href="/src/styles/manual.css">
+    <link rel="stylesheet" href="/dist/mu.css">
     <style>
         #log{
             position: fixed;
@@ -48,10 +50,26 @@
     </div>
     <!-- <script src="/vendor/jq/jquery-2.1.3.min.js"></script> -->
     <script src="/vendor/zepto.min.js"></script>
-    <!-- <script src="touch.js"></script> -->
-    <script src="/dist/mu.js"></script>
-    <script src="mu.touch.js"></script>
-    <script src="test.js"></script>
+    <script src="/dist/mu.touch.js"></script>
+    <script>
+        var $log = $('#log');
+
+        function log(string) {
+            $log.prepend('<p>log: ' + string + ' at ' + Date.now() + '</p>');
+        }
+
+        $('.wrapper').on('tap', function(){
+            log('tap wrapper');
+        });
+        $('.bubble1').on('tap', function(event){
+            log('tap bubble1');
+            event.stopPropagation();
+        });
+        $('.bubble2').on('tap', function(event){
+            log('tap bubble2');
+            event.stopPropagation();
+        });
+    </script>
 </body>
 
 </html>
