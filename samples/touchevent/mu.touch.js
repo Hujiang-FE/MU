@@ -128,11 +128,11 @@
         }
     };
 
-    var eventFlag   = mu.detect.isMobile,
-        startEvent  = eventFlag ? 'touchstart' : 'mousedown',
-        moveEvent   = eventFlag ? 'touchmove' : 'mousemove',
-        endEvent    = eventFlag ? 'touchend' : 'mouseup',
-        cancelEvent = eventFlag ? 'touchcancel' : 'mouseup';
+    var isMobile   = window.mu ? window.mu.detect.isMobile : true,
+        startEvent  = isMobile ? 'touchstart' : 'mousedown',
+        moveEvent   = isMobile ? 'touchmove' : 'mousemove',
+        endEvent    = isMobile ? 'touchend' : 'mouseup',
+        cancelEvent = isMobile ? 'touchcancel' : 'mouseup';
 
     $(document).on(startEvent, function(event) {
         events.start(event);
