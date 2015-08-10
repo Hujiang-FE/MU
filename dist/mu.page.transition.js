@@ -74,7 +74,8 @@
          * @return 
          */
         jump: function(idx, inClass, outClass) {
-            if (idx === this.index || idx > this.size - 1) return;
+            if (idx === this.index || idx > this.size - 1 || this.isAnimating) return;
+            this.isAnimating = true;
             //1.cache a default class for page transition, compare idx and this.index to set prev or next
             //2.enable custom class for page transition
             inClass = inClass ? inClass : idx > this.index ? this.options.classNext[0] : this.options.classPrev[0];
@@ -86,7 +87,7 @@
             this.$pageIn = this.$el.eq(idx);
             this._animationIn(this.$pageIn, inClass, $.proxy(function() {
                 this.options.afterSlide.call(this, this.$pageOut, this.$pageIn);
-
+                this.isAnimating = false;
                 this.index = idx;
                 this.$pageOut = this.$pageIn;
             }, this));
