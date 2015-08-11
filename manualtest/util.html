@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+    <meta name="Keywords" content="">
+    <meta name="Description" content="">
+    <title>mu</title>
+    <link rel="stylesheet" href="/src/styles/base.css">
+    <link rel="stylesheet" href="/src/styles/manual.css">
+    <link rel="stylesheet" href="/dist/mu.css">
+</head>
+
+<body>
+    
+    <div class="wrapper">
+        <div class="title cf">
+            <h3>MU for mobile</h3>
+        </div>
+        <div class="content">
+            <strong>animation end callback name</strong>
+            <br>
+            <div id="animationEnd" style="font-size: 1.4rem;"></div>
+            <br>
+            <strong>mu</strong>
+            <br>
+            <div id="mud" style="font-size: 1.4rem;"></div>
+        </div>
+    </div>
+    <!-- <script src="/vendor/jq/jquery-2.1.3.min.js"></script> -->
+    <script src="/vendor/zepto.min.js"></script>
+    <script src="/vendor/underscore-min.js"></script>
+    <script src="/dist/mu.js"></script>
+    <script>
+        (function(){
+            var html = '';
+            for(var key in window.animationEvents){
+                html += '<p>'+ key +':<br/><strong>'+ window.animationEvents[key] +'</strong></p>';
+            }
+            $('#animationEnd').html(html);
+
+            html = '';
+            for(var key in window.mu.util){
+                html += '<p>'+ key +'</p>';
+            }
+            var old = mu.util.getGUID(),
+                arrs = [];
+            for(var i = 0; i<100000; i++){
+                arrs.push(old);
+            }
+
+            $('#mud').html(html);
+        }());
+    </script>
+</body>
+
+</html>

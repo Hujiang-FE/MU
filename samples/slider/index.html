@@ -6,7 +6,7 @@
     <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
     <meta name="Keywords" content="">
     <meta name="Description" content="">
-    <title>bubble nav</title>
+    <title>slider</title>
     <link rel="stylesheet" href="/src/styles/base.css">
     <link rel="stylesheet" href="/src/styles/test.css">
 </head>
@@ -41,7 +41,9 @@
     <script src="mu.slider.js"></script>
     <script>
         // var slider = new muSlider('#slider2');
-        $('.slider').muSlider();
+        $('.slider').muSlider({
+            isLoop: true
+        });
     </script>
 </body>
 
