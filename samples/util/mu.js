@@ -26,16 +26,21 @@
 (function(global, undefined){
     'use strict';
     var mu = global.mu || {},
-        ua = mu.UA;
-    mu.detect = {
-        isWeixin : /micromessenger/.test(ua),
-        isAndroid: /android/.test(ua),
-        isIOS:/iphone|ipad|ipod/.test(ua),
-        isMeizu: /m[0-9x]{1,3}/.test(ua),
-        isUC : /ucbrowser/.test(ua),
-        isQQ : /mqqbrowser/.test(ua),
-        isWP : /windows phone/.test(ua)
-    };
+        ua = mu.UA,
+        core = {
+            isWeixin : /micromessenger/.test(ua),
+            isAndroid: /android/.test(ua),
+            isIOS:/iphone|ipad|ipod/.test(ua),
+            isMeizu: /m[0-9x]{1,3}/.test(ua),
+            isUC : /ucbrowser/.test(ua),
+            isQQ : /mqqbrowser/.test(ua),
+            isWP : /windows phone|iemobile/.test(ua),
+            isBlackBerry : /blackberry/i.test(ua)
+        };
+    mu.detect = core;
+
+    mu.detect.isMobile = core.isAndroid || core.isBlackBerry || core.isWindowPhone || core.isIOS;
+    mu.detect.isPC = !core.isWeixin && !core.isMobile;
 })(this);
 
 /**

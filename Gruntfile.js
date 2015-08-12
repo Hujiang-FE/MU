@@ -66,7 +66,7 @@ module.exports = function (grunt) {
                 tasks: ['compass:dist']
             },
             livereload:{
-                files:[cfg.des + '**',  'samples/**']
+                files:[cfg.des + '**',  'samples/**', 'manualtest/**']
             }
         },
         connect:{

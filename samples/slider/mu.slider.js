@@ -63,22 +63,31 @@
         loop: function(){
             var self = this;
             if(self.index >= self.max - 1 ){
-                clearTimeout(self.looptime);
-                return;
+                // self.stopLoop();
+                self.index = -1;
+                // return;
             }
             
             self.looptime = setTimeout(function(){
+                // Plus index before transform, attention when loop
                 self.index ++;
                 self.jump(self.index);
                 self.loop();
             }, 3000);
             
         },
+        stopLoop: function(){
+            clearTimeout(this.looptime);
+        },
         _bind: function() {
             var startPoint = 0,
                 self = this;
             self.$el.swipeable({
                 start: function(data) {
+                    if(self.opts.isLoop){
+                        self.stopLoop();
+                    }
+                    if(self.animating) return;
 
                     startPoint = self.$slider.offset().left;
                     self.$slider.css({
@@ -87,7 +96,7 @@
                     });
                 },
                 move: function(data) {
-                    
+                    if(self.animating) return;
                     var deltaX = startPoint + data.delta.x;
                     self.$slider.css({
                         '-webkit-transform': 'translate(' + deltaX + 'px, 0) translateZ(0)',
@@ -97,7 +106,7 @@
                 end: function(data) {
                     // here is flag that determine if trigger the slider
                     // one is a quick short swipe , another is distance diff
-                    
+                    // if(self.animating) return;
                     if (data.deltatime < 250 && Math.abs(data.delta.x) > 20 || Math.abs(data.delta.x) > 100) {
                         if (data.delta.x > 0) {
                             self.index--;
@@ -125,6 +134,8 @@
                 'transition-duration': '.4s',
                 '-webkit-transform': 'translate(' + width + 'px, 0) translateZ(0)',
                 'transform': 'translate(' + width + 'px, 0) translateZ(0)'
+            }).on(window.animationEvents.transitionEnd, function(){
+                self.animating = false;
             });
             self.opts.afterSlide.call(self, self.index);
         }

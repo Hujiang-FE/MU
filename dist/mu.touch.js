@@ -20,12 +20,6 @@
         longTapTimeout = null,
         isScrolling;
 
-    var $log = $('#log');
-
-    function log(string) {
-        $log.prepend('<p>log: ' + string + '</p>');
-    }
-
     function cancelLongTap() {
         if (longTapTimeout) clearTimeout(longTapTimeout);
         longTapTimeout = null;
@@ -56,7 +50,6 @@
             longTapTimeout = setTimeout(function(){
                 longTapTimeout = null;
                 $elem.trigger('longTap');
-                log('global:longTap');
             }, 700);
         },
 
@@ -91,18 +84,14 @@
                 isVertical = duration < 250 && Math.abs(delta.y) > 20 || Math.abs(delta.y) > 80,
                 isSwipeLeft = delta.x < 0,
                 isSwipeUp = delta.y < 0;
-            
-            console.log('#time : ', duration);
-            console.log('#delta : ', delta);
+
             cancelLongTap();
 
 
             if (!isScrolling && isHorizontal) {
                 $elem.trigger(isSwipeLeft ? 'swipeLeft' : 'swipeRight');
-                log(isSwipeLeft ? 'global:swipeLeft' : 'global:swipeRight');
             }else if(isScrolling && isVertical){
                 $elem.trigger(isSwipeUp ? 'swipeUp' : 'swipeDown');
-                log(isSwipeUp ? 'global:swipeUp' : 'global:swipeDown');
             }
 
             tapTimeout = setTimeout(function(){
@@ -116,11 +105,8 @@
                     // };
                     
                     $elem.trigger(evt);
-                    
-                    log('global:tap');
                 }
             }, 0);
-            // event.cancelBubble=true;
         },
 
         _parentIfText: function(node) {
@@ -128,13 +114,19 @@
         }
     };
 
-    $(document).on('touchstart mousedown', function(event) {
+    var isMobile   = window.mu ? window.mu.detect.isMobile : true,
+        startEvent  = isMobile ? 'touchstart' : 'mousedown',
+        moveEvent   = isMobile ? 'touchmove' : 'mousemove',
+        endEvent    = isMobile ? 'touchend' : 'mouseup',
+        cancelEvent = isMobile ? 'touchcancel' : 'mouseup';
+
+    $(document).on(startEvent, function(event) {
         events.start(event);
-    }).on('touchmove mousemove', function(event) {
+    }).on(moveEvent, function(event) {
         events.move(event);
-    }).on('touchend mouseup', function(event) {
+    }).on(endEvent, function(event) {
         events.end(event);
-    }).on('touchcanel mouseup', function() {
+    }).on(cancelEvent, function() {
         delta = {};
     });
 

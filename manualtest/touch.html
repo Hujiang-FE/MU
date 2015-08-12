@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+    <meta name="Keywords" content="">
+    <meta name="Description" content="">
+    <title>bubble nav</title>
+    <link rel="stylesheet" href="/src/styles/base.css">
+    <link rel="stylesheet" href="/src/styles/manual.css">
+    <link rel="stylesheet" href="/dist/mu.css">
+    <style>
+        #log{
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            height: 150px;
+            overflow: scroll;
+        }
+        #log p{padding: 4px 10px;}
+        .wrapper{
+            background: #777;
+            padding: : 20px;
+            height: 400px;
+        }
+        .bubble1{
+            background: #AAA;
+            padding : 20px;
+            height: 200px;
+        }
+        .bubble2{
+            background: #DDD;
+            padding: 20px;
+            height: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    
+    <div class="wrapper">
+        <div id="log"></div>
+        <div class="bubble1">
+            box outside
+            <div class="bubble2">
+                box inside
+            </div>
+        </div>
+        查看log 信息 <br>
+        tap, longTap, <br>
+        swipeLeft, swipeRight, swipeUp, swipeDown
+    </div>
+    <!-- <script src="/vendor/jq/jquery-2.1.3.min.js"></script> -->
+    <script src="/vendor/zepto.min.js"></script>
+    <script src="/dist/mu.touch.js"></script>
+    <script>
+        var $log = $('#log');
+
+        function log(string) {
+            $log.prepend('<p><b>log</b>: ' + string + ' at <u>' + Date.now() + '</u></p>');
+        }
+
+        $('.wrapper')
+            .on('tap', function(){
+                log('tap wrapper');
+            })
+            .on('swipeLeft', function(){
+                log('swipe left wrapper');
+            })
+            .on('swipeRight', function(){
+                log('swipe right wrapper');
+            })
+            .on('swipeUp', function(){
+                log('swipe up wrapper');
+            })
+            .on('swipeDown', function(){
+                log('swipe down wrapper');
+            })
+            .on('longTap', function(){
+                log('long tap wrapper');
+            });
+
+        $('.bubble1').on('tap', function(event){
+            log('tap bubble outside');
+            event.stopPropagation();
+        });
+        $('.bubble2').on('tap', function(event){
+            log('tap bubble inside');
+            event.stopPropagation();
+        });
+    </script>
+</body>
+
+</html>
