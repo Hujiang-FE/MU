@@ -26,12 +26,12 @@
         }
         .bubble1{
             background: #AAA;
-            padding: : 20px;
+            padding : 20px;
             height: 200px;
         }
         .bubble2{
             background: #DDD;
-            padding: : 20px;
+            padding: 20px;
             height: 100px;
         }
     </style>
@@ -42,11 +42,14 @@
     <div class="wrapper">
         <div id="log"></div>
         <div class="bubble1">
+            box outside
             <div class="bubble2">
-                
+                box inside
             </div>
         </div>
-        <div class="btn">btn</div>
+        查看log 信息 <br>
+        tap, longTap, <br>
+        swipeLeft, swipeRight, swipeUp, swipeDown
     </div>
     <!-- <script src="/vendor/jq/jquery-2.1.3.min.js"></script> -->
     <script src="/vendor/zepto.min.js"></script>
@@ -55,18 +58,35 @@
         var $log = $('#log');
 
         function log(string) {
-            $log.prepend('<p>log: ' + string + ' at ' + Date.now() + '</p>');
+            $log.prepend('<p><b>log</b>: ' + string + ' at <u>' + Date.now() + '</u></p>');
         }
 
-        $('.wrapper').on('tap', function(){
-            log('tap wrapper');
-        });
+        $('.wrapper')
+            .on('tap', function(){
+                log('tap wrapper');
+            })
+            .on('swipeLeft', function(){
+                log('swipe left wrapper');
+            })
+            .on('swipeRight', function(){
+                log('swipe right wrapper');
+            })
+            .on('swipeUp', function(){
+                log('swipe up wrapper');
+            })
+            .on('swipeDown', function(){
+                log('swipe down wrapper');
+            })
+            .on('longTap', function(){
+                log('long tap wrapper');
+            });
+
         $('.bubble1').on('tap', function(event){
-            log('tap bubble1');
+            log('tap bubble outside');
             event.stopPropagation();
         });
         $('.bubble2').on('tap', function(event){
-            log('tap bubble2');
+            log('tap bubble inside');
             event.stopPropagation();
         });
     </script>

@@ -41,9 +41,10 @@
 
     <script src="/vendor/zepto.min.js"></script>
     <script src="/dist/mu.js"></script>
+    <script src="/dist/mu.touch.js"></script>
     <script src="/dist/mu.page.transition.js"></script>
     <script>
-        var page = new MuPage('.page',{
+        var page = new MuPage('.page', {
             isLoop: true,
             beforeSlide: function() {
                 console.log('slide before');
@@ -51,6 +52,15 @@
             afterSlide: function() {
                 console.log('slide after');
             }
+        });
+
+        // util 
+        window.mu.util.preventScroll();
+
+        $('.page').on('swipeUp', function(){
+            page.next();
+        }).on('swipeDown', function(){
+            page.prev();
         });
         $('#prev').on('click', function(){
             page.prev();
