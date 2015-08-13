@@ -20,6 +20,7 @@
         isLoop: false,
         speed: 500,
         isVert: false,
+        beforeSlide: function() {},
         afterSlide: function() {}
     };
     Slider.prototype = {
@@ -33,6 +34,7 @@
             self.$children = self.$el.children();
             self.max = self.$children.length;
             self.animating = false;
+            self.isMoving = false;
             self.looptime = null;
             self.index = 0;
 
@@ -89,20 +91,19 @@
                     if(self.opts.isLoop){
                         self.stopLoop();
                     }
-                    if(self.animating) return;
-
                     startPoint = self.opts.isVert ? self.$slider.offset().top : self.$slider.offset().left;
-                    self.$slider.css({
-                        '-webkit-transition-duration': '0s',
-                        'transition-duration': '0s'
-                    });
+                    if(self.animating) return;
+                    console.log('touchstart', startPoint);
+                    self.isMoving = true;
+                    self._clearTransition();
                 },
                 move: function(data) {
-                    if(self.animating) return;
+                    if(self.animating || !self.isMoving) return;
                     var deltaX = startPoint + data.delta.x,
                         deltaY = startPoint + data.delta.y,
                         transValue = '';
-                    console.log(deltaY);
+                    // self._clearTransition();
+                    console.log('move', deltaY, startPoint);
                     if(self.opts.isVert){
                         transValue = 'translate(0,' + deltaY + 'px) translateZ(0)';
                     }else{
@@ -117,6 +118,9 @@
                     // here is flag that determine if trigger the slider
                     // one is a quick short swipe , another is distance diff
                     // if(self.animating) return;
+                    self.isMoving = false;
+                    console.log('end')
+                    startPoint = self.opts.isVert ? self.$slider.offset().top : self.$slider.offset().left;
                     var deltaValue = self.opts.isVert ? data.delta.y : data.delta.x;
                     if (data.deltatime < 250 && Math.abs(deltaValue) > 20 || Math.abs(deltaValue) > 100) {
                         if (deltaValue > 0) {
@@ -131,6 +135,12 @@
                 }
             });
         },
+        _clearTransition: function(){
+            this.$slider.css({
+                '-webkit-transition-duration': '0s',
+                'transition-duration': '0s'
+            });
+        },
         _destory: function(){
 
         },
@@ -139,10 +149,10 @@
                 distance = self.opts.isVert ? self.$slider.height() : self.$slider.width(),
                 value = -distance * (index / self.max),
                 transValue = self.opts.isVert ? 'translate(0,' + value + 'px) translateZ(0)' : 'translate(' + value + 'px, 0) translateZ(0)';
-
+            self.animating = true;
             // get a width of px value, because % value does not work in andriod
             self.index = index;
-            self.animating = true;
+            self.opts.beforeSlide.call(self, self.index);
             self.$slider.css({
                 '-webkit-transition-duration': '.4s',
                 'transition-duration': '.4s',
@@ -150,8 +160,9 @@
                 'transform': transValue
             }).on(window.animationEvents.transitionEnd, function(){
                 self.animating = false;
+                self._clearTransition();
+                self.opts.afterSlide.call(self, self.index);
             });
-            self.opts.afterSlide.call(self, self.index);
         }
     };
 
