@@ -93,8 +93,12 @@
                     }
                     startPoint = self.opts.isVert ? self.$slider.offset().top : self.$slider.offset().left;
                     if(self.animating) return;
-                    console.log('touchstart', startPoint);
+                    
+                    // ATTENTION: in mobile device, in continous quick touchevents
+                    // touchstart won't fire, so set a flag forcely
+                    // enable touchstart callback do properly
                     self.isMoving = true;
+
                     self._clearTransition();
                 },
                 move: function(data) {
@@ -102,8 +106,7 @@
                     var deltaX = startPoint + data.delta.x,
                         deltaY = startPoint + data.delta.y,
                         transValue = '';
-                    // self._clearTransition();
-                    console.log('move', deltaY, startPoint);
+
                     if(self.opts.isVert){
                         transValue = 'translate(0,' + deltaY + 'px) translateZ(0)';
                     }else{
@@ -119,8 +122,6 @@
                     // one is a quick short swipe , another is distance diff
                     // if(self.animating) return;
                     self.isMoving = false;
-                    console.log('end')
-                    startPoint = self.opts.isVert ? self.$slider.offset().top : self.$slider.offset().left;
                     var deltaValue = self.opts.isVert ? data.delta.y : data.delta.x;
                     if (data.deltatime < 250 && Math.abs(deltaValue) > 20 || Math.abs(deltaValue) > 100) {
                         if (deltaValue > 0) {
