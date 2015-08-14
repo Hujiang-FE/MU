@@ -8,12 +8,12 @@
     
     // 全局变量 --> mu <--
     // dist文件夹
-    mu.js               utility|detect|fn
+    mu.js               utility|detect|fn extend
     mu.dialog.js        弹窗
     mu.slider.js        轮播
     mu.page.js          页面转场
     mu.touch.js         手势事件优化
-    mu.css              插件所需样式,可以通过mu.util.requireCss('this css')动态插入
+    mu.css              插件所需样式,可以通过mu.util.requireCss('css url')动态插入
 
 ##### 包含:
 
@@ -29,17 +29,17 @@
     - slider            轮播                    OK
     - calendar          日历                    NF
     - paint             画笔                    NF
-    - slidepage         滑动页面
+    - slidepage         滑动页面                OK(vertical slider)
 
-[文档](https://github.com/Roeis/MU/tree/master/samples/util) 常用工具方法
+[文档](https://github.com/Roeis/MU/tree/master/samples/util) 常用工具方法 | mu.js
 
-[文档](https://github.com/Roeis/MU/tree/master/samples/dialog) 弹窗
+[文档](https://github.com/Roeis/MU/tree/master/samples/dialog) 弹窗 | mu.dialog.js
 
-[文档](https://github.com/Roeis/MU/tree/master/samples/slider) 轮播
+[文档](https://github.com/Roeis/MU/tree/master/samples/slider) 轮播 | mu.slider.js
 
-[文档](https://github.com/Roeis/MU/tree/master/samples/pagetransition) 页面转场
+[文档](https://github.com/Roeis/MU/tree/master/samples/pagetransition) 页面转场 | mu.page.js
 
-[文档](https://github.com/Roeis/MU/tree/master/samples/touchevent) 事件优化
+[文档](https://github.com/Roeis/MU/tree/master/samples/touchevent) 事件优化 | mu.touch.js
 
 ##### 常见问题集锦
 
