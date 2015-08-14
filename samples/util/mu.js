@@ -257,15 +257,20 @@
             move: function(){},
             end: function(){}
         };
+    var isMobile   = window.mu ? window.mu.detect.isMobile : true,
+        startEvent  = isMobile ? 'touchstart' : 'mousedown',
+        moveEvent   = isMobile ? 'touchmove' : 'mousemove',
+        endEvent    = isMobile ? 'touchend' : 'mouseup';
+
     $.fn.swipeable = function(opts) {
         opts = $.extend({}, defaults, opts);
         return this.each(function() {
             var $this = $(this);
 
             $this
-            .on('touchstart', function(event) {
-                var touch = event.touches || event.originalEvent.touches;
-                touch = touch[0];
+            .on(startEvent, function(event) {
+                var touches = event || event.originalEvent,
+                    touch = touches.touches ? touches.touches[0] : event;
 
                 start = {
                     x: touch.clientX,
@@ -278,14 +283,12 @@
                 opts.start.call(this, {touch: touch , start: start});
 
             })
-            .on('touchmove', function(event) {
-                var touch = event.touches || event.originalEvent.touches;
+            .on(moveEvent, function(event) {
+                var touches = event || event.originalEvent,
+                    touch = touches.touches ? touches.touches[0] : event;
 
-                if ((touch && touch.length > 1) ||event.scale && event.scale !== 1){
-                    return;
-                }
-
-                touch = touch[0];
+                if (touches && touches.length > 1 || event.scale && event.scale !== 1) return;
+                if(!start) return;
 
                 delta = {
                     x: touch.clientX - start.x,
@@ -303,7 +306,7 @@
                 }
                 opts.move.call(this, {touch: touch, delta: delta});
             })
-            .on('touchend', function() {
+            .on(endEvent, function() {
                 if(!opts.enableVertical){
                     if (isScrolling) return;
                 }

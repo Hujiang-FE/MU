@@ -118,7 +118,7 @@
                     });
                 },
                 end: function(data) {
-                    // here is flag that determine if trigger the slider
+                    // ATTENTION: here is flag that determine if trigger the slider
                     // one is a quick short swipe , another is distance diff
                     // if(self.animating) return;
                     self.isMoving = false;
