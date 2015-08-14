@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+    <meta name="Keywords" content="">
+    <meta name="Description" content="">
+    <title>bubble nav</title>
+    <link rel="stylesheet" href="/src/styles/base.css">
+    <link rel="stylesheet" href="/src/styles/manual.css">
+    <link rel="stylesheet" href="/dist/mu.css">
+    <style>
+        .wrapper{
+            height: 100%;
+            width: 100%;
+        }
+        .page{
+            height: 100%;
+            width: 100%;
+            padding: 2rem;
+        }
+    </style>
+</head>
+
+<body>
+    
+    <div class="wrapper">
+        <div class="page" style="background: #EEE;">
+            <div class="title cf">
+                <h3>MU for mobile</h3>
+            </div>
+            <div class="content">
+                <p>
+                    竖屏slider <br>
+                    和page transition一样，整屏切换
+                    <br> <br>
+                    在PC上也能滑动<br>
+                    点击上滑
+                </p>
+            </div>
+        </div>
+        <div class="page" style="background: #BBB;">
+            2
+        </div>
+        <div class="page" style="background: #0cF;">
+            3
+        </div>
+        <div class="page" style="background: #Fc0;">
+            4
+        </div>
+    </div>
+    <!-- <script src="/vendor/jq/jquery-2.1.3.min.js"></script> -->
+    <script src="/vendor/zepto.min.js"></script>
+    <script src="/dist/mu.js"></script>
+    <script src="/dist/mu.slider.js"></script>
+    <script>
+        // mu.util.preventScroll();
+        var slider = new MuSlider('.wrapper', {
+            // isLoop: true,
+            isVert: true,
+        });
+    </script>
+</body>
+
+</html>

@@ -19,7 +19,8 @@
     var defaults = {
         isLoop: false,
         speed: 500,
-        mode: 'horizontal',
+        isVert: false,
+        beforeSlide: function() {},
         afterSlide: function() {}
     };
     Slider.prototype = {
@@ -33,6 +34,7 @@
             self.$children = self.$el.children();
             self.max = self.$children.length;
             self.animating = false;
+            self.isMoving = false;
             self.looptime = null;
             self.index = 0;
 
@@ -46,16 +48,18 @@
                 'position': 'relative'
             });
 
-            self.$slider.css({
-                'width': self.max * 100 + '%',
-                'position': 'absolute',
-            });
-            self.$children.css({
-                'width': 100 / self.max + '%',
-                'float': 'left'
-            });
+            self.$slider.css({'position' : 'absolute'});
 
-            
+            if(self.opts.isVert){
+                //ATTENTION: prevent global touchmove event 
+                window.mu && mu.util.preventScroll();
+                self.$slider.css({'height': self.max * 100 + '%', 'width': '100%'});
+                self.$children.css({'height': 100 / self.max + '%'});
+            }else{
+                self.$slider.css({'width': self.max * 100 + '%'});
+                self.$children.css({'width': 100 / self.max + '%', 'height': '100%','float': 'left'});
+            }
+
             if(self.opts.isLoop){
                 self.loop();
             }
@@ -82,33 +86,47 @@
         _bind: function() {
             var startPoint = 0,
                 self = this;
+
             self.$el.swipeable({
+                enableVertical: self.opts.isVert,
                 start: function(data) {
                     if(self.opts.isLoop){
                         self.stopLoop();
                     }
+                    startPoint = self.opts.isVert ? self.$slider.offset().top : self.$slider.offset().left;
                     if(self.animating) return;
+                    
+                    // ATTENTION: in mobile device, in continous quick touchevents
+                    // touchstart won't fire, so set a flag forcely
+                    // enable touchstart callback do properly
+                    self.isMoving = true;
 
-                    startPoint = self.$slider.offset().left;
-                    self.$slider.css({
-                        '-webkit-transition-duration': '0s',
-                        'transition-duration': '0s'
-                    });
+                    self._clearTransition();
                 },
                 move: function(data) {
-                    if(self.animating) return;
-                    var deltaX = startPoint + data.delta.x;
+                    if(self.animating || !self.isMoving) return;
+                    var deltaX = startPoint + data.delta.x,
+                        deltaY = startPoint + data.delta.y,
+                        transValue = '';
+
+                    if(self.opts.isVert){
+                        transValue = 'translate(0,' + deltaY + 'px) translateZ(0)';
+                    }else{
+                        transValue = 'translate(' + deltaX + 'px, 0) translateZ(0)';
+                    }
                     self.$slider.css({
-                        '-webkit-transform': 'translate(' + deltaX + 'px, 0) translateZ(0)',
-                        'transform': 'translate(' + deltaX + 'px, 0) translateZ(0)'
+                        '-webkit-transform': transValue,
+                        'transform': transValue
                     });
                 },
                 end: function(data) {
-                    // here is flag that determine if trigger the slider
+                    // ATTENTION: here is flag that determine if trigger the slider
                     // one is a quick short swipe , another is distance diff
                     // if(self.animating) return;
-                    if (data.deltatime < 250 && Math.abs(data.delta.x) > 20 || Math.abs(data.delta.x) > 100) {
-                        if (data.delta.x > 0) {
+                    self.isMoving = false;
+                    var deltaValue = self.opts.isVert ? data.delta.y : data.delta.x;
+                    if (data.deltatime < 250 && Math.abs(deltaValue) > 20 || Math.abs(deltaValue) > 100) {
+                        if (deltaValue > 0) {
                             self.index--;
                             self.index = self.index < 0 ? 0 : self.index;
                         } else {
@@ -120,24 +138,34 @@
                 }
             });
         },
+        _clearTransition: function(){
+            this.$slider.css({
+                '-webkit-transition-duration': '0s',
+                'transition-duration': '0s'
+            });
+        },
         _destory: function(){
 
         },
         jump: function(index) {
             var self = this,
-                width = -self.$slider.width() * (index / self.max);
+                distance = self.opts.isVert ? self.$slider.height() : self.$slider.width(),
+                value = -distance * (index / self.max),
+                transValue = self.opts.isVert ? 'translate(0,' + value + 'px) translateZ(0)' : 'translate(' + value + 'px, 0) translateZ(0)';
+            self.animating = true;
             // get a width of px value, because % value does not work in andriod
             self.index = index;
-            self.animating = true;
+            self.opts.beforeSlide.call(self, self.index);
             self.$slider.css({
                 '-webkit-transition-duration': '.4s',
                 'transition-duration': '.4s',
-                '-webkit-transform': 'translate(' + width + 'px, 0) translateZ(0)',
-                'transform': 'translate(' + width + 'px, 0) translateZ(0)'
+                '-webkit-transform': transValue,
+                'transform': transValue
             }).on(window.animationEvents.transitionEnd, function(){
                 self.animating = false;
+                self._clearTransition();
+                self.opts.afterSlide.call(self, self.index);
             });
-            self.opts.afterSlide.call(self, self.index);
         }
     };
 

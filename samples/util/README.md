@@ -111,11 +111,10 @@
 ###### $.fn.swipeable
 元素滑动集合事件
 
-在元素touchstart的时候做什么
-
-在元素touchmove的时候做什么
-
-在元素touchend的时候做什么
+    在元素touchstart的时候做什么
+    在元素touchmove的时候做什么
+    在元素touchend的时候做什么
+    15/8/14 新增支持PC点击事件
 
     $('.el').swipeable({
         start: function(data){
