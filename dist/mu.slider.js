@@ -17,8 +17,9 @@
         this.init();
     };
     var defaults = {
-        isLoop: false,
+        autoSlide: false,
         speed: 500,
+        isLoop: false,
         isVert: false,
         beforeSlide: function() {},
         afterSlide: function() {}
@@ -37,6 +38,13 @@
             self.isMoving = false;
             self.looptime = null;
             self.index = 0;
+            self.clones = 0;
+
+            if(self.opts.isLoop){
+                self.index = 1;
+                self.clones = 2;
+                self.max += self.clones;
+            }
 
             self.$children.wrapAll('<div class="slider-wrap"></div>');
             // maintain each instance standlone, when initialize lot of instance with a same class
@@ -51,7 +59,7 @@
             self.$slider.css({'position' : 'absolute'});
 
             if(self.opts.isVert){
-                //ATTENTION: prevent global touchmove event 
+                //ATTENTION: prevent global touchmove event
                 window.mu && mu.util.preventScroll();
                 self.$slider.css({'height': self.max * 100 + '%', 'width': '100%'});
                 self.$children.css({'height': 100 / self.max + '%'});
@@ -59,16 +67,28 @@
                 self.$slider.css({'width': self.max * 100 + '%'});
                 self.$children.css({'width': 100 / self.max + '%', 'height': '100%','float': 'left'});
             }
-
             if(self.opts.isLoop){
+                self._setClone();
+            }
+            self._jump(self.index);
+
+            if(self.opts.autoSlide){
                 self.loop();
+            }
+        },
+        _setClone: function(){
+            if(this.opts.isLoop){
+                var $cloneFirst = this.$children.eq(0).clone().addClass('mu-clone'),
+                    $cloneLast = this.$children.eq(this.max - this.clones - 1).clone().addClass('mu-clone');
+
+                this.$slider.prepend($cloneLast).append($cloneFirst);
             }
         },
         loop: function(){
             var self = this;
             if(self.index >= self.max - 1 ){
                 // self.stopLoop();
-                self.index = -1;
+                self.index = this.clones - 1;
                 // return;
             }
             
@@ -90,7 +110,7 @@
             self.$el.swipeable({
                 enableVertical: self.opts.isVert,
                 start: function(data) {
-                    if(self.opts.isLoop){
+                    if(self.opts.autoSlide){
                         self.stopLoop();
                     }
                     startPoint = self.opts.isVert ? self.$slider.offset().top : self.$slider.offset().left;
@@ -144,26 +164,69 @@
                 'transition-duration': '0s'
             });
         },
+        _setTransition: function(){
+            this.$slider.css({
+                '-webkit-transition-duration': '.4s',
+                'transition-duration': '.4s'
+            });
+        },
         _destory: function(){
 
         },
-        jump: function(index) {
-            var self = this,
-                distance = self.opts.isVert ? self.$slider.height() : self.$slider.width(),
-                value = -distance * (index / self.max),
-                transValue = self.opts.isVert ? 'translate(0,' + value + 'px) translateZ(0)' : 'translate(' + value + 'px, 0) translateZ(0)';
-            self.animating = true;
+        prev: function() {
+            var idx = this.index;
+            idx--;
+            if (!this.opts.autoSlide && idx < 0) return;
+            if (this.opts.autoSlide && idx < 0) {
+                idx = this.max - 1;
+            }
+            this.jump(idx);
+        },
+        next: function() {
+            var idx = this.index;
+            idx++;
+            if (!this.opts.autoSlide && idx > this.max - 1) return;
+            if (this.opts.autoSlide && idx > this.max - 1) {
+                idx = 0;
+            }
+            this.jump(idx);
+        },
+        jump: function(index){
+            var self = this;
+            this._setTransition();
+            this._jump(index, function(){
+                self.animating = true;
+                self.index = index;
+                self.opts.beforeSlide.call(self, self.index);
+            });
+            this._transitionCallback();
+        },
+        _jump: function(index, callback) {
             // get a width of px value, because % value does not work in andriod
-            self.index = index;
-            self.opts.beforeSlide.call(self, self.index);
-            self.$slider.css({
-                '-webkit-transition-duration': '.4s',
-                'transition-duration': '.4s',
+            var distance = this.opts.isVert ? this.$slider.height() : this.$slider.width(),
+                value = -distance * (index / this.max),
+                transValue = this.opts.isVert ? 'translate(0,' + value + 'px) translateZ(0)' : 'translate(' + value + 'px, 0) translateZ(0)';
+
+            callback && callback();
+            this.$slider.css({
                 '-webkit-transform': transValue,
                 'transform': transValue
-            }).on(window.animationEvents.transitionEnd, function(){
+            });
+        },
+        _transitionCallback: function(){
+            var self = this;
+            self.$slider.one(window.animationEvents.transitionEnd, function(){
                 self.animating = false;
                 self._clearTransition();
+                if(self.opts.isLoop){
+                    if(self.index === 0){
+                        self.index = self.max - self.clones;
+                    }
+                    if(self.index === self.max - 1){
+                        self.index = 1;
+                    }
+                    self._jump(self.index);
+                }
                 self.opts.afterSlide.call(self, self.index);
             });
         }

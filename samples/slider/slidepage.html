@@ -57,12 +57,12 @@
     <script>
         // mu.util.preventScroll();
         var slider = new MuSlider('.wrapper', {
-            // isLoop: true,
+            isLoop: true,
+            // autoSlide: true,
             isVert: true,
-        });
-        var slider2 = new MuSlider('.slider2', {
-            // isLoop: true,
-            // isVert: true,
+            afterSlide: function(index){
+                console.log(index);
+            }
         });
     </script>
 </body>
