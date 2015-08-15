@@ -49,6 +49,8 @@
             });
 
             self.$slider.css({'position' : 'absolute'});
+            // for loop
+            
 
             if(self.opts.isVert){
                 //ATTENTION: prevent global touchmove event
@@ -59,6 +61,11 @@
                 self.$slider.css({'width': self.max * 100 + '%'});
                 self.$children.css({'width': 100 / self.max + '%', 'height': '100%','float': 'left'});
             }
+
+            var $cloneFirst = self.$children[0],
+                $cloneLast = self.$children[self.max - 1];
+                
+            self.$slider.prepend($cloneLast.outerHTML).append($cloneFirst.outerHTML);
 
             if(self.opts.isLoop){
                 self.loop();
@@ -146,6 +153,24 @@
         },
         _destory: function(){
 
+        },
+        prev: function() {
+            var idx = this.index;
+            idx--;
+            if (!this.opts.isLoop && idx < 0) return;
+            if (this.opts.isLoop && idx < 0) {
+                idx = this.max - 1;
+            }
+            this.jump(idx);
+        },
+        next: function() {
+            var idx = this.index;
+            idx++;
+            if (!this.opts.isLoop && idx > this.max - 1) return;
+            if (this.opts.isLoop && idx > this.max - 1) {
+                idx = 0;
+            }
+            this.jump(idx);
         },
         jump: function(index) {
             var self = this,
