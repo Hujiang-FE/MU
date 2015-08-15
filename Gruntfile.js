@@ -11,7 +11,7 @@ module.exports = function (grunt) {
     var cfg = {
         src: '',
         des: 'src/',
-        ip: '192.168.155.26',
+        ip: '192.168.31.138',
         liveport: 30002,
         port:1302
     };
@@ -35,7 +35,7 @@ module.exports = function (grunt) {
                     // Ignores filenames starting with underscore. banner use with specify
                     // specify: [
                     //     // '<%= cfg.des %>sass/style.scss',
-                    //     '<%= cfg.des %>sass/sprite.scss',
+                    //     // '<%= cfg.des %>sass/sprite.scss',
                     //     // 'src/app/sass/mix.scss',
                     //     ]
                 }
