@@ -70,6 +70,8 @@
 .slider {
   height: 100px;
   background-color: #EEE;
+}
+.slider .li {
   padding: 10px;
 }
 .slider img {

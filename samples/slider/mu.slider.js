@@ -105,7 +105,9 @@
         },
         _bind: function() {
             var startPoint = 0,
-                self = this;
+                self = this,
+                parentTop = self.$el.offset().top,
+                parentLeft = self.$el.offset().left;
 
             self.$el.swipeable({
                 enableVertical: self.opts.isVert,
@@ -113,7 +115,13 @@
                     if(self.opts.autoSlide){
                         self.stopLoop();
                     }
-                    startPoint = self.opts.isVert ? self.$slider.offset().top : self.$slider.offset().left;
+                    // fix slider flick that are not 100% size, minus the offset
+                    if(self.opts.isVert){
+                        startPoint = self.$slider.offset().top - parentTop;
+                    }else{
+                        startPoint = self.$slider.offset().left - parentLeft;
+                    }
+
                     if(self.animating) return;
                     
                     // ATTENTION: in mobile device, in continous quick touchevents
