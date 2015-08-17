@@ -8,7 +8,8 @@
 
     // 构造器模式
     var slider = new MuSlider('.wrapper', {
-        isLoop: false,                      //待定
+        autoSlide: false,                   //自动轮播
+        isLoop: true,                       //是否创建
         speed: 500,                         //滑动速度
         isVert: false,                      //滑动方向
         beforeSlide: function() {},
@@ -38,14 +39,22 @@
     水平应用常用 : 普通广告轮播
 
 ### API:
-// 设dialog为一个实例
+// 设slider为一个实例
 
 **method: jump(number)**
     
-    dialog.jump(2);
+    slider.jump(2);
+
+**method: prev**
+    
+    slider.prev();
+
+**method: next**
+    
+    slider.prev();
 
 
 
 ### known issue:
 1.快速滑动可能导致跳跃，未测试
-2.循坏，prev, next 待优化
+2.循坏可能

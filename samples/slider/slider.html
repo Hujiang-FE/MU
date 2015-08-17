@@ -40,10 +40,11 @@
     <script src="../util/mu.js"></script>
     <script src="mu.slider.js"></script>
     <script>
-
-        var slider = new MuSlider('.slider', {
+        $('.slider').muSlider({
             isLoop: true
         });
+
+        var slider2 = $.fn.muSlider.instances[1];
 
     </script>
 </body>
