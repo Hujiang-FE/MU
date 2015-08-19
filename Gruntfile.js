@@ -11,7 +11,7 @@ module.exports = function (grunt) {
     var cfg = {
         src: '',
         des: 'src/',
-        ip: '192.168.31.138',
+        ip: '192.168.155.26',
         liveport: 30002,
         port:1302
     };
