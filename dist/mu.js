@@ -198,7 +198,7 @@
                 animationEventNames = {
                     'WebkitTransition': ['webkitAnimationEnd','webkitTransitionEnd','webkitAnimationIteration', 'webkitAnimationStart'],
                     'OTransition': ['oanimationend ','oTransitionEnd otransitionend','oanimationiteration', 'oanimationstart'],
-                    'transition': ['animationEnd','transitionend','animationiteration', 'animationstart']
+                    'transition': ['animationend','transitionend','animationiteration', 'animationstart']
                 };
 
             for (var name in animationEventNames) {

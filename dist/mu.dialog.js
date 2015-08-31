@@ -84,24 +84,18 @@
 
         // adjust the dialog's postion 
         _adjust: function(){
-            var height;
+            var height,
+                width;
             if(this.options.isCenter){
-                this._destroyAdjust();
                 height = this.$dialog.height();
-                this.$dialog.css('height', height);
+                width = this.$dialog.width();
                 this.$dialog.css({
-                    right: 0,
-                    bottom: 0,
-                    margin: 'auto'
+                    'left': '50%',
+                    'top': '50%',
+                    'margin-left': -width/2,
+                    'margin-top': -height/2
                 });
             }
-        },
-
-        _destroyAdjust: function(){
-            this.$dialog.css({
-                'height': 'auto',
-                'bottom': 'auto'
-            });
         },
 
         // event bind
