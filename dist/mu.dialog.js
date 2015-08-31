@@ -83,6 +83,7 @@
         },
 
         // adjust the dialog's postion 
+        // set this way to adjust postion for fix uc, firefox, etc;
         _adjust: function(){
             var height,
                 width;

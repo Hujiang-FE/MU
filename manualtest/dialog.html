@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+    <!-- <meta name="MobileOptimized" content="320"> -->
     <meta name="Keywords" content="">
     <meta name="Description" content="">
     <title>example roeis</title>
@@ -47,6 +48,9 @@
     <script src="/dist/mu.js"></script>
     <script src="/dist/mu.dialog.js"></script>
     <script>
+        var width = $(window).width();
+        var width = document.documentElement.clientWidth;
+        alert(width);
         var dialog1 = new MuDialog('.pop1', {
             beforeOpen: function(){
                 console.log('打开前回调');
