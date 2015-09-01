@@ -114,7 +114,6 @@
     在元素touchstart的时候做什么
     在元素touchmove的时候做什么
     在元素touchend的时候做什么
-    15/8/14 新增支持PC点击事件
 
     $('.el').swipeable({
         start: function(data){
@@ -140,3 +139,7 @@ css3 动画结束回调
 同时曝露全部变量animationEvents对象, 里面各个动画事件在不同浏览器的prefix版本
 
 比如在webkit浏览器下， animationEvents.transitionEnd --> webkitTransitionEnd
+
+### log:
+15/08/31 修复animationend事件名，在firefox中的问题
+15/08/14 新增支持PC点击事件

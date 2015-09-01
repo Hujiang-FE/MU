@@ -6,6 +6,8 @@
 
 需要: mu [查看](https://github.com/Roeis/MU/tree/master/dist)
 
+**推荐在$(function(){})中初始化**, 避免某些浏览器的兼容问题
+
     // 构造器模式
     var dialog = new window.MuDialog('<div class="dialog">test</div>', {
         isBgCloseable: true,                    // 点击背景是否关闭弹窗
@@ -87,4 +89,8 @@
 
 
 ### known issue:
-1.在魅族自带浏览器显示效果异常, 在魅族的微信中显示效果正常
+1.在魅族自带浏览器显示效果异常, 对于animation支持非常不友好, 在魅族的微信中显示效果正常
+
+### log
+15/09/01 初始化可以放在document.ready中，在firefox mobile取值异常
+15/08/31 修复firefox, UC, baidu浏览器的位置显示BUG

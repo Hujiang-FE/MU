@@ -6,6 +6,8 @@
 
 需要: mu [查看](https://github.com/Roeis/MU/tree/master/dist)
 
+**推荐在$(function(){})中初始化**, 避免某些浏览器的兼容问题
+
     // 构造器模式
     var slider = new MuSlider('.wrapper', {
         autoSlide: false,                   //自动轮播
@@ -58,3 +60,7 @@
 ### known issue:
 1.快速滑动可能导致跳跃，未测试
 2.循坏可能
+
+### log:
+15/09/01 初始化可以放在document.ready中，在firefox mobile取值异常
+15/08/14 新增支持PC操作
