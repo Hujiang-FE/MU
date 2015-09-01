@@ -8,6 +8,8 @@
 
 测试和修正中
 
+[演示Demo](http://roeis.github.io/mu/)
+
 #### 使用mu
     
     // 全局变量 --> mu <--
