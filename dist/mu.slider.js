@@ -123,9 +123,7 @@
                     }else{
                         startPoint = self.$slider.offset().left - parentLeft;
                     }
-
                     if(self.animating) return;
-                    
                     // ATTENTION: in mobile device, in continous quick touchevents
                     // touchstart won't fire, so set a flag forcely
                     // enable touchstart callback do properly
@@ -152,8 +150,9 @@
                 end: function(data) {
                     // ATTENTION: here is flag that determine if trigger the slider
                     // one is a quick short swipe , another is distance diff
-                    // if(self.animating) return;
+                    if(!self.isMoving) return;
                     self.isMoving = false;
+
                     var deltaValue = self.opts.isVert ? data.delta.y : data.delta.x;
                     if (data.deltatime < 250 && Math.abs(deltaValue) > 20 || Math.abs(deltaValue) > 100) {
                         if (deltaValue > 0) {
@@ -209,9 +208,9 @@
         },
         jump: function(index){
             var self = this;
+            self.animating = true;
             this._setTransition();
             this._jump(index, function(){
-                self.animating = true;
                 self.index = index;
                 self.opts.beforeSlide.call(self, self.index);
             });
@@ -238,7 +237,9 @@
         },
         _transitionCallback: function(){
             var self = this;
+            console.log('true 1');
             self.$slider.one(window.animationEvents.transitionEnd, function(){
+                console.log('false 1');
                 self.animating = false;
                 self._clearTransition();
                 if(self.opts.isLoop){
