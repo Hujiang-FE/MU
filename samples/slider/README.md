@@ -59,8 +59,10 @@
 
 ### known issue:
 1.快速滑动可能导致跳跃，未测试
+
 2.循坏可能
 
 ### log:
 15/09/01 初始化可以放在document.ready中，在firefox mobile取值异常
+
 15/08/14 新增支持PC操作

@@ -35,6 +35,8 @@
         afterClose: function() {}
     };
 
+    var isScrollPrevented = window.mu.util.isScrollPrevented;
+
     var $body = $(document.body),
         // bgShowed = 0,
         classSets = {
@@ -121,6 +123,7 @@
 
             this._show(this.$dialog, this.options.showClass, $.proxy(function() {
                 this.options.afterOpen.call(this);
+                window.mu.util.preventScroll();
             }, this));
             this._show(this.$bg, 'mu-fadeIn');
         },
@@ -134,6 +137,9 @@
 
             this._hide(this.$dialog, this.options.hideClass, $.proxy(function() {
                 this.options.afterClose.call(this);
+                if(!isScrollPrevented){
+                    window.mu.util.recoverScroll();
+                }
             }, this));
             this._hide(this.$bg, 'mu-fadeOut');
         },

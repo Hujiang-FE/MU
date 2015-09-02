@@ -93,4 +93,5 @@
 
 ### log
 15/09/01 初始化可以放在document.ready中，在firefox mobile取值异常
+
 15/08/31 修复firefox, UC, baidu浏览器的位置显示BUG

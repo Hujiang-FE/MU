@@ -35,6 +35,8 @@
         afterClose: function() {}
     };
 
+    var isScrollPrevented = window.mu.util.isScrollPrevented;
+
     var $body = $(document.body),
         // bgShowed = 0,
         classSets = {
@@ -101,11 +103,18 @@
 
         // event bind
         _bind: function() {
+            var self = this;
             if (this.options.isBgCloseable) {
                 this.$bg.on('click', $.proxy(function() {
                     this.close();
                 }, this));
             }
+
+            //solve orientchange issue, it recalculate its size when screen changes
+            var orientationEvt = 'onorientationchange' in window ? 'orientationchange' : 'resize';
+            window.addEventListener(orientationEvt, function() {
+                self._adjust();
+            }, false);
         },
 
         html: function(html){
@@ -121,6 +130,7 @@
 
             this._show(this.$dialog, this.options.showClass, $.proxy(function() {
                 this.options.afterOpen.call(this);
+                window.mu.util.preventScroll();
             }, this));
             this._show(this.$bg, 'mu-fadeIn');
         },
@@ -134,6 +144,9 @@
 
             this._hide(this.$dialog, this.options.hideClass, $.proxy(function() {
                 this.options.afterClose.call(this);
+                if(!isScrollPrevented){
+                    window.mu.util.recoverScroll();
+                }
             }, this));
             this._hide(this.$bg, 'mu-fadeOut');
         },

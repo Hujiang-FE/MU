@@ -34,11 +34,11 @@
             var self = this;
             self.$children = self.$el.children();
             self.max = self.$children.length;
-            self.animating = false;
-            self.isMoving = false;
+            self.animating = false;     //正在动画
+            self.isMoving = false;      //正在手势滑动
             self.looptime = null;
-            self.index = 0;
-            self.clones = 0;
+            self.index = 0;             // 起始序号
+            self.clones = 0;            // 克隆数
 
             if(self.opts.isLoop){
                 self.index = 1;
@@ -67,9 +67,11 @@
                 self.$slider.css({'width': self.max * 100 + '%'});
                 self.$children.css({'width': 100 / self.max + '%', 'height': '100%','float': 'left'});
             }
+
             if(self.opts.isLoop){
                 self._setClone();
             }
+
             self._jump(self.index);
 
             if(self.opts.autoSlide){
@@ -209,12 +211,19 @@
             });
             this._transitionCallback();
         },
+
+        /**
+         * 静态位置变化
+         * @param  {[type]}   index    [description]
+         * @param  {Function} callback [description]
+         * @return {[type]}            [description]
+         */
         _jump: function(index, callback) {
             // get a width of px value, because % value does not work in andriod
             var distance = this.opts.isVert ? this.$slider.height() : this.$slider.width(),
                 value = -distance * (index / this.max),
                 transValue = this.opts.isVert ? 'translate(0,' + value + 'px) translateZ(0)' : 'translate(' + value + 'px, 0) translateZ(0)';
-
+                
             callback && callback();
             this.$slider.css({
                 '-webkit-transform': transValue,
