@@ -167,6 +167,12 @@
                     self.jump(self.index);
                 }
             });
+
+            //solve orientchange issue, it recalculate its size when screen changes
+            var orientationEvt = 'onorientationchange' in window ? 'orientationchange' : 'resize';
+            window.addEventListener(orientationEvt, function() {
+                self._jump(self.index);
+            }, false);
         },
         _clearTransition: function(){
             this.$slider.css({

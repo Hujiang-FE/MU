@@ -103,11 +103,18 @@
 
         // event bind
         _bind: function() {
+            var self = this;
             if (this.options.isBgCloseable) {
                 this.$bg.on('click', $.proxy(function() {
                     this.close();
                 }, this));
             }
+
+            //solve orientchange issue, it recalculate its size when screen changes
+            var orientationEvt = 'onorientationchange' in window ? 'orientationchange' : 'resize';
+            window.addEventListener(orientationEvt, function() {
+                self._adjust();
+            }, false);
         },
 
         html: function(html){
