@@ -58,6 +58,9 @@
     - grunt server after modify the ip address in Gruntfile.js
     - do what you want
 
+###special thanks
+Tester: xulei, hongqi
+
 ##### about
 
     // this project is on progress;
