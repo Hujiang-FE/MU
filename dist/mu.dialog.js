@@ -110,12 +110,13 @@
                     this.close();
                 }, this));
             }
-
+            
             //solve orientchange issue, it recalculate its size when screen changes
-            var orientationEvt = 'onorientationchange' in window ? 'orientationchange' : 'resize';
-            window.addEventListener(orientationEvt, function() {
+            //solve orientchange in chrome between others browsers
+            //change orientchange event to resize
+            $(window).on('resize', function(){
                 self._adjust();
-            }, false);
+            });
         },
 
         html: function(html){

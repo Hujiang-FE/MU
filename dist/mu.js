@@ -32,6 +32,7 @@
             isAndroid: /android/.test(ua),
             isIOS:/iphone|ipad|ipod/.test(ua),
             isMeizu: /m[0-9x]{1,3}/.test(ua),
+            isChrome: /chrome/.test(ua),
             isUC : /ucbrowser/.test(ua),
             isQQ : /mqqbrowser/.test(ua),
             isWP : /windows phone|iemobile/.test(ua),
