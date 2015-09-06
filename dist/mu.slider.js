@@ -238,9 +238,7 @@
         },
         _transitionCallback: function(){
             var self = this;
-            console.log('true 1');
             self.$slider.one(window.animationEvents.transitionEnd, function(){
-                console.log('false 1');
                 self.animating = false;
                 self._clearTransition();
                 if(self.opts.isLoop){
