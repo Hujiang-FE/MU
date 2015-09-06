@@ -4,10 +4,6 @@
 
 一套适用于触屏端的常用方法和UI插件, 有效提升交互效果和开发效率
 
-###breakpoint
-
-测试和修正中
-
 [演示Demo](http://roeis.github.io/mu/)
 
 #### 使用mu
@@ -58,19 +54,14 @@
     - grunt server after modify the ip address in Gruntfile.js
     - do what you want
 
-###special thanks
-Tester: xulei, hongqi
-
-### log
+##### log
 
 15/09/06 第一轮测试OK
 
-
 ##### about
 
-    // this project is on progress;
-    
-    - Copyright (c) 2015 All rights reserved.
+    - version: 1.1.0
     - author: roeis
-    - version: beta
+    - special thanks xulei & hongqi for testing
+    - Copyright (c) 2015 All rights reserved.
 
