@@ -34,6 +34,7 @@
     Page.prototype = {
         init: function() {
             this.options = $.extend({}, defaults, this.options);
+            if(!this.$el.length) return;
             this._create();
         },
         _create: function() {

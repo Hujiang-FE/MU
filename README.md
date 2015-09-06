@@ -61,6 +61,11 @@
 ###special thanks
 Tester: xulei, hongqi
 
+### log
+
+15/09/06 第一轮测试OK
+
+
 ##### about
 
     // this project is on progress;

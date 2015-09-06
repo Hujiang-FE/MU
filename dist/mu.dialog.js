@@ -52,6 +52,7 @@
         constructor: Dialog,
         init: function() {
             this.options = $.extend({}, defaults, this.options);
+            if(!this.$el.length) return;
             this._create();
             this._bind();
         },

@@ -27,6 +27,7 @@
     Slider.prototype = {
         init: function() {
             this.opts = $.extend({}, defaults, this.opts);
+            if(!this.$el.length) return;
             this._create();
             this._bind();
         },
