@@ -52,12 +52,17 @@
             // in jump function, the active target is self.$slider, and this would be current target's parent
             self.$slider = self.$children.closest('.slider-wrap');
 
+            var child_height = self.$slider.children().height();
+
             self.$el.css({
                 'overflow': 'hidden',
+                'height': child_height,
                 'position': 'relative'
             });
 
-            self.$slider.css({'position' : 'absolute'});
+            self.$slider.css({
+                'position' : 'absolute'
+            });
 
             if(self.opts.isVert){
                 //ATTENTION: prevent global touchmove event
