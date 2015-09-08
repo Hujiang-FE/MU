@@ -10,7 +10,7 @@
     'use strict';
     var mu = global.mu = global.mu || {};
      
-    mu.version = '2.3.0';
+    mu.version = '2.3.1';
     mu.$doc = $(document);
     mu.$win = $(window);
     mu.hasTouch = 'ontouchstart' in window;

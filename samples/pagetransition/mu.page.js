@@ -23,8 +23,8 @@
         pageStart: 0,
         classPrev: ['mu-moveFromTop', 'mu-moveToBottom'],
         classNext: ['mu-moveFromBottom', 'mu-moveToTop'],
-        beforeSlide: function() {},
-        afterSlide: function() {}
+        beforeSlide: function($pageout, $pagein) {},
+        afterSlide: function($pageout, $pagein, index) {}
     };
 
     // prevent global default event
@@ -34,6 +34,7 @@
     Page.prototype = {
         init: function() {
             this.options = $.extend({}, defaults, this.options);
+            if(!this.$el.length) return;
             this._create();
         },
         _create: function() {
@@ -86,7 +87,7 @@
             // the target page transform in
             this.$pageIn = this.$el.eq(idx);
             this._animationIn(this.$pageIn, inClass, $.proxy(function() {
-                this.options.afterSlide.call(this, this.$pageOut, this.$pageIn);
+                this.options.afterSlide.call(this, this.$pageOut, this.$pageIn, idx);
                 this.isAnimating = false;
                 this.index = idx;
                 this.$pageOut = this.$pageIn;
