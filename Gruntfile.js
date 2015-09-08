@@ -11,9 +11,9 @@ module.exports = function (grunt) {
     var cfg = {
         src: '',
         des: 'src/',
-        ip: '192.168.155.26',
-        liveport: 30002,
-        port:1302
+        ip: '192.168.156.20',
+        liveport: 30010,
+        port:3024
     };
     grunt.initConfig({
         pkg: pkg,
