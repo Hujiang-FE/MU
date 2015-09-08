@@ -60,7 +60,7 @@
 
 ##### about
 
-    - version: 2.3.0
+    - version: 2.3.1
     - author: roeis
     - special thanks xulei & hongqi for testing
     - Copyright (c) 2015 All rights reserved.
