@@ -68,11 +68,11 @@
 }
 
 .slider {
-  height: 100px;
   background-color: #EEE;
 }
 .slider .li {
   padding: 10px;
+  height: 90px;
 }
 .slider img {
   width: 100%;

@@ -27,6 +27,7 @@
     Slider.prototype = {
         init: function() {
             this.opts = $.extend({}, defaults, this.opts);
+            if(!this.$el.length) return;
             this._create();
             this._bind();
         },
@@ -34,11 +35,11 @@
             var self = this;
             self.$children = self.$el.children();
             self.max = self.$children.length;
-            self.animating = false;
-            self.isMoving = false;
+            self.animating = false;     //正在动画
+            self.isMoving = false;      //正在手势滑动
             self.looptime = null;
-            self.index = 0;
-            self.clones = 0;
+            self.index = 0;             // 起始序号
+            self.clones = 0;            // 克隆数
 
             if(self.opts.isLoop){
                 self.index = 1;
@@ -67,9 +68,11 @@
                 self.$slider.css({'width': self.max * 100 + '%'});
                 self.$children.css({'width': 100 / self.max + '%', 'height': '100%','float': 'left'});
             }
+
             if(self.opts.isLoop){
                 self._setClone();
             }
+
             self._jump(self.index);
 
             if(self.opts.autoSlide){
@@ -121,9 +124,7 @@
                     }else{
                         startPoint = self.$slider.offset().left - parentLeft;
                     }
-
                     if(self.animating) return;
-                    
                     // ATTENTION: in mobile device, in continous quick touchevents
                     // touchstart won't fire, so set a flag forcely
                     // enable touchstart callback do properly
@@ -150,8 +151,9 @@
                 end: function(data) {
                     // ATTENTION: here is flag that determine if trigger the slider
                     // one is a quick short swipe , another is distance diff
-                    // if(self.animating) return;
+                    if(!self.isMoving) return;
                     self.isMoving = false;
+
                     var deltaValue = self.opts.isVert ? data.delta.y : data.delta.x;
                     if (data.deltatime < 250 && Math.abs(deltaValue) > 20 || Math.abs(deltaValue) > 100) {
                         if (deltaValue > 0) {
@@ -165,6 +167,12 @@
                     self.jump(self.index);
                 }
             });
+
+            //solve orientchange issue, it recalculate its size when screen changes
+            var orientationEvt = 'onorientationchange' in window ? 'orientationchange' : 'resize';
+            window.addEventListener(orientationEvt, function() {
+                self._jump(self.index);
+            }, false);
         },
         _clearTransition: function(){
             this.$slider.css({
@@ -201,20 +209,27 @@
         },
         jump: function(index){
             var self = this;
+            self.animating = true;
             this._setTransition();
             this._jump(index, function(){
-                self.animating = true;
                 self.index = index;
                 self.opts.beforeSlide.call(self, self.index);
             });
             this._transitionCallback();
         },
+
+        /**
+         * 静态位置变化
+         * @param  {[type]}   index    [description]
+         * @param  {Function} callback [description]
+         * @return {[type]}            [description]
+         */
         _jump: function(index, callback) {
             // get a width of px value, because % value does not work in andriod
             var distance = this.opts.isVert ? this.$slider.height() : this.$slider.width(),
                 value = -distance * (index / this.max),
                 transValue = this.opts.isVert ? 'translate(0,' + value + 'px) translateZ(0)' : 'translate(' + value + 'px, 0) translateZ(0)';
-
+                
             callback && callback();
             this.$slider.css({
                 '-webkit-transform': transValue,

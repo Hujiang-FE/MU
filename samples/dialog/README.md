@@ -13,10 +13,10 @@
         isBgCloseable: true,                    // 点击背景是否关闭弹窗
         showClass: 'mu-scaleDownIn',            // 自定义弹窗进场动画, css3 animation
         hideClass: 'mu-scaleDownOut',           // 自定义弹窗出场动画
-        classSet: 'scaleDownIn',                // 样式组合, scaleUpIn, scaleDownIn, fadeIn, fadeInUp
+        preset: 'scaleDownIn',                  // 样式组合, scaleUpIn, scaleDownIn, fadeIn, fadeInUp
         isCenter: true,
-        zIndex: 1000,                           
-        opacity: 0.8,                           // 背景的透明度
+        zIndex: 1000,                           // 大于这个值
+        opacity: 0.8,                          // 背景透明度
         beforeOpen: function() {},
         afterOpen: function() {},
         beforeClose: function() {},
@@ -92,5 +92,10 @@
 1.在魅族自带浏览器显示效果异常, 对于animation支持非常不友好, 在魅族的微信中显示效果正常
 
 ### log
+15/09/06 修复横竖屏问题，兼容chrome, baidu
+
+15/09/02 修复横竖屏的自适应问题
+
 15/09/01 初始化可以放在document.ready中，在firefox mobile取值异常
+
 15/08/31 修复firefox, UC, baidu浏览器的位置显示BUG

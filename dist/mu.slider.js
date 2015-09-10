@@ -27,6 +27,7 @@
     Slider.prototype = {
         init: function() {
             this.opts = $.extend({}, defaults, this.opts);
+            if(!this.$el.length) return;
             this._create();
             this._bind();
         },
@@ -51,12 +52,17 @@
             // in jump function, the active target is self.$slider, and this would be current target's parent
             self.$slider = self.$children.closest('.slider-wrap');
 
+            var child_height = self.$slider.children().height();
+
             self.$el.css({
                 'overflow': 'hidden',
+                'height': child_height,
                 'position': 'relative'
             });
 
-            self.$slider.css({'position' : 'absolute'});
+            self.$slider.css({
+                'position' : 'absolute'
+            });
 
             if(self.opts.isVert){
                 //ATTENTION: prevent global touchmove event
@@ -123,9 +129,7 @@
                     }else{
                         startPoint = self.$slider.offset().left - parentLeft;
                     }
-
                     if(self.animating) return;
-                    
                     // ATTENTION: in mobile device, in continous quick touchevents
                     // touchstart won't fire, so set a flag forcely
                     // enable touchstart callback do properly
@@ -152,8 +156,9 @@
                 end: function(data) {
                     // ATTENTION: here is flag that determine if trigger the slider
                     // one is a quick short swipe , another is distance diff
-                    // if(self.animating) return;
+                    if(!self.isMoving) return;
                     self.isMoving = false;
+
                     var deltaValue = self.opts.isVert ? data.delta.y : data.delta.x;
                     if (data.deltatime < 250 && Math.abs(deltaValue) > 20 || Math.abs(deltaValue) > 100) {
                         if (deltaValue > 0) {
@@ -167,6 +172,12 @@
                     self.jump(self.index);
                 }
             });
+
+            //solve orientchange issue, it recalculate its size when screen changes
+            var orientationEvt = 'onorientationchange' in window ? 'orientationchange' : 'resize';
+            window.addEventListener(orientationEvt, function() {
+                self._jump(self.index);
+            }, false);
         },
         _clearTransition: function(){
             this.$slider.css({
@@ -203,9 +214,9 @@
         },
         jump: function(index){
             var self = this;
+            self.animating = true;
             this._setTransition();
             this._jump(index, function(){
-                self.animating = true;
                 self.index = index;
                 self.opts.beforeSlide.call(self, self.index);
             });

@@ -35,6 +35,8 @@
         afterClose: function() {}
     };
 
+    var isScrollPrevented = window.mu.util.isScrollPrevented;
+
     var $body = $(document.body),
         // bgShowed = 0,
         classSets = {
@@ -50,6 +52,7 @@
         constructor: Dialog,
         init: function() {
             this.options = $.extend({}, defaults, this.options);
+            if(!this.$el.length) return;
             this._create();
             this._bind();
         },
@@ -101,11 +104,19 @@
 
         // event bind
         _bind: function() {
+            var self = this;
             if (this.options.isBgCloseable) {
                 this.$bg.on('click', $.proxy(function() {
                     this.close();
                 }, this));
             }
+            
+            //solve orientchange issue, it recalculate its size when screen changes
+            //solve orientchange in chrome between others browsers
+            //change orientchange event to resize
+            $(window).on('resize', function(){
+                self._adjust();
+            });
         },
 
         html: function(html){
@@ -121,6 +132,7 @@
 
             this._show(this.$dialog, this.options.showClass, $.proxy(function() {
                 this.options.afterOpen.call(this);
+                window.mu.util.preventScroll();
             }, this));
             this._show(this.$bg, 'mu-fadeIn');
         },
@@ -134,6 +146,9 @@
 
             this._hide(this.$dialog, this.options.hideClass, $.proxy(function() {
                 this.options.afterClose.call(this);
+                if(!isScrollPrevented){
+                    window.mu.util.recoverScroll();
+                }
             }, this));
             this._hide(this.$bg, 'mu-fadeOut');
         },

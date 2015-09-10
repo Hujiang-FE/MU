@@ -10,7 +10,7 @@
     'use strict';
     var mu = global.mu = global.mu || {};
      
-    mu.version = '0.2.0';
+    mu.version = '2.3.1';
     mu.$doc = $(document);
     mu.$win = $(window);
     mu.hasTouch = 'ontouchstart' in window;
@@ -32,6 +32,7 @@
             isAndroid: /android/.test(ua),
             isIOS:/iphone|ipad|ipod/.test(ua),
             isMeizu: /m[0-9x]{1,3}/.test(ua),
+            isChrome: /chrome/.test(ua),
             isUC : /ucbrowser/.test(ua),
             isQQ : /mqqbrowser/.test(ua),
             isWP : /windows phone|iemobile/.test(ua),

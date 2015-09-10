@@ -12,10 +12,9 @@
         pageStart: 0,                                           //起始页面序号
         classPrev: ['mu-moveFromTop', 'mu-moveToBottom'],       //上一页，进场，出场
         classNext: ['mu-moveFromBottom', 'mu-moveToTop'],       //下一页，进场，出场
-        beforeSlide: function() {},                             //转场前
-        afterSlide: function() {}                               //转场后
+        beforeSlide: function($pageout, $pagein) {},            //转场前
+        afterSlide: function($pageout, $pagein, index) {}       //转场后
     });
-
 
 ### API:
 // 设page为一个实例
@@ -32,4 +31,5 @@
     
     page.jump(1, 'animation1', 'animation2');
 
-### known issue:
+### log:
+15/09/08 更新afterSlide回调参数

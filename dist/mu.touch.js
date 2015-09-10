@@ -97,13 +97,7 @@
             tapTimeout = setTimeout(function(){
                 tapTimeout = null;
                 if(Math.abs(delta.x) < 5 && Math.abs(delta.y) < 5 && duration < 300) {
-                    var evt = $.Event('tap');
-
-                    // evt.cancelTouch = function(){
-                    //     if (tapTimeout) clearTimeout(tapTimeout);
-                    //     if (longTapTimeout) clearTimeout(longTapTimeout);
-                    // };
-                    
+                    var evt = $.Event('tap');                    
                     $elem.trigger(evt);
                 }
             }, 0);

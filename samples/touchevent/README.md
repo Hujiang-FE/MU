@@ -29,6 +29,7 @@ swipeUp, swipeDown
 
 ###issue:
 @[dail](https://github.com/dail):
+
 所有事件都是绑在document去触发的，注意冒泡等引起的问题
 jquery支持$.event.special, zepto不支持
 
