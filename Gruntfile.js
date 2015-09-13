@@ -1,5 +1,5 @@
 /**
- * 自动化脚本定义
+ * 自动化脚本定�
  * roeis
  */
 var matchdep = require('matchdep');
@@ -11,7 +11,7 @@ module.exports = function (grunt) {
     var cfg = {
         src: '',
         des: 'src/',
-        ip: '192.168.156.20',
+        ip: '192.168.0.107',
         liveport: 30010,
         port:3024
     };
@@ -77,8 +77,8 @@ module.exports = function (grunt) {
                 middleware: function(connect, options){
                         return [
                             require('connect-livereload')(),
-                            connect.static(options.base),
-                            connect.directory(options.base)
+                            connect.static(options.base[0]),
+                            connect.directory(options.base[0])
                         ];
                     }
             },
