@@ -53,6 +53,7 @@
             // in jump function, the active target is self.$slider, and this would be current target's parent
             self.$slider = self.$children.closest('.slider-wrap');
 
+            // in vertical mode , it resolve a different value
             var child_height;
             if(self.opts.isVert){
                 child_height = self.$el.height();
@@ -60,7 +61,6 @@
                 child_height = self.$children.height();
             }
 
-            console.log(child_height)
             self.$el.css({
                 'height': child_height,
                 'position': 'relative'

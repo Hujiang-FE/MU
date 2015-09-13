@@ -14,6 +14,7 @@
         isLoop: true,                       //是否创建
         speed: 500,                         //滑动速度
         isVert: false,                      //滑动方向
+        isHidden: true,
         beforeSlide: function() {},
         afterSlide: function() {}
     });
@@ -63,6 +64,8 @@
 2.循坏可能
 
 ### log:
+
+15/09/13 新增选项，容器是否支持溢出
 
 15/09/02 修复横竖屏的自适应问题, 修复快速滑动导致isAnimating===true的问题
 
