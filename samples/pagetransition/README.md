@@ -32,4 +32,4 @@
     page.jump(1, 'animation1', 'animation2');
 
 ### log:
-15/09/08 更新afterSlide回调参数
+15/09/08 更新afterSlide回调参数, 修复首次beforeSlide回调取值null
