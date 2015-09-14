@@ -21,6 +21,7 @@
         speed: 500,
         isLoop: false,
         isVert: false,
+        isHidden: true,
         beforeSlide: function() {},
         afterSlide: function() {}
     };
@@ -52,17 +53,25 @@
             // in jump function, the active target is self.$slider, and this would be current target's parent
             self.$slider = self.$children.closest('.slider-wrap');
 
-            var child_height = self.$slider.children().height();
+            // in vertical mode , it resolve a different value
+            var height;
+            if(self.opts.isVert){
+                height = self.$el.height();
+            }else{
+                height = self.$children.height();
+                console.log(self.$el.height());
+                console.log(height);
+            }
+            if(height > 0){
+                self.$el.css('height', height);
+            }
 
-            self.$el.css({
-                'overflow': 'hidden',
-                'height': child_height,
-                'position': 'relative'
-            });
+            if(self.opts.isHidden){
+                self.$el.css('overflow', 'hidden');
+            }
 
-            self.$slider.css({
-                'position' : 'absolute'
-            });
+            self.$el.css('position', 'relative');
+            self.$slider.css('position', 'absolute');
 
             if(self.opts.isVert){
                 //ATTENTION: prevent global touchmove event
@@ -71,7 +80,7 @@
                 self.$children.css({'height': 100 / self.max + '%'});
             }else{
                 self.$slider.css({'width': self.max * 100 + '%'});
-                self.$children.css({'width': 100 / self.max + '%', 'height': '100%','float': 'left'});
+                self.$children.css({'width': 100 / self.max + '%', 'float': 'left'});
             }
 
             if(self.opts.isLoop){

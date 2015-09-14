@@ -54,27 +54,22 @@
             self.$slider = self.$children.closest('.slider-wrap');
 
             // in vertical mode , it resolve a different value
-            var child_height;
+            var height;
             if(self.opts.isVert){
-                child_height = self.$el.height();
+                height = self.$el.height();
             }else{
-                child_height = self.$children.height();
+                height = self.$children.height();
             }
-
-            self.$el.css({
-                'height': child_height,
-                'position': 'relative'
-            });
+            if(height > 0){
+                self.$el.css('height', height);
+            }
 
             if(self.opts.isHidden){
-                self.$el.css({
-                    'overflow': 'hidden'
-                });
+                self.$el.css('overflow', 'hidden');
             }
 
-            self.$slider.css({
-                'position' : 'absolute'
-            });
+            self.$el.css('position', 'relative');
+            self.$slider.css('position', 'absolute');
 
             if(self.opts.isVert){
                 //ATTENTION: prevent global touchmove event
