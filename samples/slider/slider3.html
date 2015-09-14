@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+    <meta name="Keywords" content="">
+    <meta name="Description" content="">
+    <title>slider</title>
+    <link rel="stylesheet" href="/src/styles/base.css">
+    <link rel="stylesheet" href="/src/styles/test.css">
+    <link rel="stylesheet" href="/dist/mu.css">
+    <style>
+        .test2{
+            width: 70%;
+            left: 15%;
+            bottom: 80px;
+        }
+        .slider2 .li{
+            height: 240px;
+            padding: 20px;
+        }
+        .slider2 .box{
+            background-color: #ddd;
+            height: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    
+    <div class="wrapper">
+        <a href="javascript:;" class="btn-open">open</a>
+    </div>
+
+    <!-- <div class="bg"></div> -->
+    <div class="test2">
+        <div class="slider2" id="slider2">
+            <div class="li">
+                <div class="box">
+                    1
+                </div>
+            </div>
+            <div class="li">
+                <div class="box">
+                    <img src="http://i2.w.hjfile.cn/news/201507/201507063485218823.jpg" alt="">
+                </div>
+            </div>
+            <div class="li">
+                <div class="box">
+                    3
+                </div>
+            </div>
+            <div class="li">
+                <div class="box">
+                    4
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- <script src="/vendor/jq/jquery-2.1.3.min.js"></script> -->
+    <script src="/vendor/zepto.min.js"></script>
+    <script src="/dist/mu.all.min.js"></script>
+    <script src="mu.slider.js"></script>
+    <script>
+
+        var dialog = new MuDialog('.test2', {
+            isCenter: false,
+            afterClose: function(){
+
+            }
+        });
+
+        var slider = new MuSlider('.slider2', {
+            isHidden: false
+        });
+
+        $('.btn-open').on('click', function(){
+            dialog.open();
+        });
+
+    </script>
+</body>
+
+</html>
