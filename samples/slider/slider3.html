@@ -9,7 +9,7 @@
     <title>slider</title>
     <link rel="stylesheet" href="/src/styles/base.css">
     <link rel="stylesheet" href="/src/styles/test.css">
-    <link rel="stylesheet" href="/dist/mu.css">
+    <link rel="stylesheet" href="/src/styles/mu.css">
     <style>
         .test2{
             width: 70%;
@@ -53,6 +53,7 @@
     <!-- <script src="/vendor/jq/jquery-2.1.3.min.js"></script> -->
     <script src="/vendor/zepto.min.js"></script>
     <script src="/dist/mu.js"></script>
+    <script src="/dist/mu.touch.js"></script>
     <script src="/dist/mu.dialog.js"></script>
     <script src="mu.slider.js"></script>
     <script>
@@ -64,13 +65,15 @@
 
         var dialog = new MuDialog('.test2', {
             isCenter: false,
+            preset: 'fadeInDown',
             afterClose: function(){
 
             }
         });
 
-        $('.btn-open').on('click', function(){
+        $('.btn-open').on('tap', function(event){
             dialog.open();
+            event.stopPropagation();
         });
 
     </script>

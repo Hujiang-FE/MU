@@ -99,8 +99,8 @@
   }
 }
 .mu-fadeIn {
-  -webkit-animation: fadeIn .3s ease;
-  animation: fadeIn .3s ease;
+  -webkit-animation: fadeIn .4s ease;
+  animation: fadeIn .4s ease;
 }
 
 @-webkit-keyframes fadeOut {
@@ -120,8 +120,8 @@
   }
 }
 .mu-fadeOut {
-  -webkit-animation: fadeOut .3s ease;
-  animation: fadeOut .3s ease;
+  -webkit-animation: fadeOut .4s ease;
+  animation: fadeOut .4s ease;
 }
 
 @-webkit-keyframes fadeInDown {
@@ -145,8 +145,8 @@
   }
 }
 .mu-fadeInDown {
-  -webkit-animation: fadeInDown .3s ease;
-  animation: fadeInDown .3s ease;
+  -webkit-animation: fadeInDown .4s ease;
+  animation: fadeInDown .4s ease;
 }
 
 @-webkit-keyframes fadeOutDown {
@@ -195,8 +195,8 @@
   }
 }
 .mu-fadeInUp {
-  -webkit-animation: fadeInUp .3s ease;
-  animation: fadeInUp .3s ease;
+  -webkit-animation: fadeInUp .4s ease;
+  animation: fadeInUp .4s ease;
 }
 
 @-webkit-keyframes fadeOutUp {
@@ -220,8 +220,8 @@
   }
 }
 .mu-fadeOutUp {
-  -webkit-animation: fadeOutUp .3s ease;
-  animation: fadeOutUp .3s ease;
+  -webkit-animation: fadeOutUp .4s ease;
+  animation: fadeOutUp .4s ease;
 }
 
 @-webkit-keyframes mu-scaleDownIn {
@@ -247,8 +247,8 @@
   }
 }
 .mu-scaleDownIn {
-  -webkit-animation: mu-scaleDownIn .3s ease;
-  animation: mu-scaleDownIn .3s ease;
+  -webkit-animation: mu-scaleDownIn .4s ease;
+  animation: mu-scaleDownIn .4s ease;
 }
 
 @-webkit-keyframes scaleDownOut {
@@ -271,8 +271,8 @@
   }
 }
 .mu-scaleDownOut {
-  -webkit-animation: scaleDownOut .3s ease;
-  animation: scaleDownOut .3s ease;
+  -webkit-animation: scaleDownOut .4s ease;
+  animation: scaleDownOut .4s ease;
 }
 
 @-webkit-keyframes mu-scaleUpIn {
@@ -298,8 +298,8 @@
   }
 }
 .mu-scaleUpIn {
-  -webkit-animation: mu-scaleUpIn .3s ease;
-  animation: mu-scaleUpIn .3s ease;
+  -webkit-animation: mu-scaleUpIn .4s ease;
+  animation: mu-scaleUpIn .4s ease;
 }
 
 @-webkit-keyframes fadeInRight {
@@ -323,8 +323,8 @@
   }
 }
 .mu-fadeInRight {
-  -webkit-animation: fadeInRight .3s ease;
-  animation: fadeInRight .3s ease;
+  -webkit-animation: fadeInRight .4s ease;
+  animation: fadeInRight .4s ease;
 }
 
 @-webkit-keyframes fadeOutRight {
@@ -348,8 +348,8 @@
   }
 }
 .mu-fadeOutRight {
-  -webkit-animation: fadeOutRight .3s ease;
-  animation: fadeOutRight .3s ease;
+  -webkit-animation: fadeOutRight .4s ease;
+  animation: fadeOutRight .4s ease;
 }
 
 .mu-page {
@@ -358,8 +358,6 @@
   position: absolute;
   overflow: hidden;
   visibility: hidden;
-  left: 0;
-  top: 0;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
   -webkit-transform-style: preserve-3d;

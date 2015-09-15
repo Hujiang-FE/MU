@@ -105,10 +105,11 @@
         // event bind
         _bind: function() {
             var self = this;
-            if (this.options.isBgCloseable) {
-                this.$bg.on('click', $.proxy(function() {
-                    this.close();
-                }, this));
+            if (self.options.isBgCloseable) {
+                self.$bg.on('tap', function(event) {
+                    self.close();
+                    event.stopPropagation();
+                });
             }
             
             //solve orientchange issue, it recalculate its size when screen changes
@@ -139,13 +140,12 @@
 
         close: function() {
             if (!this.isOpen) return;
-            this.isOpen = false;
-            // bgShowed--;
 
             this.options.beforeClose.call(this);
 
             this._hide(this.$dialog, this.options.hideClass, $.proxy(function() {
                 this.options.afterClose.call(this);
+                this.isOpen = false;
                 if(!isScrollPrevented){
                     window.mu.util.recoverScroll();
                 }
