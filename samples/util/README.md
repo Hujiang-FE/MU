@@ -17,12 +17,14 @@
     |--- mu.hasTouch    --> boolean 是否有touch事件
     |--- mu.detect      --> object 检测浏览器对象
     |--- mu.util        --> object 常用方法集锦对象
+    |--- mu.request     --> object 请求方法
 
 #### mu.detect 检测浏览器
 常用判断手机端环境，返回布尔值
 
     mu.detect.isWeixin
     mu.detect.isAndroid
+    mu.detect.isChrome
     mu.detect.isIOS
     mu.detect.isMeizu
     mu.detect.isUC
@@ -106,6 +108,31 @@
 
 -------------------------------
 
+
+#### mu.request 请求
+
+**mu.request.get(obj)**
+    
+    mu.request.get({
+        url: url,
+        data: data,
+        success: function(){},
+        error: function(){},
+        dataType: 'jsonp'
+        storage: false  //单位: 分钟
+    });
+
+**mu.request.post(obj)**
+    
+    mu.request.post({
+        url: url,
+        data: data,
+        success: function(){},
+        error: function(){},
+        contentType: 'contentType'
+        dataType: 'json',
+    });
+
 #### $.fn 拓展
     
 ###### $.fn.swipeable
@@ -139,6 +166,9 @@ css3 动画结束回调
 同时曝露全部变量animationEvents对象, 里面各个动画事件在不同浏览器的prefix版本
 
 比如在webkit浏览器下， animationEvents.transitionEnd --> webkitTransitionEnd
+
+
+#### mu.util 常用方法集锦
 
 ### log:
 15/08/31 修复animationend事件名，在firefox中的问题

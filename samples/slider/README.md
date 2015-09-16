@@ -11,12 +11,12 @@
     // 构造器模式
     var slider = new MuSlider('.wrapper', {
         autoSlide: false,                   //自动轮播
-        isLoop: true,                       //是否创建
+        isLoop: true,                       //是否创建克隆，连续循环
         speed: 500,                         //滑动速度
         isVert: false,                      //滑动方向
-        isHidden: true,
-        beforeSlide: function() {},
-        afterSlide: function() {}
+        isHidden: true,                     //容器是否支持溢出
+        beforeSlide: function(index) {},
+        afterSlide: function(index) {}
     });
 
 
@@ -54,14 +54,8 @@
 
 **method: next**
     
-    slider.prev();
+    slider.next();
 
-
-
-### known issue:
-1.快速滑动可能导致跳跃，未测试
-
-2.循坏可能
 
 ### log:
 

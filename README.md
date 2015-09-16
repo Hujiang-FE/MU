@@ -21,7 +21,7 @@
 
     - utility           常用工具方法            OK
     - detect            平台检测                OK
-    - ajax & cache      请求相关                NF
+    - ajax & cache      请求相关                OK
     - touch event       基础touch事件           OK
     - fn                拓展$.fn                OK
     - require           简易require
@@ -60,7 +60,7 @@
 
 ##### about
 
-    - version: 2.3.1
+    - version: 2.4.1
     - author: roeis
     - special thanks xulei & hongqi for testing
     - Copyright (c) 2015 All rights reserved.
