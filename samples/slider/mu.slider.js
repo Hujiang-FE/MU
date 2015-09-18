@@ -22,6 +22,7 @@
         isLoop: false,
         isVert: false,
         isHidden: true,
+        timing: 'ease',                     // timing: 'cubic-bezier(.61,.07,.05,.87)'
         beforeSlide: function() {},
         afterSlide: function() {}
     };
@@ -69,7 +70,11 @@
             }
 
             self.$el.css('position', 'relative');
-            self.$slider.css('position', 'absolute');
+            self.$slider.css({
+                'position': 'absolute',
+                '-webkit-transition-timing-function': self.opts.timing,
+                'transition-timing-function': self.opts.timing
+            });
 
             if(self.opts.isVert){
                 //ATTENTION: prevent global touchmove event

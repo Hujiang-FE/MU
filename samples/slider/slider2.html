@@ -54,6 +54,32 @@
                     4
                 </div>
             </div>
+            <div class="li">
+                <div class="box">
+                    4
+                </div>
+            </div>
+            <div class="li">
+                <div class="box">
+                    4
+                </div>
+            </div>
+            <div class="li">
+                <div class="box">
+                    4
+                </div>
+            </div>
+            <div class="li">
+                <div class="box">
+                    4
+                </div>
+            </div>
+            <div class="li">
+                <div class="box">
+                    4
+                </div>
+            </div>
+
         </div>
     </div>
 
@@ -65,7 +91,11 @@
         var slider1;
         $(function(){
             slider1 = new MuSlider('.slider2', {
-                isHidden: false
+                isHidden: false,
+                // timing: 'cubic-bezier(.61,.07,.05,.87)',
+                afterSlide: function(index){
+                    console.log(index);
+                }
             });
         });
 

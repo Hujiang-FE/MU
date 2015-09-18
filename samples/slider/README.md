@@ -15,6 +15,7 @@
         speed: 500,                         //滑动速度
         isVert: false,                      //滑动方向
         isHidden: true,                     //容器是否支持溢出
+        timing: true,
         beforeSlide: function(index) {},
         afterSlide: function(index) {}
     });
@@ -22,7 +23,7 @@
 
     // 轮播
     $('.element').muSlider({
-        afterSlide: function(){
+        afterSlide: function(index){
             // callback after each slide
         }
     });
@@ -58,6 +59,7 @@
 
 
 ### log:
+15/19/18 新增选项，可配置transition-timing-function
 
 15/09/15 修复点击时触发jump漏洞
 
