@@ -23,8 +23,8 @@
         isVert: false,
         isHidden: true,
         timing: 'ease',                     // timing: 'cubic-bezier(.61,.07,.05,.87)'
-        beforeSlide: function() {},
-        afterSlide: function() {}
+        beforeSlide: function(index) {},
+        afterSlide: function(index) {}
     };
     Slider.prototype = {
         init: function() {
@@ -205,7 +205,10 @@
             });
         },
         _destory: function(){
-
+            if(this.opts.isLoop){
+                $('.mu-clone').remove();
+            }
+            this.$children.removeAttr('style').unwrap();
         },
         prev: function() {
             var idx = this.index;
@@ -231,7 +234,7 @@
             this._setTransition();
             this._jump(index, function(){
                 self.index = index;
-                self.opts.beforeSlide.call(self, self.index);
+                self.opts.beforeSlide.call(self, index);
             });
             this._transitionCallback();
         },
@@ -268,7 +271,7 @@
                     }
                     self._jump(self.index);
                 }
-                self.opts.afterSlide.call(self, self.index);
+                self.opts.afterSlide.call(self, self.index - 1);
             });
         }
     };

@@ -60,8 +60,12 @@
             isLoop: true,
             // autoSlide: true,
             isVert: true,
+            beforeSlide: function(index) {
+                console.log(index, 'before');
+            },
             afterSlide: function(index){
                 console.log(index);
+                this.$children.eq(index).addClass('test').siblings().removeClass('test');
             }
         });
     </script>

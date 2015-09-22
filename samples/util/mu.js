@@ -306,7 +306,7 @@
 // console info
 (function(){
     'use strict';
-    window.console.log('%cUI Component Powered by MU %chttps://github.com/Roeis', 'color: #30286B', 'color:#BD5656;');
+    window.console.log('%cUI Component Powered by MU %chttps://github.com/Roeis', 'color: #30286B;', 'color:#BD5656;');
 })();
 
 /**
