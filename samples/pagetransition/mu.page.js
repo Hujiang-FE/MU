@@ -21,20 +21,31 @@
     var defaults = {
         isLoop: true,
         pageStart: 0,
-        classPrev: ['mu-moveFromTop', 'mu-moveToBottom'],
-        classNext: ['mu-moveFromBottom', 'mu-moveToTop'],
-        beforeSlide: function($pageout, $pagein) {},
-        afterSlide: function($pageout, $pagein, index) {}
+        classPrev: [],
+        classNext: [],
+        mode: 'vertical',                             // horizontal
+        beforeSlide: function($pagein, $pageout) {},
+        afterSlide: function($pagein, $pageout, index) {}
     };
 
     // prevent global default event
 
-    var showCls = 'mu-page-current';
+    var showCls = 'mu-page-current',
+        classSets = {
+            'vertical': {
+                classPrev: ['mu-moveFromTop', 'mu-moveToBottom'],
+                classNext: ['mu-moveFromBottom', 'mu-moveToTop']
+            },
+            'horizontal': {
+                classPrev: ['mu-moveFromLeft', 'mu-moveToRight'],
+                classNext: ['mu-moveFromRight', 'mu-moveToLeft']
+            }
+        };
 
     Page.prototype = {
         init: function() {
             this.options = $.extend({}, defaults, this.options);
-            if(!this.$el.length) return;
+            if (!this.$el.length) return;
             this._create();
         },
         _create: function() {
@@ -48,6 +59,12 @@
                 var $this = $(this);
                 $this.addClass('mu-page');
             }).eq(this.index).addClass(showCls).siblings().removeClass(showCls);
+
+            if (this.options.mode && classSets[this.options.mode]) {
+                this.options.classPrev = classSets[this.options.mode].classPrev;
+                this.options.classNext = classSets[this.options.mode].classNext;
+            }
+
         },
         prev: function() {
             var idx = this.index;
@@ -81,16 +98,16 @@
             //2.enable custom class for page transition
             inClass = inClass ? inClass : idx > this.index ? this.options.classNext[0] : this.options.classPrev[0];
             outClass = outClass ? outClass : idx > this.index ? this.options.classNext[1] : this.options.classPrev[1];
-            
+
             // the target page transform in
             this.$pageIn = this.$el.eq(idx);
 
-            this.options.beforeSlide.call(this, this.$pageOut, this.$pageIn);
-            
+            this.options.beforeSlide.call(this, this.$pageIn, this.$pageOut);
+
             this._animationOut(this.$pageOut, outClass, function() {});
 
             this._animationIn(this.$pageIn, inClass, $.proxy(function() {
-                this.options.afterSlide.call(this, this.$pageOut, this.$pageIn, idx);
+                this.options.afterSlide.call(this, this.$pageIn, this.$pageOut, idx);
                 this.isAnimating = false;
                 this.index = idx;
                 this.$pageOut = this.$pageIn;
@@ -115,9 +132,9 @@
 
     window.MuPage = Page;
 
-    $.fn.muPage = function(options){
+    $.fn.muPage = function(options) {
         var args = Array.prototype.slice.call(arguments, 1);
-        this.each(function(){
+        this.each(function() {
             var $this = $(this),
                 instance = $.fn.muPage.instances[$this.data('muPage')];
 
@@ -126,7 +143,7 @@
                 $.fn.muPage.instances[$.fn.muPage.instances.i] = new Page(this, options);
                 $this.data('muPage', $.fn.muPage.instances.i);
                 $.fn.muPage.instances.i++;
-            }else if(typeof options === 'string' && instance[options]){
+            } else if (typeof options === 'string' && instance[options]) {
                 instance[options].apply(instance, args);
             }
         });

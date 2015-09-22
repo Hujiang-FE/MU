@@ -10,7 +10,7 @@
     'use strict';
     var mu = global.mu = global.mu || {};
      
-    mu.version = '2.4.2';
+    mu.version = '2.4.3';
     mu.$doc = $(document);
     mu.$win = $(window);
     mu.hasTouch = 'ontouchstart' in window;
@@ -306,7 +306,7 @@
 // console info
 (function(){
     'use strict';
-    window.console.log('%cUI Component Powered by MU: github.com/Roeis', 'color: #2964D0');
+    window.console.log('%cUI Component Powered by MU %chttps://github.com/Roeis', 'color: #11B12D', 'color:#f40;');
 })();
 
 /**
