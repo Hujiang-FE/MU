@@ -9,6 +9,7 @@
     <title>example roeis</title>
     <link rel="stylesheet" href="/src/styles/base.css">
     <link rel="stylesheet" href="/src/styles/mu.css">
+    <link rel="stylesheet" href="/src/styles/test.css">
     <link rel="stylesheet" href="css/animate.css">
     <link rel="stylesheet" href="css/m-zt.css">
     <link rel="stylesheet" href="css/pop.css">
@@ -28,61 +29,82 @@
         height: 50px;
         background-color: #CCC;
     }
+    .wrapper {
+        color: rgb(51, 51, 51);
+        background-image: url(http://i2.w.hjfile.cn/news/201505/201505063473484729.jpg);
+        background-color: rgb(255, 255, 255);
+        background-size: auto 100%;
+        background-position: 50% 50%;
+        background-repeat: no-repeat;
+    }
     </style>
 </head>
 
 <body>
     <div class="wrapper">
-        <div class="page" style="background: #CCC;">
-            单屏切换
-            <br> use css3 animation
+        <div class="page page0">
+            <div class="m_cont" style="display: block;"><div class="item_edit item_drag" data-type="2" style="position:absolute; left:9%; top:53%; width:8%; height:40%; z-index:auto; opacity:0; -webkit-animation:lengthDown 1s ease 0s 1 normal forwards; -webkit-animation-play-state:initial; background-image:none; background-color:rgb(253, 113, 55); background-size:100%; background-repeat:no-repeat; animation:lengthDown 1s ease 0s 1 normal forwards; animation-play-state:initial;"><div class="m_elem"></div></div><div class="item_edit item_drag" data-type="2" style="position:absolute; left:26%; top:67%; width:8%; height:26%; z-index:auto; opacity:0; -webkit-animation:lengthDown 1s ease 0.2s 1 normal forwards; -webkit-animation-play-state:initial; background-image:none; background-color:rgb(160, 115, 253); background-size:100%; background-repeat:no-repeat; animation:lengthDown 1s ease 0.2s 1 normal forwards; animation-play-state:initial;"><div class="m_elem"></div></div><div class="item_edit item_drag" data-type="2" style="position:absolute; left:43%; top:59%; width:9%; height:34%; z-index:auto; opacity:0; -webkit-animation:lengthDown 1s ease 0.3s 1 normal forwards; -webkit-animation-play-state:initial; background-image:none; background-color:rgb(133, 205, 76); background-size:100%; background-repeat:no-repeat; animation:lengthDown 1s ease 0.3s 1 normal forwards; animation-play-state:initial;"><div class="m_elem"></div></div><div class="item_edit item_drag" data-type="2" style="position:absolute; left:62%; top:41%; width:8%; height:52%; z-index:auto; opacity:0; -webkit-animation:lengthDown 1s ease 0.4s 1 normal forwards; -webkit-animation-play-state:initial; background-image:none; background-color:rgb(99, 146, 255); background-size:100%; background-repeat:no-repeat; animation:lengthDown 1s ease 0.4s 1 normal forwards; animation-play-state:initial;"><div class="m_elem"></div></div><div class="item_edit item_drag" data-type="2" style="position:absolute; left:80%; top:24%; width:9%; height:69%; z-index:auto; opacity:0; -webkit-animation:lengthDown 1s ease 0.5s 1 normal forwards; -webkit-animation-play-state:initial; background-image:none; background-color:rgb(254, 210, 100); background-size:100%; background-repeat:no-repeat; animation:lengthDown 1s ease 0.5s 1 normal forwards; animation-play-state:initial;"><div class="m_elem"></div></div><div class="item_edit item_drag item_jump" data-type="30" data-page="5" style="color:rgb(255, 255, 255); width:85%; left:7%; top:5%; position:absolute; height:9%; border-radius:5px; z-index:auto; animation:fadeInRight 1s ease 0s 1 normal forwards; opacity:0; background-color:rgb(46, 184, 74);"><div class="m_elem"><p>查看答案</p></div></div></div>
         </div>
-        <div class="page" style="background: #BBB;">
+        <div class="page page1" style="color: rgb(51, 51, 51);background-image: url(http://i2.w.hjfile.cn/news/201506/201506042570212815.jpg);background-color: rgba(0, 0, 0, 0);background-size: auto 100%;background-position: 50% 50%;background-repeat: no-repeat;">
             <div class="m_cont" style="display: block;">
-                <div class="item_edit item_drag item_btn" data-type="6" data-src="http://shang.qq.com/wpa/qunwpa?idkey=72d04e401de50c9acda00407409d2a6a0817e0f655af207195611194e701b5fd" style="color:rgb(255, 255, 255); width:70%; left:15%; top:82%; position:absolute; height:10%; border-radius:50px; animation:tada 1s ease 0s 1 normal forwards; opacity:0; z-index:auto; background-color:rgb(51, 129, 219);">
+                <div class="item_edit item_drag item_btn" data-type="6" data-src="http://m.hujiang.com" style="position:absolute; left:29%; top:90%; width:40%; height:8%; z-index:1; background-image:url(http://i2.w.hjfile.cn/news/201503/201503311254850561.png); background-size:auto 100%; background-position:50% 50%; background-repeat:no-repeat;">
+                    <div class="m_elem"></div>
+                </div>
+            </div>
+            
+        </div>
+        <div class="page" style="background: #0cF;">
+            <div class="m_cont" style="display: none;">
+                <div class="item_edit item_drag item_btn" data-type="6" style="color:rgb(255, 255, 255); width:70%; left:15%; top:82%; position:absolute; height:10%; border-radius:50px; -webkit-animation:tada 1s ease 0s 1 normal; animation:tada 1s ease 0s 1 normal; opacity: 1; z-index:auto; background-color:rgb(51, 129, 219);">
                     <div class="m_elem">
                         <p style="text-align: center;">
                             <span style="font-size: 20px;">立即加入QQ群</span>
                         </p>
                     </div>
                 </div>
-                <div class="item_edit item_drag" data-type="2" style="left:41%; top:38%; width:24%; position:absolute; animation:pulse 1s ease 0s 1 normal forwards; opacity:0; z-index:auto; height:15%;">
+                <div class="item_edit item_drag" data-type="2" style="left:61%; top:28%; width:24%; position:absolute; z-index:auto; height:15%;">
                     <div class="m_elem">
                         <p><img src="http://i2.w.7.hjfile.cn/entry/201507/2cd3094d-f7b6-4e0f-8c75-4f847c94586f.jpg" title="" alt=""></p>
                     </div>
                 </div>
-                <div class="item_edit item_drag item_btn _GA_ct_cddf" data-type="6" data-src="http://m.hujiang.com" style="color:rgb(255, 255, 255); width:69%; left:18%; top:11%; position:absolute; height:13%; border-radius:50px; animation:fadeInLeft 1s ease 0s 1 normal forwards; opacity:0; z-index:auto; background-color:rgb(153, 153, 153);" data-analyze="ct_cddf" data-bi="ct_sdfsdf">
-                    <div class="m_elem">
-                        <p>点击跳转链接按钮</p>
-                    </div>
-                </div>
             </div>
-        </div>
-        <div class="page" style="background: #0cF;">
-            3
         </div>
         <div class="page" style="background: #Fc0;">
             4
         </div>
+    </div>
+    <div class="btn fix" id="prev">
+        prev
+    </div>
+    <div class="btn fix" id="next">
+        next
     </div>
     <!-- <script src="/vendor/jq/jquery-2.1.3.min.js"></script> -->
     <script src="/vendor/zepto.min.js"></script>
     <script src="../util/mu.js"></script>
     <script src="mu.slider.js"></script>
     <script>
-    // mu.util.preventScroll();
-    var slider = new MuSlider('.wrapper', {
-        isLoop: true,
-        // autoSlide: true,
-        isVert: true,
-        beforeSlide: function(index) {
-            console.log(index, 'before');
-        },
-        afterSlide: function(index) {
-            console.log(index);
-            this.$children.eq(index).addClass('test').siblings().removeClass('test');
-        }
-    });
+        mu.util.preventScroll();
+        var slider = new MuSlider('.wrapper', {
+            isLoop: true,
+            // autoSlide: true,
+            isVert: true,
+            beforeSlide: function() {
+                // $('.page').eq(index).find('.m_cont').show();
+            },
+            afterSlide: function(index) {
+                // console.log(index);
+                // this.$children.eq(index-1).find('.m_cont').hide();
+            }
+        });
+
+        $('#prev').on('click', function() {
+            slider.prev();
+        });
+
+        $('#next').on('click', function() {
+            slider.next();
+        });
     </script>
 </body>
 

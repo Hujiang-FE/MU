@@ -23,7 +23,7 @@
         isVert: false,
         isHidden: true,
         timing: 'ease',                     // timing: 'cubic-bezier(.61,.07,.05,.87)'
-        beforeSlide: function(index) {},
+        beforeSlide: function() {},
         afterSlide: function(index) {}
     };
     Slider.prototype = {
@@ -42,7 +42,7 @@
             self.looptime = null;
             self.index = 0;             // 起始序号
             self.clones = 0;            // 克隆数
-
+            
             if(self.opts.isLoop){
                 self.index = 1;
                 self.clones = 2;
@@ -232,9 +232,14 @@
             var self = this;
             self.animating = true;
             this._setTransition();
+            
+            // console.log(nextIndex, prevIndex);
+
+            self.$nextPage = self.$children.eq(nextIndex);
+            self.$prevPage = self.$children.eq(prevIndex);
             this._jump(index, function(){
                 self.index = index;
-                self.opts.beforeSlide.call(self, index);
+                self.opts.beforeSlide.call(self, self.$nextPage, self.$prevPage);
             });
             this._transitionCallback();
         },
@@ -258,21 +263,45 @@
             });
         },
         _transitionCallback: function(){
-            var self = this;
+            var self = this,
+                curIndex = self.index;
             self.$slider.one(window.animationEvents.transitionEnd, function(){
                 self.animating = false;
                 self._clearTransition();
                 if(self.opts.isLoop){
-                    if(self.index === 0){
+                    if(curIndex === 0){
                         self.index = self.max - self.clones;
                     }
-                    if(self.index === self.max - 1){
+                    if(curIndex === self.max - 1){
                         self.index = 1;
                     }
                     self._jump(self.index);
                 }
                 self.opts.afterSlide.call(self, self.index - 1);
             });
+        },
+        _getRealIndex: function(){
+            var nextIndex = this.index,
+                prevIndex;
+            if(this.opts.isLoop){
+                if(nextIndex === 0){
+                    nextIndex = this.max - this.clones;
+                }
+                if(nextIndex === this.max - 1){
+                    nextIndex = 1;
+                }
+                nextIndex --;
+            }
+
+            prevIndex = nextIndex - 1;
+
+            if(prevIndex < 0) {
+                prevIndex = this.max - this.clones - 1;
+            }
+            return {
+                prevIndex: prevIndex,
+                nextIndex: nextIndex
+            }
         }
     };
 
