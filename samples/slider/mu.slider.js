@@ -233,6 +233,18 @@
             self.animating = true;
             this._setTransition();
             
+            
+            var nextIndex = self.index,
+                prevIndex;
+            if(self.opts.isLoop){
+                if(nextIndex === 0) nextIndex = self.max - self.clones;
+                if(nextIndex === self.max - 1) nextIndex = 1;
+                nextIndex --;
+            }
+
+            prevIndex = nextIndex - 1;
+
+            if(prevIndex < 0) prevIndex = self.max - self.clones - 1;
             // console.log(nextIndex, prevIndex);
 
             self.$nextPage = self.$children.eq(nextIndex);
@@ -269,39 +281,12 @@
                 self.animating = false;
                 self._clearTransition();
                 if(self.opts.isLoop){
-                    if(curIndex === 0){
-                        self.index = self.max - self.clones;
-                    }
-                    if(curIndex === self.max - 1){
-                        self.index = 1;
-                    }
+                    if(curIndex === 0) self.index = self.max - self.clones;
+                    if(curIndex === self.max - 1) self.index = 1;
                     self._jump(self.index);
                 }
-                self.opts.afterSlide.call(self, self.index - 1);
+                self.opts.afterSlide.call(self, self.$nextPage, self.$prevPage, self.index - 1);
             });
-        },
-        _getRealIndex: function(){
-            var nextIndex = this.index,
-                prevIndex;
-            if(this.opts.isLoop){
-                if(nextIndex === 0){
-                    nextIndex = this.max - this.clones;
-                }
-                if(nextIndex === this.max - 1){
-                    nextIndex = 1;
-                }
-                nextIndex --;
-            }
-
-            prevIndex = nextIndex - 1;
-
-            if(prevIndex < 0) {
-                prevIndex = this.max - this.clones - 1;
-            }
-            return {
-                prevIndex: prevIndex,
-                nextIndex: nextIndex
-            }
         }
     };
 
