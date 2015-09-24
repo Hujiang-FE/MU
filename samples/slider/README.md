@@ -59,6 +59,8 @@
 
 
 ### log:
+15/09/23 添加回调参数, $pageou, $pagein
+
 15/19/18 新增选项，可配置transition-timing-function
 
 15/09/15 修复点击时触发jump漏洞

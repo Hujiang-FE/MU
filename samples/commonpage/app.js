@@ -11,14 +11,15 @@
     'use strict';
 
     var WIN_H = document.documentElement.clientHeight || window.innerHeight,
-        option = {};
+        option = {
+            scrollCallback: null
+        };
 
     var core = {
         init: function(opts){
             $.extend(option, opts);
             this.heightArr = [];
             this.resetData();
-            console.log(this.heightArr);
             this.bind();
         },
 
@@ -39,7 +40,7 @@
                 var scrollTop = mu.$win.scrollTop();
                 
                 self.triggerhandler(scrollTop, self.heightArr, function(index){
-                    console.log(index);
+                    option.scrollCallback && option.scrollCallback.call(self, index);
                 });
 
             });
@@ -65,6 +66,10 @@
         },
     };
 
-    core.init();
+    core.init({
+        scrollCallback: function(index){
+            $('.page').eq(index).find('.m_cont').show();
+        }
+    });
 
 })(window.Zepto || window.jQuery);

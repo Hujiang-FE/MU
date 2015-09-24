@@ -54,6 +54,8 @@
             this.index = this.options.pageStart;
             this.$pageOut = this.$el.eq(this.index);
             this.$pageIn = null;
+            this.pageInAnimated = false;
+            this.pageOutAnimated = false;
 
             this.$el.each(function() {
                 var $this = $(this);
@@ -92,37 +94,52 @@
          * @return 
          */
         jump: function(idx, inClass, outClass) {
-            if (idx === this.index || idx > this.size - 1 || this.isAnimating) return;
-            this.isAnimating = true;
-            //1.cache a default class for page transition, compare idx and this.index to set prev or next
+            var self = this;
+            if (idx === self.index || idx > self.size - 1 || self.isAnimating) return;
+            self.isAnimating = true;
+            //1.cache a default class for page transition, compare idx and self.index to set prev or next
             //2.enable custom class for page transition
-            inClass = inClass ? inClass : idx > this.index ? this.options.classNext[0] : this.options.classPrev[0];
-            outClass = outClass ? outClass : idx > this.index ? this.options.classNext[1] : this.options.classPrev[1];
+            inClass = inClass ? inClass : idx > self.index ? self.options.classNext[0] : self.options.classPrev[0];
+            outClass = outClass ? outClass : idx > self.index ? self.options.classNext[1] : self.options.classPrev[1];
 
             // the target page transform in
-            this.$pageIn = this.$el.eq(idx);
+            self.$pageIn = self.$el.eq(idx);
+            self.$pageOut = self.$el.eq(self.index);
+            self.$pageIn.addClass(showCls);
 
-            this.options.beforeSlide.call(this, this.$pageIn, this.$pageOut);
+            self.options.beforeSlide.call(self, self.$pageIn, self.$pageOut);
 
-            this._animationOut(this.$pageOut, outClass, function() {});
+            //FIX: page flicker when jump between pages
+            // set one callback at the total transition
+            self._animationEnd(self.$pageOut, outClass, function() {
+                self.pageOutAnimated = true;
+                if(self.pageInAnimated){
+                    self.afterAnimation(idx, inClass, outClass);
+                }
+            });
 
-            this._animationIn(this.$pageIn, inClass, $.proxy(function() {
-                this.options.afterSlide.call(this, this.$pageIn, this.$pageOut, idx);
-                this.isAnimating = false;
-                this.index = idx;
-                this.$pageOut = this.$pageIn;
-            }, this));
-        },
-        _animationOut: function($obj, cls, callback) {
-            $obj.oneAnimationEnd(cls, function() {
-                $obj.removeClass(cls).removeClass(showCls);
-                callback();
+            self._animationEnd(self.$pageIn, inClass, function() {
+                self.pageInAnimated = true;
+                if(self.pageOutAnimated){
+                    self.afterAnimation(idx, inClass, outClass);
+                }
             });
         },
-        _animationIn: function($obj, cls, callback) {
-            $obj.addClass(showCls).oneAnimationEnd(cls, function() {
-                $obj.removeClass(cls);
-                callback();
+        afterAnimation: function(idx, inClass, outClass){
+            this.isAnimating = false;
+
+            //remove page's transition class here
+            this.pageOutAnimated = false;
+            this.pageInAnimated = false;
+            this.$pageOut.removeClass(showCls).removeClass(outClass);
+            this.$pageIn.removeClass(inClass);
+
+            this.index = idx;
+            this.options.afterSlide.call(this, this.$pageIn, this.$pageOut, idx);
+        },
+        _animationEnd: function($obj, cls, callback) {
+            $obj.addClass(cls).one(window.animationEvents.animationEnd, function() {
+                callback(cls);
             });
         },
         destroy: function() {

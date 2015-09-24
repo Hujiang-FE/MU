@@ -23,8 +23,8 @@
         isVert: false,
         isHidden: true,
         timing: 'ease',                     // timing: 'cubic-bezier(.61,.07,.05,.87)'
-        beforeSlide: function() {},
-        afterSlide: function(index) {}
+        beforeSlide: function($nextPage, $prevPage) {},
+        afterSlide: function($nextPage, $prevPage, index) {}
     };
     Slider.prototype = {
         init: function() {
@@ -89,6 +89,8 @@
             if(self.opts.isLoop){
                 self._setClone();
             }
+            self.oldIndex = 0;
+            self.$prevPage = self.$children.eq(self.oldIndex);
 
             self._jump(self.index);
 
@@ -233,27 +235,27 @@
             self.animating = true;
             this._setTransition();
             
-            
-            var nextIndex = self.index,
-                prevIndex;
+            var nextIndex = self.index;
+
             if(self.opts.isLoop){
                 if(nextIndex === 0) nextIndex = self.max - self.clones;
                 if(nextIndex === self.max - 1) nextIndex = 1;
                 nextIndex --;
             }
 
-            prevIndex = nextIndex - 1;
-
-            if(prevIndex < 0) prevIndex = self.max - self.clones - 1;
-            // console.log(nextIndex, prevIndex);
-
             self.$nextPage = self.$children.eq(nextIndex);
-            self.$prevPage = self.$children.eq(prevIndex);
-            this._jump(index, function(){
+
+            var flag = self.oldIndex === nextIndex;
+            if(!flag){
+                self.$prevPage = self.$children.eq(self.oldIndex);
+            }
+            self._jump(index, function(){
                 self.index = index;
-                self.opts.beforeSlide.call(self, self.$nextPage, self.$prevPage);
+                if(!flag){
+                    self.opts.beforeSlide.call(self, self.$nextPage, self.$prevPage);
+                }
             });
-            this._transitionCallback();
+            self._transitionCallback(flag);
         },
 
         /**
@@ -274,18 +276,24 @@
                 'transform': transValue
             });
         },
-        _transitionCallback: function(){
-            var self = this,
-                curIndex = self.index;
+        _transitionCallback: function(flag){
+            var self = this;
             self.$slider.one(window.animationEvents.transitionEnd, function(){
                 self.animating = false;
                 self._clearTransition();
+
                 if(self.opts.isLoop){
-                    if(curIndex === 0) self.index = self.max - self.clones;
-                    if(curIndex === self.max - 1) self.index = 1;
+                    if(self.index === 0) self.index = self.max - self.clones;
+                    if(self.index === self.max - 1) self.index = 1;
+                    
                     self._jump(self.index);
+                    self.oldIndex = self.index - 1;
+                }else{
+                    self.oldIndex = self.index;
                 }
-                self.opts.afterSlide.call(self, self.$nextPage, self.$prevPage, self.index - 1);
+                if(!flag){
+                    self.opts.afterSlide.call(self, self.$nextPage, self.$prevPage, self.index - 1);
+                }
             });
         }
     };

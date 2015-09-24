@@ -23,8 +23,8 @@
         isVert: false,
         isHidden: true,
         timing: 'ease',                     // timing: 'cubic-bezier(.61,.07,.05,.87)'
-        beforeSlide: function(index) {},
-        afterSlide: function(index) {}
+        beforeSlide: function($nextPage, $prevPage) {},
+        afterSlide: function($nextPage, $prevPage, index) {}
     };
     Slider.prototype = {
         init: function() {
@@ -42,7 +42,7 @@
             self.looptime = null;
             self.index = 0;             // 起始序号
             self.clones = 0;            // 克隆数
-
+            
             if(self.opts.isLoop){
                 self.index = 1;
                 self.clones = 2;
@@ -89,6 +89,8 @@
             if(self.opts.isLoop){
                 self._setClone();
             }
+            self.oldIndex = 0;
+            self.$prevPage = self.$children.eq(self.oldIndex);
 
             self._jump(self.index);
 
@@ -232,11 +234,28 @@
             var self = this;
             self.animating = true;
             this._setTransition();
-            this._jump(index, function(){
+            
+            var nextIndex = self.index;
+
+            if(self.opts.isLoop){
+                if(nextIndex === 0) nextIndex = self.max - self.clones;
+                if(nextIndex === self.max - 1) nextIndex = 1;
+                nextIndex --;
+            }
+
+            self.$nextPage = self.$children.eq(nextIndex);
+
+            var flag = self.oldIndex === nextIndex;
+            if(!flag){
+                self.$prevPage = self.$children.eq(self.oldIndex);
+            }
+            self._jump(index, function(){
                 self.index = index;
-                self.opts.beforeSlide.call(self, index);
+                if(!flag){
+                    self.opts.beforeSlide.call(self, self.$nextPage, self.$prevPage);
+                }
             });
-            this._transitionCallback();
+            self._transitionCallback(flag);
         },
 
         /**
@@ -257,21 +276,24 @@
                 'transform': transValue
             });
         },
-        _transitionCallback: function(){
+        _transitionCallback: function(flag){
             var self = this;
             self.$slider.one(window.animationEvents.transitionEnd, function(){
                 self.animating = false;
                 self._clearTransition();
+
                 if(self.opts.isLoop){
-                    if(self.index === 0){
-                        self.index = self.max - self.clones;
-                    }
-                    if(self.index === self.max - 1){
-                        self.index = 1;
-                    }
+                    if(self.index === 0) self.index = self.max - self.clones;
+                    if(self.index === self.max - 1) self.index = 1;
+                    
                     self._jump(self.index);
+                    self.oldIndex = self.index - 1;
+                }else{
+                    self.oldIndex = self.index;
                 }
-                self.opts.afterSlide.call(self, self.index - 1);
+                if(!flag){
+                    self.opts.afterSlide.call(self, self.$nextPage, self.$prevPage, self.index - 1);
+                }
             });
         }
     };

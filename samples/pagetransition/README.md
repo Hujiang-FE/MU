@@ -37,6 +37,8 @@
     page.jump(1, 'animation1', 'animation2');
 
 ### log:
+15/09/24 修复动画回调方法机制, 简化方法集合
+
 15/09/22 添加参数mode, 支持水平垂直预设
 
 15/09/08 更新afterSlide回调参数, 修复首次beforeSlide回调取值null
