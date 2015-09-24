@@ -89,8 +89,8 @@
             if(self.opts.isLoop){
                 self._setClone();
             }
-            self.oldIndex = 0;
-            self.$prevPage = self.$children.eq(self.oldIndex);
+            self.curIndex = 0;
+            self.$prevPage = self.$children.eq(self.curIndex);
 
             self._jump(self.index);
 
@@ -240,22 +240,19 @@
             if(self.opts.isLoop){
                 if(nextIndex === 0) nextIndex = self.max - self.clones;
                 if(nextIndex === self.max - 1) nextIndex = 1;
-                nextIndex --;
+                if(self.curIndex !== nextIndex){
+                    nextIndex --;
+                }
             }
 
             self.$nextPage = self.$children.eq(nextIndex);
+            self.$prevPage = self.$children.eq(self.curIndex);
 
-            var flag = self.oldIndex === nextIndex;
-            if(!flag){
-                self.$prevPage = self.$children.eq(self.oldIndex);
-            }
             self._jump(index, function(){
                 self.index = index;
-                if(!flag){
-                    self.opts.beforeSlide.call(self, self.$nextPage, self.$prevPage);
-                }
+                self.opts.beforeSlide.call(self, self.$nextPage, self.$prevPage);
             });
-            self._transitionCallback(flag);
+            self._transitionCallback();
         },
 
         /**
@@ -276,7 +273,7 @@
                 'transform': transValue
             });
         },
-        _transitionCallback: function(flag){
+        _transitionCallback: function(){
             var self = this;
             self.$slider.one(window.animationEvents.transitionEnd, function(){
                 self.animating = false;
@@ -287,13 +284,11 @@
                     if(self.index === self.max - 1) self.index = 1;
                     
                     self._jump(self.index);
-                    self.oldIndex = self.index - 1;
+                    self.curIndex = self.index - 1;
                 }else{
-                    self.oldIndex = self.index;
+                    self.curIndex = self.index;
                 }
-                if(!flag){
-                    self.opts.afterSlide.call(self, self.$nextPage, self.$prevPage, self.index - 1);
-                }
+                self.opts.afterSlide.call(self, self.$nextPage, self.$prevPage, self.curIndex);
             });
         }
     };
