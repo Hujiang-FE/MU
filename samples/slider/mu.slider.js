@@ -234,25 +234,31 @@
             var self = this;
             self.animating = true;
             this._setTransition();
-            
-            var nextIndex = self.index;
 
-            if(self.opts.isLoop){
-                if(nextIndex === 0) nextIndex = self.max - self.clones;
-                if(nextIndex === self.max - 1) nextIndex = 1;
-                if(self.curIndex !== nextIndex){
-                    nextIndex --;
-                }
-            }
+            var realIndex = self._getPageIndex(index);
 
-            self.$nextPage = self.$children.eq(nextIndex);
-            self.$prevPage = self.$children.eq(self.curIndex);
+            this.$nextPage = this.$children.eq(realIndex);
+            this.$prevPage = this.$children.eq(this.curIndex);
 
             self._jump(index, function(){
-                self.index = index;
                 self.opts.beforeSlide.call(self, self.$nextPage, self.$prevPage);
             });
-            self._transitionCallback();
+            self._transitionCallback(index, realIndex);
+        },
+
+        _getPageIndex: function(index){
+            var cloneIndex = index;
+
+            if(this.opts.isLoop){
+                //till the last clone
+                if(cloneIndex === 0) cloneIndex = this.max - this.clones;
+                //till the first clone
+                if(cloneIndex === this.max - 1) cloneIndex = 1;
+                // get the origin index
+                cloneIndex --;
+            }
+            console.log(this.curIndex , cloneIndex);
+            return cloneIndex;
         },
 
         /**
@@ -273,20 +279,20 @@
                 'transform': transValue
             });
         },
-        _transitionCallback: function(){
+        _transitionCallback: function(index, realIndex){
             var self = this;
             self.$slider.one(window.animationEvents.transitionEnd, function(){
                 self.animating = false;
                 self._clearTransition();
-
+                self.index = index;
+                // handle actual index, with or without loop
                 if(self.opts.isLoop){
                     if(self.index === 0) self.index = self.max - self.clones;
                     if(self.index === self.max - 1) self.index = 1;
                     
-                    self._jump(self.index);
+                    self._jump(index);
+                    // because add clone, current Index minus one
                     self.curIndex = self.index - 1;
-                }else{
-                    self.curIndex = self.index;
                 }
                 self.opts.afterSlide.call(self, self.$nextPage, self.$prevPage, self.curIndex);
             });
