@@ -235,29 +235,32 @@
             self.animating = true;
             this._setTransition();
 
-            var realIndex = self._getPageIndex(index);
+            var realIndex = self._getPageIndex(index),
+                flag = this.curIndex === realIndex;
 
             this.$nextPage = this.$children.eq(realIndex);
             this.$prevPage = this.$children.eq(this.curIndex);
 
+            // console.log(this.curIndex, realIndex, 'next');
+
             self._jump(index, function(){
-                self.opts.beforeSlide.call(self, self.$nextPage, self.$prevPage);
+                if(!flag) self.opts.beforeSlide.call(self, self.$nextPage, self.$prevPage);
             });
-            self._transitionCallback(index, realIndex);
+
+            self._transitionCallback(flag);
         },
 
         _getPageIndex: function(index){
             var cloneIndex = index;
 
             if(this.opts.isLoop){
-                //till the last clone
+                // till the last clone
                 if(cloneIndex === 0) cloneIndex = this.max - this.clones;
-                //till the first clone
+                // till the first clone
                 if(cloneIndex === this.max - 1) cloneIndex = 1;
                 // get the origin index
                 cloneIndex --;
             }
-            console.log(this.curIndex , cloneIndex);
             return cloneIndex;
         },
 
@@ -272,29 +275,30 @@
             var distance = this.opts.isVert ? this.$slider.height() : this.$slider.width(),
                 value = -distance * (index / this.max),
                 transValue = this.opts.isVert ? 'translate(0,' + value + 'px) translateZ(0)' : 'translate(' + value + 'px, 0) translateZ(0)';
-                
+            this.index = index;
             callback && callback();
             this.$slider.css({
                 '-webkit-transform': transValue,
                 'transform': transValue
             });
         },
-        _transitionCallback: function(index, realIndex){
+        _transitionCallback: function(flag){
             var self = this;
             self.$slider.one(window.animationEvents.transitionEnd, function(){
                 self.animating = false;
                 self._clearTransition();
-                self.index = index;
                 // handle actual index, with or without loop
                 if(self.opts.isLoop){
                     if(self.index === 0) self.index = self.max - self.clones;
                     if(self.index === self.max - 1) self.index = 1;
                     
-                    self._jump(index);
+                    self._jump(self.index);
                     // because add clone, current Index minus one
                     self.curIndex = self.index - 1;
+                }else{
+                    self.curIndex = self.index;
                 }
-                self.opts.afterSlide.call(self, self.$nextPage, self.$prevPage, self.curIndex);
+                if(!flag) self.opts.afterSlide.call(self, self.$nextPage, self.$prevPage, self.curIndex);
             });
         }
     };
