@@ -1,13 +1,39 @@
-.wrapper{
-}
-.title{
+$purple: #2A203C;
+
+header{
   text-align: center;
   border-bottom: 1px solid #EEE;
   margin-bottom: 2rem;
-  padding-bottom: 2rem;
+  padding: 3rem 0;
+  background: $purple;
+  background-size: cover;
+  color: #FFF;
+  line-height: 4rem;
   h3{
-    line-height: 6rem;
-    font-size: 2rem;
+    font-size: 3rem;
+  }
+}
+
+footer{
+  text-align: center;
+  padding: 2rem 0;
+}
+
+
+.wrapper{
+  position: relative;
+}
+
+@media screen and(min-width: 600px) {
+  header{
+    padding: 8rem 0;
+  }
+  .wrapper{
+    width: 600px;
+    margin: 0 auto;
+  }
+  .wrapper-one{
+    height: 100%;
   }
 }
 
@@ -15,10 +41,20 @@
   padding: 2rem 4rem;
   li{
     line-height: 3rem;
+    padding: 1rem 3rem;
     font-size: 1.6rem;
     margin-bottom: 1rem;
-    a:active{
-      color: #1CA91E;
+    border: 1px solid #eee;
+    border-radius: 3px;
+    a{
+      display: block;
+      color: $purple;
+    }
+    &:active{
+      background-color: #E64444;
+      a{
+        color: #fff;
+      }
     }
   }
 }

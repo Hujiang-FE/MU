@@ -20,10 +20,11 @@
 </head>
 
 <body>
+    <header class="cf">
+        <h3>MU</h3>
+        <p>- Dialog -</p>
+    </header>
     <div class="wrapper">
-        <div class="title cf">
-            <h3>MU for mobile</h3>
-        </div>
         <div class="content">
             <p>弹窗 | 居中</p>
             <div class="btn" id="open1">open dialog</div>
@@ -51,51 +52,51 @@
     
     <!-- <script src="/vendor/jq/jquery-2.1.3.min.js"></script> -->
     <script src="/vendor/zepto.min.js"></script>
-    <script src="/dist/mu.all.min.js"></script>
-    <!-- <script src="/dist/mu.js"></script>
-    <script src="/dist/mu.dialog.js"></script> -->
+    <script src="/dist/mu.latest.min.js"></script>
     <script>
         // var width = $(window).width();
         // var width = document.documentElement.clientWidth;
         $(function(){
-        var dialog1 = new MuDialog('.pop1', {
-            beforeOpen: function(){
-                console.log('打开前回调');
-            },
-            afterOpen: function(){
-                console.log('打开后回调');
-            }
-        });
-
-        var dialog2 = new MuDialog('.pop2', {
-            isCenter: false,
-            opacity: 0.5
-        });
-
-        $('#open1').on('click', function() {
-            dialog1.open();
-        });
-        $('#open2').on('click', function() {
-            dialog2.open();
-        });
-        $('#alert').on('click', function(){
-            mu.util.alert('this is an alert');
-        });
-        $('#tip').on('click', function(){
-            mu.util.tip('this is a tip', 1000);
-        });
-        $('#confirm').on('click', function(){
-            // confirm
-            mu.util.confirm('你确定要修改吗?', function(flag){
-                if(flag){
-                    console.log('ok');
-                }else{
-                    console.log('false');
+            var dialog1 = new MuDialog('.pop1', {
+                beforeOpen: function(){
+                    console.log('打开前回调');
+                },
+                afterOpen: function(){
+                    console.log('打开后回调');
                 }
             });
+
+            var dialog2 = new MuDialog('.pop2', {
+                isCenter: false,
+                opacity: 0.5
+            });
+
+            $('#open1').on('click', function() {
+                dialog1.open();
+            });
+            $('#open2').on('click', function() {
+                dialog2.open();
+            });
+            //
+            $('#alert').on('click', function(){
+                mu.util.alert('this is an alert');
+            });
+            $('#tip').on('click', function(){
+                mu.util.tip('this is a tip', 1000);
+            });
+            $('#confirm').on('click', function(){
+                // confirm
+                mu.util.confirm('你确定要修改吗?', function(flag){
+                    if(flag){
+                        console.log('ok');
+                    }else{
+                        console.log('false');
+                    }
+                });
+            });
+
+            $('div').on('touchstart', function(){});
         });
-        $('div').on('touchstart', function(){});
-})
     </script>
 </body>
 
