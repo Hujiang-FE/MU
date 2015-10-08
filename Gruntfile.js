@@ -1,5 +1,5 @@
 /**
- * 自动化脚本定�
+ * 自动化脚本定义
  * roeis
  */
 var matchdep = require('matchdep');
@@ -11,7 +11,7 @@ module.exports = function (grunt) {
     var cfg = {
         src: '',
         des: 'src/',
-        ip: '192.168.156.27',
+        ip: '192.168.156.39',
         liveport: 30010,
         port:3024
     };
